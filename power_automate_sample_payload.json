@@ -1,0 +1,22 @@
+{
+  "reference": "ADH-YELLITAARE-2026-1001",
+  "date_soumission": "09/04/2026",
+  "nom_complet": "Aminata Diallo",
+  "prenom": "Aminata",
+  "nom": "Diallo",
+  "sexe": "Féminin",
+  "date_naissance": "1996-03-15",
+  "telephone": "+222 12 34 56 78",
+  "email": "aminata@example.com",
+  "profession": "Entrepreneure",
+  "adresse": "Nouakchott",
+  "zone": "Nationaux – Mauritanie",
+  "categorie_cotisation": "Ressortissant – villes mauritaniennes",
+  "montant_cotisation": 300,
+  "mode_paiement": "Bankily (Chinguitel)",
+  "reference_transaction": "TRX-001",
+  "statut_paiement": "En attente",
+  "section": "eco",
+  "source": "Site web",
+  "created_at": "2026-04-09T12:00:00.000Z"
+}
