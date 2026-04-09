@@ -1,0 +1,2807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YELLITAARE Thidé — Plateforme Communautaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --vert:#1A5C2A;--vert-mid:#2E7D32;--vert-clair:#E8F5E9;--vert-pale:#F4FBF5;
+  --or:#C9982A;--or-clair:#FDF6E3;--or-fonce:#9B7015;
+  --sable:#F5F0E8;--terre:#2D2218;--blanc:#FDFCF8;--gris:#6B7280;--gris-clair:#F3F4F6;
+  --rouge:#DC2626;--bleu:#1D4ED8;
+  --radius:12px;--nav-h:70px;
+  --shadow:0 4px 20px rgba(26,92,42,.1);--shadow-lg:0 12px 40px rgba(26,92,42,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--blanc);color:var(--terre);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* ═══ NAV ═══════════════════════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;padding:0 32px;
+  background:rgba(253,252,248,.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(26,92,42,.1);transition:box-shadow .3s}
+nav.scrolled{box-shadow:var(--shadow)}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.nav-badge{width:38px;height:38px;border-radius:50%;background:var(--vert);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:15px;font-weight:900;color:#fff;flex-shrink:0}
+.nav-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert)}
+.nav-sub{font-size:10px;color:var(--gris);letter-spacing:1px}
+.nav-center{display:flex;align-items:center;gap:2px}
+.nav-item{position:relative}
+.nav-item>a,.nav-item>button{padding:8px 13px;border-radius:8px;font-size:13.5px;
+  font-weight:500;color:var(--terre);opacity:.8;background:none;border:none;
+  cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;display:flex;align-items:center;gap:4px}
+.nav-item>a:hover,.nav-item>button:hover{opacity:1;background:var(--vert-clair);color:var(--vert)}
+.nav-item>a.active,.nav-item>button.active{opacity:1;background:var(--vert-clair);color:var(--vert)}
+.nav-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:220px;
+  background:#fff;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.12);
+  border:1px solid rgba(26,92,42,.08);overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s;z-index:400}
+.nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-dropdown a,.nav-dropdown button{display:block;width:100%;padding:11px 16px;
+  font-size:13px;font-weight:500;color:var(--terre);background:none;border:none;
+  cursor:pointer;text-align:left;font-family:'Outfit',sans-serif;
+  transition:background .15s;border-bottom:1px solid rgba(0,0,0,.04)}
+.nav-dropdown a:hover,.nav-dropdown button:hover{background:var(--vert-clair);color:var(--vert)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cta{padding:9px 20px;border-radius:40px;background:var(--vert);color:#fff;
+  font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
+.nav-cta:hover{background:var(--vert-mid);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--vert);border-radius:2px;transition:.3s}
+
+/* ═══ MOBILE MENU ═══════════════════════════════════════════════════ */
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;z-index:290;
+  background:var(--blanc);padding:20px;overflow-y:auto}
+.mobile-menu.open{display:flex;flex-direction:column;gap:3px}
+.mobile-menu button{padding:13px 16px;border-radius:10px;text-align:left;
+  font-size:15px;font-weight:500;background:none;border:none;cursor:pointer;
+  font-family:'Outfit',sans-serif;color:var(--terre);transition:.15s}
+.mobile-menu button:hover{background:var(--vert-clair);color:var(--vert)}
+.mob-cta{margin-top:10px;padding:14px;border-radius:40px;background:var(--vert);
+  color:#fff;text-align:center;font-weight:600}
+
+/* ═══ PAGES ═════════════════════════════════════════════════════════ */
+.page{display:none;padding-top:var(--nav-h);animation:fadeIn .3s ease both}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ═══ LAYOUT ════════════════════════════════════════════════════════ */
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.section-wrap{padding:72px 32px}
+.section-wrap.alt{background:var(--sable)}
+.section-wrap.dark{background:var(--vert);color:#fff}
+.section-wrap.pale{background:var(--vert-pale)}
+.section-label{font-size:10.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--or-fonce);margin-bottom:8px}
+.section-label.light{color:rgba(255,255,255,.6)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,42px);
+  font-weight:900;color:var(--vert);line-height:1.15;margin-bottom:12px}
+.section-title.light{color:#fff}
+.section-title.gold{color:var(--or-fonce)}
+.section-sub{font-size:15.5px;color:var(--gris);line-height:1.7;max-width:560px}
+.section-sub.light{color:rgba(255,255,255,.72)}
+.section-head{margin-bottom:48px}
+.flex-between{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px}
+
+/* ═══ BUTTONS ═══════════════════════════════════════════════════════ */
+.btn{padding:11px 26px;border-radius:40px;font-size:13.5px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary{background:var(--vert);color:#fff;box-shadow:0 4px 16px rgba(26,92,42,.25)}
+.btn-primary:hover{background:var(--vert-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,92,42,.3)}
+.btn-outline{background:transparent;border:1.5px solid var(--vert);color:var(--vert)}
+.btn-outline:hover{background:var(--vert-clair);transform:translateY(-1px)}
+.btn-gold{background:var(--or);color:#fff;box-shadow:0 4px 16px rgba(201,152,42,.3)}
+.btn-gold:hover{background:var(--or-fonce);transform:translateY(-2px)}
+.btn-white{background:#fff;color:var(--vert);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.btn-sm{padding:7px 16px;font-size:12px}
+.btn-danger{background:#FEE2E2;color:#991B1B}
+.btn-danger:hover{background:#FECACA}
+
+/* ═══ CARDS ═════════════════════════════════════════════════════════ */
+.card{background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09);padding:24px;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+
+/* ═══ TAGS ══════════════════════════════════════════════════════════ */
+.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.tag-green{background:var(--vert-clair);color:var(--vert)}
+.tag-gold{background:var(--or-clair);color:var(--or-fonce)}
+.tag-red{background:#FEE2E2;color:#991B1B}
+.tag-grey{background:var(--gris-clair);color:var(--gris)}
+.tag-blue{background:#EFF6FF;color:var(--bleu)}
+
+/* ═══ FORMS ═════════════════════════════════════════════════════════ */
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.form-group label{font-size:11.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--vert)}
+.form-group input,.form-group select,.form-group textarea{
+  padding:10px 14px;border:1.5px solid #E5E7EB;border-radius:var(--radius);
+  font-family:'Outfit',sans-serif;font-size:14px;color:var(--terre);background:#fff;
+  outline:none;transition:.18s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--vert);box-shadow:0 0 0 3px rgba(26,92,42,.08)}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.form-grid-2 .full{grid-column:1/-1}
+
+/* ═══ MODAL ═════════════════════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);
+  backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:700px;max-height:90vh;
+  overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.2);animation:modalIn .3s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.96)translateY(12px)}to{opacity:1;transform:none}}
+.modal-header{padding:24px 28px 0;display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(0,0,0,.06);padding-bottom:16px;margin-bottom:0}
+.modal-header h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--vert)}
+.modal-close{width:34px;height:34px;border-radius:50%;background:var(--gris-clair);border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.15s}
+.modal-close:hover{background:#FEE2E2;color:var(--rouge)}
+.modal-body{padding:24px 28px}
+.modal-footer{padding:16px 28px;border-top:1px solid rgba(0,0,0,.06);display:flex;justify-content:flex-end;gap:10px}
+
+/* ═══ DRAWER (section panel) ════════════════════════════════════════ */
+.drawer-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.45);
+  backdrop-filter:blur(3px);display:none}
+.drawer-overlay.open{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:410;width:min(780px,95vw);
+  background:#fff;box-shadow:-8px 0 40px rgba(0,0,0,.15);transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto}
+.drawer.open{transform:translateX(0)}
+.drawer-header{padding:24px 28px;border-bottom:1px solid rgba(0,0,0,.06);
+  display:flex;justify-content:space-between;align-items:flex-start;
+  position:sticky;top:0;background:#fff;z-index:1}
+.drawer-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--vert)}
+.drawer-subtitle{font-size:13px;color:var(--gris);margin-top:4px}
+.drawer-close{width:34px;height:34px;border-radius:50%;background:var(--gris-clair);border:none;
+  cursor:pointer;font-size:18px;transition:.15s;flex-shrink:0}
+.drawer-close:hover{background:#FEE2E2;color:var(--rouge)}
+.drawer-body{padding:24px 28px}
+.drawer-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid var(--gris-clair);padding-bottom:0}
+.dtab{padding:10px 18px;border-radius:8px 8px 0 0;font-size:13.5px;font-weight:600;
+  background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;
+  color:var(--gris);transition:.15s;border-bottom:2px solid transparent;margin-bottom:-2px}
+.dtab.active{color:var(--vert);border-bottom-color:var(--vert);background:var(--vert-clair)}
+.dtab:hover{color:var(--vert)}
+.dtab-panel{display:none}
+.dtab-panel.active{display:block;animation:fadeIn .25s ease}
+
+/* ═══ TABLE ═════════════════════════════════════════════════════════ */
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid rgba(0,0,0,.06)}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--vert-pale);padding:12px 16px;text-align:left;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--vert);white-space:nowrap}
+tbody tr{border-top:1px solid rgba(0,0,0,.05);transition:.15s}
+tbody tr:hover{background:var(--vert-pale)}
+tbody td{padding:12px 16px;font-size:13.5px;color:var(--terre)}
+.actions-cell{display:flex;gap:6px;flex-wrap:wrap}
+.act-btn{padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:600;
+  background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.15s}
+.act-btn.view{background:var(--vert-clair);color:var(--vert)}
+.act-btn.edit{background:var(--or-clair);color:var(--or-fonce)}
+.act-btn.del{background:#FEE2E2;color:#991B1B}
+.act-btn:hover{opacity:.8;transform:translateY(-1px)}
+
+/* ═══ UPLOAD ZONE ═══════════════════════════════════════════════════ */
+.upload-zone{border:2px dashed rgba(26,92,42,.3);border-radius:12px;padding:32px;
+  text-align:center;cursor:pointer;transition:.2s;background:var(--vert-pale)}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--vert);background:var(--vert-clair)}
+.upload-icon{font-size:36px;margin-bottom:10px}
+.upload-zone p{font-size:14px;color:var(--gris)}
+.upload-zone strong{color:var(--vert)}
+
+/* ═══ DOC CARD ══════════════════════════════════════════════════════ */
+.doc-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);
+  padding:18px 20px;display:flex;align-items:center;gap:16px;transition:.2s}
+.doc-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.doc-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0}
+.doc-icon.pdf{background:#FEE2E2;color:#DC2626}
+.doc-icon.xlsx{background:#DCFCE7;color:#15803D}
+.doc-icon.docx{background:#DBEAFE;color:#1D4ED8}
+.doc-icon.img{background:#FEF9C3;color:#854D0E}
+.doc-icon.other{background:var(--gris-clair);color:var(--gris)}
+.doc-info{flex:1;min-width:0}
+.doc-name{font-size:14px;font-weight:600;color:var(--terre);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc-meta{font-size:11.5px;color:var(--gris);margin-top:3px}
+.doc-dl{padding:7px 16px;border-radius:20px;background:var(--vert);color:#fff;
+  font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'Outfit',sans-serif;
+  white-space:nowrap;transition:.15s}
+.doc-dl:hover{background:var(--vert-mid)}
+
+/* ═══ GALLERY ═══════════════════════════════════════════════════════ */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.gallery-item{border-radius:10px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer;background:var(--gris-clair)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.3s}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-item .gal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);
+  display:flex;align-items:flex-end;padding:8px;opacity:0;transition:.2s}
+.gallery-item:hover .gal-overlay{opacity:1}
+.gallery-item .gal-overlay span{font-size:11px;color:#fff;font-weight:600}
+.gallery-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:28px;background:var(--vert-clair)}
+
+/* ═══ STAT CARD ═════════════════════════════════════════════════════ */
+.stat-card{background:#fff;border-radius:14px;border:1px solid rgba(26,92,42,.09);
+  padding:22px 24px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--vert)}
+.stat-card.gold::before{background:var(--or)}
+.stat-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--vert);line-height:1}
+.stat-card.gold .stat-num{color:var(--or-fonce)}
+.stat-label{font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
+.stat-change{font-size:12px;font-weight:600;margin-top:8px}
+.stat-change.up{color:#16A34A}
+.stat-change.down{color:#DC2626}
+
+/* ═══ SECTION CARD ══════════════════════════════════════════════════ */
+.section-card{background:#fff;border-radius:14px;border:1px solid rgba(26,92,42,.09);
+  padding:0;overflow:hidden;cursor:pointer;transition:.25s;position:relative}
+.section-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.sec-band{height:6px}
+.sec-body{padding:22px 22px 20px}
+.sec-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:24px;margin-bottom:14px}
+.sec-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--terre);margin-bottom:6px;line-height:1.3}
+.sec-desc{font-size:12.5px;color:var(--gris);line-height:1.6;margin-bottom:14px}
+.sec-stats{display:flex;gap:14px}
+.sec-stat{font-size:12px;font-weight:600}
+.sec-stat span{color:var(--vert);font-size:16px;font-family:'Playfair Display',serif;font-weight:900;margin-right:3px}
+
+/* ═══ PLAN D'ACTION ═════════════════════════════════════════════════ */
+.action-item{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);
+  padding:18px 20px;display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;transition:.2s}
+.action-item:hover{box-shadow:var(--shadow)}
+.action-status{width:28px;height:28px;border-radius:8px;flex-shrink:0;margin-top:2px;
+  display:flex;align-items:center;justify-content:center;font-size:14px}
+.action-status.todo{background:var(--gris-clair);color:var(--gris)}
+.action-status.progress{background:var(--or-clair);color:var(--or-fonce)}
+.action-status.done{background:var(--vert-clair);color:var(--vert)}
+.action-body{flex:1}
+.action-title{font-size:14.5px;font-weight:600;color:var(--terre);margin-bottom:4px}
+.action-meta{font-size:12px;color:var(--gris)}
+.action-due{font-size:11.5px;font-weight:600;color:var(--or-fonce)}
+
+/* ═══ MEMBER CARD ═══════════════════════════════════════════════════ */
+.member-card{background:#fff;border-radius:14px;border:1px solid rgba(26,92,42,.09);
+  padding:0;overflow:hidden}
+.member-card-header{background:var(--vert);padding:20px 20px 40px;position:relative}
+.member-avatar{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);
+  border:3px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:10px}
+.member-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff}
+.member-ref{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px}
+.member-status{position:absolute;top:16px;right:16px;padding:5px 12px;border-radius:20px;
+  font-size:11px;font-weight:700;text-transform:uppercase}
+.member-status.valide{background:rgba(255,255,255,.2);color:#fff}
+.member-status.attente{background:rgba(255,193,7,.25);color:#FFC107}
+.member-status.refuse{background:rgba(220,38,38,.2);color:#FCA5A5}
+.member-card-body{padding:20px}
+.member-info-row{display:flex;justify-content:space-between;padding:10px 0;
+  border-bottom:1px solid rgba(0,0,0,.06);font-size:13.5px}
+.member-info-row:last-child{border-bottom:none}
+.member-info-row label{color:var(--gris);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+
+/* ═══ TOAST ═════════════════════════════════════════════════════════ */
+#toast{position:fixed;bottom:28px;right:28px;z-index:1000;
+  padding:14px 22px;border-radius:12px;background:var(--vert);color:#fff;
+  font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.2);
+  transform:translateY(80px);opacity:0;transition:.35s;max-width:360px;pointer-events:none}
+#toast.show{transform:none;opacity:1}
+#toast.error{background:#DC2626}
+
+/* ═══ HERO HOME ═════════════════════════════════════════════════════ */
+.hero-home{min-height:100vh;display:flex;align-items:center;
+  background:linear-gradient(135deg,#0F3B1C 0%,#1A5C2A 45%,#2E7D32 70%,#1B5E20 100%);
+  position:relative;overflow:hidden}
+.hero-home::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 80% 50%,rgba(201,152,42,.18) 0%,transparent 60%)}
+.hero-home::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;
+  background:linear-gradient(to top,var(--blanc),transparent)}
+.hero-content{position:relative;z-index:1;padding:80px 48px;max-width:680px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(201,152,42,.2);
+  border:1px solid rgba(201,152,42,.35);border-radius:40px;padding:6px 16px;
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--or);
+  margin-bottom:24px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);
+  font-weight:900;color:#fff;line-height:1.1;margin-bottom:20px}
+.hero-title em{color:var(--or);font-style:normal}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:36px;max-width:500px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{position:absolute;bottom:140px;right:48px;display:flex;gap:16px}
+.hero-stat{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:18px 22px;text-align:center;min-width:110px}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#fff}
+.hero-stat-lbl{font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+
+/* ═══ SEARCH BOX ════════════════════════════════════════════════════ */
+.search-box{display:flex;gap:10px;background:#fff;border-radius:50px;padding:8px 8px 8px 20px;
+  box-shadow:var(--shadow-lg);border:1px solid rgba(26,92,42,.1);max-width:520px;width:100%}
+.search-box input{flex:1;border:none;outline:none;font-family:'Outfit',sans-serif;font-size:14px;color:var(--terre)}
+.search-box button{flex-shrink:0}
+
+/* ═══ PROGRESS ══════════════════════════════════════════════════════ */
+.progress-bar{height:6px;background:var(--gris-clair);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--vert),var(--or));border-radius:4px;transition:width 1s ease}
+
+/* ═══ EMPTY STATE ═══════════════════════════════════════════════════ */
+.empty-state{padding:60px 20px;text-align:center;color:var(--gris)}
+.empty-icon{font-size:48px;margin-bottom:14px}
+.empty-state h4{font-family:'Playfair Display',serif;font-size:20px;color:var(--terre);margin-bottom:8px}
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  .nav-center{display:none}.hamburger{display:flex}
+  .nav-right{display:none}
+  .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .hero-stats{display:none}
+  .hero-content{padding:60px 24px}
+  .section-wrap{padding:52px 20px}
+  .form-grid-2{grid-template-columns:1fr}
+  .drawer{width:100%;left:0;right:0;top:var(--nav-h)}
+  .tdb-filters-grid{grid-template-columns:1fr 1fr !important}
+  .admin-layout{flex-direction:column}
+  .admin-sidebar{width:100%;border-right:none;border-bottom:1px solid rgba(0,0,0,.07);
+    padding:16px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .admin-sidebar .sidebar-section{padding:8px 10px 4px;width:100%}
+  .admin-content{padding:20px 16px}
+}
+@media(max-width:600px){
+  .grid-3,.grid-4,.grid-2{grid-template-columns:1fr}
+  .section-wrap{padding:44px 16px}
+  .tdb-filters-grid{grid-template-columns:1fr !important}
+}
+
+/* ═══ SYNC BAR ══════════════════════════════════════════════════════ */
+.sync-bar{background:#fff;border:1.5px solid rgba(26,92,42,.15);border-radius:var(--radius);
+  padding:14px 20px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px}
+.sync-bar .sync-status{font-size:13px;display:flex;align-items:center;gap:8px}
+.sync-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sync-dot.online{background:#16A34A;box-shadow:0 0 6px rgba(22,163,74,.5)}
+.sync-dot.offline{background:#F59E0B;box-shadow:0 0 6px rgba(245,158,11,.5)}
+.sync-dot.error{background:#DC2626;box-shadow:0 0 6px rgba(220,38,38,.5)}
+
+/* ═══ ADMIN SIDEBAR ═════════════════════════════════════════════════ */
+.admin-layout{display:flex;min-height:calc(100vh - var(--nav-h))}
+.admin-sidebar{width:250px;background:#fff;border-right:1px solid rgba(0,0,0,.07);flex-shrink:0;padding:24px 16px}
+.admin-content{flex:1;padding:32px;overflow-x:auto}
+.sidebar-item{padding:10px 14px;border-radius:8px;font-size:13.5px;font-weight:500;
+  color:var(--gris);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:10px;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'Outfit',sans-serif}
+.sidebar-item:hover,.sidebar-item.active{background:var(--vert-clair);color:var(--vert)}
+.sidebar-section{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gris);padding:16px 14px 6px}
+
+/* ═══ FILTER BAR ════════════════════════════════════════════════════ */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.filter-bar input,.filter-bar select{padding:9px 14px;border:1.5px solid #E5E7EB;border-radius:var(--radius);
+  font-family:'Outfit',sans-serif;font-size:13px;color:var(--terre);background:#fff;outline:none;min-width:140px}
+.filter-bar input:focus,.filter-bar select:focus{border-color:var(--vert)}
+
+/* ═══ ADHESION STEPS ════════════════════════════════════════════════ */
+.step-bar{display:flex;gap:0;margin-bottom:36px;position:relative}
+.step-bar::before{content:'';position:absolute;top:18px;left:0;right:0;height:2px;background:var(--gris-clair);z-index:0}
+.step-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1}
+.step-dot{width:36px;height:36px;border-radius:50%;border:2px solid var(--gris-clair);
+  background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;
+  font-weight:700;color:var(--gris);transition:.3s}
+.step-dot.active{border-color:var(--vert);background:var(--vert);color:#fff}
+.step-dot.done{border-color:var(--vert);background:var(--vert-clair);color:var(--vert)}
+.step-label{font-size:11px;font-weight:600;color:var(--gris);text-align:center;transition:.3s}
+.step-label.active{color:var(--vert)}
+
+/* ═══ ADHESION FORM ═════════════════════════════════════════════════ */
+.adh-form{background:#fff;border-radius:18px;box-shadow:var(--shadow-lg);padding:36px;max-width:720px;margin:0 auto}
+.adh-step{display:none}
+.adh-step.active{display:block;animation:fadeIn .3s ease}
+.cotis-option{border:2px solid #E5E7EB;border-radius:12px;padding:16px 18px;cursor:pointer;transition:.2s;margin-bottom:10px}
+.cotis-option:hover{border-color:var(--vert);background:var(--vert-pale)}
+.cotis-option.selected{border-color:var(--vert);background:var(--vert-clair)}
+.cotis-name{font-size:14px;font-weight:600;color:var(--terre);margin-bottom:3px}
+.cotis-amount{font-size:22px;font-weight:900;font-family:'Playfair Display',serif;color:var(--vert)}
+.cotis-desc{font-size:12px;color:var(--gris);margin-top:4px}
+.paie-option{border:1.5px solid #E5E7EB;border-radius:10px;padding:13px 16px;cursor:pointer;transition:.2s;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.paie-option:hover{border-color:var(--vert);background:var(--vert-pale)}
+.paie-option.selected{border-color:var(--vert);background:var(--vert-clair)}
+.paie-icon{font-size:22px;width:38px;text-align:center}
+.paie-info{flex:1}
+.paie-name{font-size:14px;font-weight:600;color:var(--terre)}
+.paie-detail{font-size:12px;color:var(--gris);margin-top:2px}
+.confirmation-box{background:var(--vert-clair);border:1.5px solid var(--vert);border-radius:14px;padding:24px;text-align:center}
+.conf-icon{font-size:52px;margin-bottom:14px}
+.conf-ref{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--vert)}
+.conf-msg{font-size:14px;color:var(--gris);margin-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-badge">Y</div>
+    <div>
+      <div class="nav-name">YELLITAARE</div>
+      <div class="nav-sub">Village de Thidé</div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <div class="nav-item"><a onclick="showPage('home')" id="nav-home" class="active">Accueil</a></div>
+    <div class="nav-item">
+      <button>Commissions ▾</button>
+      <div class="nav-dropdown" id="nav-sections-dd"></div>
+    </div>
+    <div class="nav-item">
+      <button>Organes ▾</button>
+      <div class="nav-dropdown" id="nav-organs-dd"></div>
+    </div>
+    <div class="nav-item"><a onclick="showPage('docs')">Médiathèque</a></div>
+    <div class="nav-item"><a onclick="showPage('espace-membre')">Espace Membre</a></div>
+    <div class="nav-item"><a onclick="showPage('tdb')">📊 TDB Adhésions</a></div>
+  </div>
+  <div class="nav-right">
+    <button class="btn btn-outline btn-sm" onclick="showPage('admin')">Administration</button>
+    <button class="btn btn-primary btn-sm nav-cta" onclick="showPage('adhesion')">Adhérer</button>
+  </div>
+  <button class="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button onclick="showPage('home');closeMobileMenu()">🏠 Accueil</button>
+  <button onclick="showPage('sections');closeMobileMenu()">🏛️ Commissions</button>
+  <button onclick="showPage('organs');closeMobileMenu()">⚙️ Organes</button>
+  <button onclick="showPage('docs');closeMobileMenu()">📂 Médiathèque</button>
+  <button onclick="showPage('espace-membre');closeMobileMenu()">👤 Espace Membre</button>
+  <button onclick="showPage('tdb');closeMobileMenu()">📊 TDB Adhésions</button>
+  <button onclick="showPage('admin');closeMobileMenu()">⚙️ Administration</button>
+  <button class="mob-cta" onclick="showPage('adhesion');closeMobileMenu()">✨ Adhérer à YELLITAARE</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : ACCUEIL
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <div class="hero-home">
+    <div class="hero-content">
+      <div class="hero-eyebrow">✦ Village de Thidé — Brakna</div>
+      <h1 class="hero-title">
+        YELLITAARE<br>
+        <em>Ensemble,</em><br>nous bâtissons Thidé
+      </h1>
+      <p class="hero-sub">Plateforme officielle de l'association communautaire des ressortissants du village de Thidé. Gérez vos adhésions, vos documents et vos projets collectifs.</p>
+      <div class="hero-btns">
+        <button class="btn btn-gold" onclick="showPage('adhesion')">✦ Adhérer maintenant</button>
+        <button class="btn btn-white" onclick="showPage('espace-membre')">Mon espace membre</button>
+      </div>
+    </div>
+    <div class="hero-stats" id="hero-stats-home"></div>
+  </div>
+
+  <!-- Stats rapides -->
+  <div class="section-wrap alt">
+    <div class="container">
+      <div class="section-head" style="text-align:center;align-items:center">
+        <div class="section-label" style="text-align:center">Chiffres clés</div>
+        <h2 class="section-title" style="margin:0 auto">Notre communauté en chiffres</h2>
+      </div>
+      <div class="grid-4" id="home-stats-grid"></div>
+    </div>
+  </div>
+
+  <!-- Commissions -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="flex-between section-head">
+        <div>
+          <div class="section-label">Structure communautaire</div>
+          <h2 class="section-title">Nos Commissions</h2>
+          <p class="section-sub">Chaque commission gère ses membres, galeries, rapports et documents.</p>
+        </div>
+        <button class="btn btn-outline" onclick="showPage('sections')">Voir toutes →</button>
+      </div>
+      <div class="grid-3" id="home-sections-grid"></div>
+    </div>
+  </div>
+
+  <!-- Derniers docs -->
+  <div class="section-wrap pale">
+    <div class="container">
+      <div class="flex-between section-head">
+        <div>
+          <div class="section-label">Publications récentes</div>
+          <h2 class="section-title">Documents & Rapports</h2>
+        </div>
+        <button class="btn btn-outline" onclick="showPage('docs')">Médiathèque →</button>
+      </div>
+      <div id="home-docs-list" class="grid-auto"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="section-wrap dark">
+    <div class="container" style="text-align:center">
+      <div class="nav-badge" style="margin:0 auto 16px;width:56px;height:56px;font-size:22px">Y</div>
+      <h3 class="section-title light" style="font-size:28px">YELLITAARE Thidé</h3>
+      <p class="section-sub light" style="margin:10px auto;text-align:center">Association communautaire des ressortissants du village de Thidé, Wilaya du Brakna</p>
+      <p style="margin-top:24px;font-size:12px;opacity:.4;color:#fff">© 2025-2026 YELLITAARE Thidé — Tous droits réservés</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : ADHÉSION
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-adhesion">
+  <div class="section-wrap" style="background:var(--vert);min-height:200px;padding:48px 32px 60px">
+    <div class="container">
+      <div class="section-label light">Rejoindre YELLITAARE</div>
+      <h1 class="section-title light">Formulaire d'Adhésion</h1>
+      <p class="section-sub light">Remplissez ce formulaire pour devenir membre officiel de notre association communautaire.</p>
+    </div>
+  </div>
+  <div class="section-wrap" style="margin-top:-30px;padding-top:0">
+    <div class="container">
+      <!-- Step bar -->
+      <div class="step-bar" id="adh-step-bar">
+        <div class="step-item"><div class="step-dot active" id="sdot-1">1</div><div class="step-label active" id="slbl-1">Identité</div></div>
+        <div class="step-item"><div class="step-dot" id="sdot-2">2</div><div class="step-label" id="slbl-2">Zone & Catégorie</div></div>
+        <div class="step-item"><div class="step-dot" id="sdot-3">3</div><div class="step-label" id="slbl-3">Paiement</div></div>
+        <div class="step-item"><div class="step-dot" id="sdot-4">4</div><div class="step-label" id="slbl-4">Confirmation</div></div>
+      </div>
+
+      <div class="adh-form">
+        <!-- Step 1 : Identité -->
+        <div class="adh-step active" id="adh-s1">
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--vert);margin-bottom:24px">Informations personnelles</h3>
+          <div class="form-grid-2">
+            <div class="form-group"><label>Prénom <span style="color:var(--or)">*</span></label><input id="a-prenom" type="text" placeholder="Votre prénom"></div>
+            <div class="form-group"><label>Nom <span style="color:var(--or)">*</span></label><input id="a-nom" type="text" placeholder="Votre nom"></div>
+            <div class="form-group"><label>Date de naissance</label><input id="a-dob" type="date"></div>
+            <div class="form-group"><label>Sexe <span style="color:var(--or)">*</span></label>
+              <select id="a-sexe"><option value="">-- Choisir --</option><option>Masculin</option><option>Féminin</option></select>
+            </div>
+            <div class="form-group"><label>Téléphone <span style="color:var(--or)">*</span></label><input id="a-tel" type="tel" placeholder="+222 XX XX XX XX"></div>
+            <div class="form-group"><label>Email</label><input id="a-email" type="email" placeholder="votre@email.com"></div>
+            <div class="form-group"><label>Profession</label><input id="a-prof" type="text" placeholder="Votre profession"></div>
+            <div class="form-group"><label>Adresse de résidence</label><input id="a-adr" type="text" placeholder="Ville, Pays"></div>
+          </div>
+          <div style="text-align:right;margin-top:8px">
+            <button class="btn btn-primary" onclick="adhStep(2)">Suivant →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 : Zone & Catégorie -->
+        <div class="adh-step" id="adh-s2">
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--vert);margin-bottom:24px">Zone & Catégorie de cotisation</h3>
+          <div class="form-group">
+            <label>Zone / Section <span style="color:var(--or)">*</span></label>
+            <select id="a-zone" onchange="updateCotis()">
+              <option value="">-- Choisir votre zone --</option>
+              <option value="Village de Thidé">Village de Thidé</option>
+              <option value="Nationaux – Mauritanie">Nationaux – Mauritanie (hors Thidé)</option>
+              <option value="Diaspora – Afrique">Diaspora – Afrique</option>
+              <option value="Diaspora – Europe / Amériques">Diaspora – Europe / Amériques</option>
+            </select>
+          </div>
+          <p style="font-size:13px;color:var(--gris);margin-bottom:16px">Catégorie de cotisation correspondante :</p>
+          <div id="cotis-options">
+            <div class="cotis-option" id="co-1" onclick="selectCotis(1,'Résident de Thidé',100)">
+              <div class="cotis-name">Résident de Thidé</div>
+              <div class="cotis-amount">100 MRU</div>
+              <div class="cotis-desc">Pour les habitants vivant au village de Thidé</div>
+            </div>
+            <div class="cotis-option" id="co-2" onclick="selectCotis(2,'Ressortissant – villes mauritaniennes',300)">
+              <div class="cotis-name">Ressortissant – villes mauritaniennes</div>
+              <div class="cotis-amount">300 MRU</div>
+              <div class="cotis-desc">Pour les ressortissants vivant dans les villes de Mauritanie</div>
+            </div>
+            <div class="cotis-option" id="co-3" onclick="selectCotis(3,'Diaspora Afrique',500)">
+              <div class="cotis-name">Diaspora Afrique</div>
+              <div class="cotis-amount">500 MRU</div>
+              <div class="cotis-desc">Pour les ressortissants vivant en Afrique hors Mauritanie</div>
+            </div>
+            <div class="cotis-option" id="co-4" onclick="selectCotis(4,'Diaspora Europe / Amériques',1000)">
+              <div class="cotis-name">Diaspora Europe / Amériques</div>
+              <div class="cotis-amount">1 000 MRU</div>
+              <div class="cotis-desc">Pour les ressortissants vivant en Europe ou dans les Amériques</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:16px">
+            <button class="btn btn-outline" onclick="adhStep(1)">← Retour</button>
+            <button class="btn btn-primary" onclick="adhStep(3)">Suivant →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 : Paiement -->
+        <div class="adh-step" id="adh-s3">
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--vert);margin-bottom:8px">Mode de paiement</h3>
+          <div id="adh-amount-display" style="font-size:28px;font-family:'Playfair Display',serif;font-weight:900;color:var(--vert);margin-bottom:20px"></div>
+          <div class="paie-option" onclick="selectPaie('bankily','Bankily (Chinguitel)','Envoyer vers : +222 XX XX XX XX')">
+            <div class="paie-icon">📱</div>
+            <div class="paie-info"><div class="paie-name">Bankily (Chinguitel)</div><div class="paie-detail">Envoi mobile money Chinguitel</div></div>
+          </div>
+          <div class="paie-option" onclick="selectPaie('masrevi','Masrevi (Mauritel)','Envoyer vers : +222 XX XX XX XX')">
+            <div class="paie-icon">💳</div>
+            <div class="paie-info"><div class="paie-name">Masrevi (Mauritel)</div><div class="paie-detail">Envoi mobile money Mauritel</div></div>
+          </div>
+          <div class="paie-option" onclick="selectPaie('seddad','Seddad (BCM)','Virement bancaire BCM')">
+            <div class="paie-icon">🏦</div>
+            <div class="paie-info"><div class="paie-name">Seddad (BCM)</div><div class="paie-detail">Virement BCM Mauritanie</div></div>
+          </div>
+          <div class="paie-option" onclick="selectPaie('especes','Espèces (Trésorier)','Remettre au trésorier de Thidé')">
+            <div class="paie-icon">💵</div>
+            <div class="paie-info"><div class="paie-name">Espèces</div><div class="paie-detail">Remettre directement au trésorier</div></div>
+          </div>
+          <div class="paie-option" onclick="selectPaie('international','Virement international','Transfer via Western Union / MoneyGram')">
+            <div class="paie-icon">🌍</div>
+            <div class="paie-info"><div class="paie-name">Virement international</div><div class="paie-detail">Western Union, MoneyGram, etc.</div></div>
+          </div>
+          <div id="paie-extra" style="display:none;margin-top:16px">
+            <div class="form-group"><label>Référence de transaction <span style="color:var(--or)">*</span></label><input id="a-reftx" type="text" placeholder="Numéro de la transaction"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:16px">
+            <button class="btn btn-outline" onclick="adhStep(2)">← Retour</button>
+            <button class="btn btn-primary" onclick="submitAdhesion()">Soumettre mon dossier ✦</button>
+          </div>
+        </div>
+
+        <!-- Step 4 : Confirmation -->
+        <div class="adh-step" id="adh-s4">
+          <div class="confirmation-box">
+            <div class="conf-icon">🎉</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--vert);margin-bottom:8px">Dossier soumis avec succès !</h3>
+            <div class="conf-ref" id="conf-ref-display"></div>
+            <p class="conf-msg" id="conf-msg">Votre dossier a été enregistré. Utilisez votre référence ci-dessus pour suivre l'état de votre adhésion dans <strong>Espace Membre</strong>.</p>
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+            <button class="btn btn-outline" onclick="showPage('espace-membre')">Voir mon espace membre</button>
+            <button class="btn btn-primary" onclick="resetAdhesion()">Nouvelle adhésion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : ESPACE MEMBRE
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-espace-membre">
+  <div class="section-wrap" style="background:var(--vert);padding:48px 32px 60px">
+    <div class="container">
+      <div class="section-label light">Portail membres</div>
+      <h1 class="section-title light">Mon Espace Membre</h1>
+      <p class="section-sub light">Accédez à votre dossier en entrant votre référence d'adhésion ci-dessous.</p>
+    </div>
+  </div>
+  <div class="section-wrap" style="margin-top:-30px;padding-top:10px">
+    <div class="container" style="max-width:700px">
+      <div class="card" style="padding:32px;margin-bottom:24px">
+        <h3 style="font-family:'Playfair Display',serif;color:var(--vert);margin-bottom:18px;font-size:20px">🔍 Rechercher mon dossier</h3>
+        <div style="display:flex;gap:10px">
+          <input id="membre-search-ref" type="text" placeholder="Entrez votre référence (ex: ADH-YELLITAARE-2025-1001)" style="flex:1;padding:11px 16px;border:1.5px solid #E5E7EB;border-radius:var(--radius);font-family:'Outfit',sans-serif;font-size:14px;outline:none" onfocus="this.style.borderColor='var(--vert)'" onblur="this.style.borderColor='#E5E7EB'">
+          <button class="btn btn-primary" onclick="searchMember()">Rechercher</button>
+        </div>
+        <p style="font-size:12px;color:var(--gris);margin-top:10px">Vous pouvez aussi rechercher par nom complet ou numéro de téléphone.</p>
+      </div>
+      <div id="membre-result"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : COMMISSIONS
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-sections">
+  <div class="section-wrap" style="background:var(--vert);padding:48px 32px 60px">
+    <div class="container">
+      <div class="section-label light">Structure organisationnelle</div>
+      <h1 class="section-title light">Nos Commissions</h1>
+      <p class="section-sub light">Chaque commission dispose de son propre espace de gestion : membres, galerie, rapports et plan d'action.</p>
+    </div>
+  </div>
+  <div class="section-wrap" style="margin-top:-20px;padding-top:24px">
+    <div class="container">
+      <div class="grid-3" id="sections-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : ORGANES
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-organs">
+  <div class="section-wrap" style="background:linear-gradient(135deg,#0F3B1C,#1A5C2A);padding:48px 32px 60px">
+    <div class="container">
+      <div class="section-label light">Gouvernance</div>
+      <h1 class="section-title light">Organes Opérationnels</h1>
+      <p class="section-sub light">Les organes directeurs de YELLITAARE gèrent les archives, plans d'action et la gouvernance de l'association.</p>
+    </div>
+  </div>
+  <div class="section-wrap" style="margin-top:-20px;padding-top:24px">
+    <div class="container">
+      <div class="grid-2" id="organs-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : MÉDIATHÈQUE
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-docs">
+  <div class="section-wrap" style="background:var(--sable);padding:48px 32px 60px">
+    <div class="container">
+      <div class="section-label">Centre de ressources</div>
+      <h1 class="section-title">Médiathèque</h1>
+      <p class="section-sub">Tous les documents officiels, rapports et ressources de YELLITAARE Thidé.</p>
+    </div>
+  </div>
+  <div class="section-wrap" style="margin-top:-10px;padding-top:24px">
+    <div class="container">
+      <div class="filter-bar">
+        <input type="text" id="doc-search" placeholder="Rechercher un document..." oninput="filterDocs()">
+        <select id="doc-cat-filter" onchange="filterDocs()">
+          <option value="">Toutes les catégories</option>
+          <option value="rapport">Rapports</option>
+          <option value="statut">Statuts & RI</option>
+          <option value="financier">Documents financiers</option>
+          <option value="procedure">Procédures</option>
+          <option value="autre">Autres</option>
+        </select>
+        <button class="btn btn-primary btn-sm" onclick="openUploadDocModal('global')">+ Ajouter un document</button>
+      </div>
+      <div id="docs-list-global" class="grid-auto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : TDB ADHÉSIONS
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-tdb">
+  <div class="section-wrap" style="background:linear-gradient(135deg,#0F3B1C,#1A5C2A);padding:48px 32px 60px">
+    <div class="container">
+      <div class="section-label light">Suivi en temps réel</div>
+      <h1 class="section-title light">Tableau de Bord — Adhésions & Cotisations</h1>
+      <p class="section-sub light">Vue consolidée des adhésions, paiements et indicateurs clés de YELLITAARE Thidé.</p>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+        <button class="btn btn-white" onclick="tdbRefresh()">↻ Actualiser</button>
+        <button class="btn btn-gold" onclick="tdbExportExcel()">⬇ Exporter Excel</button>
+      </div>
+    </div>
+  </div>
+  <div class="section-wrap" style="margin-top:-20px;padding-top:24px">
+    <div class="container">
+      <!-- Filtres -->
+      <div class="card" style="padding:18px;margin-bottom:18px">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px" class="tdb-filters-grid">
+          <div class="form-group" style="margin:0"><label>Recherche</label>
+            <input id="tdb-fSearch" type="text" placeholder="Nom, téléphone, réf..." oninput="tdbApplyFilters()"></div>
+          <div class="form-group" style="margin:0"><label>Zone</label>
+            <select id="tdb-fZone" onchange="tdbApplyFilters()"><option value="">Toutes</option>
+              <option>Village de Thidé</option><option>Nationaux – Mauritanie</option>
+              <option>Diaspora – Afrique</option><option>Diaspora – Europe / Amériques</option></select></div>
+          <div class="form-group" style="margin:0"><label>Catégorie</label>
+            <select id="tdb-fCat" onchange="tdbApplyFilters()"><option value="">Toutes</option>
+              <option>Résident de Thidé</option><option>Ressortissant – villes mauritaniennes</option>
+              <option>Diaspora Afrique</option><option>Diaspora Europe / Amériques</option></select></div>
+          <div class="form-group" style="margin:0"><label>Statut</label>
+            <select id="tdb-fStat" onchange="tdbApplyFilters()"><option value="">Tous</option>
+              <option value="valide">Validé</option><option value="attente">En attente</option><option value="refuse">Refusé</option></select></div>
+          <div class="form-group" style="margin:0"><label>Période</label>
+            <input id="tdb-fDate" type="month" onchange="tdbApplyFilters()"></div>
+        </div>
+      </div>
+
+      <!-- Barre de synchronisation -->
+      <div class="sync-bar" id="tdb-sync-bar">
+        <div class="sync-status">
+          <div class="sync-dot offline" id="tdb-sync-dot"></div>
+          <span id="tdb-sync-text">Vérification de la connexion...</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-sm btn-outline" onclick="tdbRefresh()">↻ Actualiser</button>
+          <button class="btn btn-sm btn-primary" onclick="syncAllToSheets()">☁️ Synchroniser vers Excel</button>
+          <button class="btn btn-sm btn-danger" onclick="testConnection()">🔧 Tester connexion</button>
+        </div>
+      </div>
+      <!-- Panneau de diagnostic -->
+      <div id="diag-panel" style="display:none;margin-bottom:18px;padding:16px;border-radius:var(--radius);background:#1E1E2E;color:#E0E0E0;font-family:monospace;font-size:12px;line-height:1.7;max-height:400px;overflow-y:auto;white-space:pre-wrap"></div>
+
+      <!-- KPI Stats -->
+      <div class="grid-4" id="tdb-stats" style="margin-bottom:18px"></div>
+
+      <!-- Graphiques principaux -->
+      <div class="grid-2" style="margin-bottom:18px">
+        <div class="card" style="padding:20px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Évolution mensuelle</h3>
+          <div style="height:300px"><canvas id="tdb-chartMonth"></canvas></div>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Répartition par statut</h3>
+          <div style="height:300px"><canvas id="tdb-chartStatus"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Graphiques secondaires -->
+      <div class="grid-2" style="margin-bottom:18px">
+        <div class="card" style="padding:20px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Par zone géographique</h3>
+          <div style="height:280px"><canvas id="tdb-chartZone"></canvas></div>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Par catégorie de cotisation</h3>
+          <div style="height:280px"><canvas id="tdb-chartCat"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Tableau des adhérents -->
+      <div class="card" style="padding:20px;margin-bottom:18px">
+        <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Détail des adhésions</h3>
+        <div class="table-wrap"><div id="tdb-table-body"></div></div>
+        <div style="font-size:12px;color:var(--gris);margin-top:10px" id="tdb-table-note"></div>
+      </div>
+
+      <!-- Alertes + Top zones -->
+      <div class="grid-2" style="margin-bottom:18px">
+        <div class="card" style="padding:20px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Alertes de gestion</h3>
+          <div id="tdb-alerts"></div>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:14px">Top zones contributrices</h3>
+          <div id="tdb-topZones"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAGE : ADMINISTRATION
+══════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-admin">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 14px 20px;border-bottom:1px solid rgba(0,0,0,.07);margin-bottom:12px">
+        <div class="nav-badge" style="width:34px;height:34px;font-size:13px">Y</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--vert)">Admin</div>
+          <div style="font-size:11px;color:var(--gris)">YELLITAARE</div>
+        </div>
+      </div>
+      <div class="sidebar-section">Gestion</div>
+      <button class="sidebar-item active" id="sb-membres" onclick="adminTab('membres')">👥 Adhérents</button>
+      <button class="sidebar-item" id="sb-docs" onclick="adminTab('docs')">📂 Documents</button>
+      <button class="sidebar-item" id="sb-sections" onclick="adminTab('sections')">🏛️ Commissions</button>
+      <button class="sidebar-item" id="sb-organs" onclick="adminTab('organs')">⚙️ Organes</button>
+      <div class="sidebar-section">Outils</div>
+      <button class="sidebar-item" onclick="syncAllToSheets()">☁️ Synchroniser Excel</button>
+      <button class="sidebar-item" onclick="exportCSV()">⬇️ Export CSV</button>
+      <button class="sidebar-item" onclick="purgeLocalCache()">🧹 Purger cache local</button>
+      <div style="padding:16px 14px;margin-top:auto;border-top:1px solid rgba(0,0,0,.07)">
+        <div id="admin-stats-sidebar" style="font-size:12px;color:var(--gris)"></div>
+      </div>
+    </div>
+    <div class="admin-content">
+      <!-- Membres -->
+      <div id="admin-panel-membres" class="admin-panel">
+        <!-- Barre de synchronisation admin -->
+        <div class="sync-bar" id="admin-sync-bar" style="flex-direction:column;align-items:stretch;gap:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div class="sync-status">
+              <div class="sync-dot offline" id="admin-sync-dot"></div>
+              <span id="admin-sync-text">Vérification...</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-sm btn-outline" onclick="adminRefreshFromSheets()">↻ Actualiser local</button>
+              <button class="btn btn-sm btn-primary" onclick="syncAllToSheets()">☁️ Envoyer → Excel</button>
+              <button class="btn btn-sm btn-danger" onclick="testConnection()">🔧 Diagnostic</button>
+            </div>
+          </div>
+          <!-- Configuration URL Apps Script -->
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <label style="font-size:11px;font-weight:700;color:var(--vert);white-space:nowrap">URL Power Automate :</label>
+            <input id="api-url-input" type="text" style="flex:1;min-width:200px;padding:7px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-family:monospace;font-size:11px" placeholder="https://prod-xx.logic.azure.com/.../triggers/manual/paths/invoke?...">
+            <button class="btn btn-sm btn-outline" onclick="saveApiUrl()">💾 Sauver URL</button>
+          </div>
+          <!-- Diagnostic admin -->
+          <div id="diag-panel-admin" style="display:none;padding:14px;border-radius:10px;background:#1E1E2E;color:#E0E0E0;font-family:monospace;font-size:12px;line-height:1.7;max-height:350px;overflow-y:auto;white-space:pre-wrap;margin-top:8px"></div>
+        </div>
+        <div class="flex-between" style="margin-bottom:20px">
+          <div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--vert)">Gestion des Adhérents</h2>
+            <p style="font-size:13px;color:var(--gris);margin-top:4px">Liste complète des dossiers d'adhésion</p>
+          </div>
+        </div>
+        <div class="grid-4" id="admin-stats-cards" style="margin-bottom:24px"></div>
+        <div class="filter-bar">
+          <input type="text" id="adm-search" placeholder="Nom, prénom, référence..." oninput="renderAdminTable()">
+          <select id="adm-zone" onchange="renderAdminTable()"><option value="">Toutes zones</option>
+            <option>Village de Thidé</option><option>Nationaux – Mauritanie</option>
+            <option>Diaspora – Afrique</option><option>Diaspora – Europe / Amériques</option>
+          </select>
+          <select id="adm-status" onchange="renderAdminTable()"><option value="">Tous statuts</option>
+            <option value="attente">En attente</option><option value="valide">Validé</option><option value="refuse">Refusé</option>
+          </select>
+          <button class="btn btn-sm btn-outline" onclick="resetAdminFilters()">↺ Réinitialiser</button>
+        </div>
+        <div class="table-wrap"><div id="admin-table-body"></div></div>
+      </div>
+
+      <!-- Documents -->
+      <div id="admin-panel-docs" class="admin-panel" style="display:none">
+        <div class="flex-between" style="margin-bottom:20px">
+          <div><h2 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--vert)">Documents globaux</h2></div>
+          <button class="btn btn-primary" onclick="openUploadDocModal('global')">+ Ajouter</button>
+        </div>
+        <div id="admin-docs-list" class="grid-auto"></div>
+      </div>
+
+      <!-- Sections admin -->
+      <div id="admin-panel-sections" class="admin-panel" style="display:none">
+        <div class="flex-between" style="margin-bottom:20px">
+          <div><h2 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--vert)">Commissions</h2></div>
+        </div>
+        <div class="grid-3" id="admin-sections-list"></div>
+      </div>
+
+      <!-- Organs admin -->
+      <div id="admin-panel-organs" class="admin-panel" style="display:none">
+        <div class="flex-between" style="margin-bottom:20px">
+          <div><h2 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--vert)">Organes</h2></div>
+        </div>
+        <div class="grid-2" id="admin-organs-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DRAWER SECTION ════════════════════════════════════════════════ -->
+<div class="drawer-overlay" id="section-overlay" onclick="closeDrawer('section')"></div>
+<div class="drawer" id="section-drawer">
+  <div class="drawer-header">
+    <div>
+      <div class="drawer-title" id="section-drawer-title">Commission</div>
+      <div class="drawer-subtitle" id="section-drawer-sub">Espace de gestion</div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer('section')">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabs">
+      <button class="dtab active" onclick="switchDrawerTab('membres')">👥 Membres</button>
+      <button class="dtab" onclick="switchDrawerTab('galerie')">🖼️ Galerie</button>
+      <button class="dtab" onclick="switchDrawerTab('documents')">📂 Documents</button>
+      <button class="dtab" onclick="switchDrawerTab('rapports')">📋 Rapports</button>
+      <button class="dtab" onclick="switchDrawerTab('plan')">📌 Plan d'action</button>
+    </div>
+
+    <!-- Membres tab -->
+    <div class="dtab-panel active" id="dtab-membres">
+      <div class="filter-bar">
+        <input type="text" id="sec-member-search" placeholder="Rechercher un membre..." oninput="renderSectionMembers()">
+        <select id="sec-member-status" onchange="renderSectionMembers()">
+          <option value="">Tous statuts</option><option value="valide">Validés</option>
+          <option value="attente">En attente</option><option value="refuse">Refusés</option>
+        </select>
+      </div>
+      <div id="sec-members-list"></div>
+    </div>
+
+    <!-- Galerie tab -->
+    <div class="dtab-panel" id="dtab-galerie">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600;color:var(--terre)">Galerie photos</h4>
+        <button class="btn btn-sm btn-primary" onclick="openGalleryUpload()">+ Ajouter photos</button>
+      </div>
+      <div class="gallery-grid" id="sec-gallery-grid"></div>
+    </div>
+
+    <!-- Documents tab -->
+    <div class="dtab-panel" id="dtab-documents">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600;color:var(--terre)">Documents de la commission</h4>
+        <button class="btn btn-sm btn-primary" onclick="openUploadDocModal('section')">+ Ajouter</button>
+      </div>
+      <div id="sec-docs-list"></div>
+    </div>
+
+    <!-- Rapports tab -->
+    <div class="dtab-panel" id="dtab-rapports">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600;color:var(--terre)">Comptes rendus</h4>
+        <button class="btn btn-sm btn-primary" onclick="openReportModal()">+ Nouveau CR</button>
+      </div>
+      <div id="sec-reports-list"></div>
+    </div>
+
+    <!-- Plan d'action tab -->
+    <div class="dtab-panel" id="dtab-plan">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600;color:var(--terre)">Plan d'action</h4>
+        <button class="btn btn-sm btn-primary" onclick="openActionModal()">+ Ajouter une tâche</button>
+      </div>
+      <div id="sec-actions-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DRAWER ORGANE ════════════════════════════════════════════════ -->
+<div class="drawer-overlay" id="organ-overlay" onclick="closeDrawer('organ')"></div>
+<div class="drawer" id="organ-drawer">
+  <div class="drawer-header">
+    <div>
+      <div class="drawer-title" id="organ-drawer-title">Organe</div>
+      <div class="drawer-subtitle" id="organ-drawer-sub">Espace de gouvernance</div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer('organ')">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tabs">
+      <button class="dtab active" onclick="switchOrganTab('archives')">🗃️ Archives</button>
+      <button class="dtab" onclick="switchOrganTab('plans')">📌 Plans d'action</button>
+      <button class="dtab" onclick="switchOrganTab('membres')">👥 Membres</button>
+      <button class="dtab" onclick="switchOrganTab('pv')">📋 PV & CR</button>
+    </div>
+    <div class="dtab-panel active" id="otab-archives">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600">Documents archivés</h4>
+        <button class="btn btn-sm btn-primary" onclick="openUploadDocModal('organ')">+ Archiver</button>
+      </div>
+      <div id="org-archives-list"></div>
+    </div>
+    <div class="dtab-panel" id="otab-plans">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600">Plans d'action</h4>
+        <button class="btn btn-sm btn-primary" onclick="openOrganActionModal()">+ Ajouter</button>
+      </div>
+      <div id="org-actions-list"></div>
+    </div>
+    <div class="dtab-panel" id="otab-membres">
+      <div id="org-members-list"></div>
+    </div>
+    <div class="dtab-panel" id="otab-pv">
+      <div class="flex-between" style="margin-bottom:16px">
+        <h4 style="font-size:16px;font-weight:600">Procès-verbaux & Comptes rendus</h4>
+        <button class="btn btn-sm btn-primary" onclick="openOrganPVModal()">+ Nouveau PV</button>
+      </div>
+      <div id="org-pv-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL : UPLOAD DOCUMENT ═══════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-upload-doc">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📂 Ajouter un document</h3>
+      <button class="modal-close" onclick="closeModal('modal-upload-doc')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Titre du document <span style="color:var(--or)">*</span></label>
+        <input id="doc-title-input" type="text" placeholder="Ex : Rapport financier 2025">
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select id="doc-cat-input">
+          <option value="rapport">Rapport</option>
+          <option value="statut">Statuts & RI</option>
+          <option value="financier">Document financier</option>
+          <option value="procedure">Procédure</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="doc-desc-input" rows="2" placeholder="Courte description..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Fichier</label>
+        <div class="upload-zone" id="doc-upload-zone" onclick="document.getElementById('doc-file-input').click()">
+          <div class="upload-icon">📁</div>
+          <p><strong>Cliquez pour sélectionner</strong> ou glissez-déposez</p>
+          <p style="font-size:12px;margin-top:4px">PDF, DOCX, XLSX, images (max 10MB)</p>
+        </div>
+        <input type="file" id="doc-file-input" style="display:none" accept=".pdf,.doc,.docx,.xlsx,.xls,.png,.jpg,.jpeg" onchange="handleDocFile(this)">
+        <div id="doc-file-preview" style="display:none;margin-top:10px;padding:10px 14px;background:var(--vert-clair);border-radius:8px;font-size:13px;color:var(--vert)"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-upload-doc')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveDocument()">Enregistrer le document</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL : RAPPORT / CR ══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-report">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📋 Nouveau Compte Rendu</h3>
+      <button class="modal-close" onclick="closeModal('modal-report')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Titre <span style="color:var(--or)">*</span></label><input id="rep-title" type="text" placeholder="Ex : CR Réunion mensuelle – Janvier 2026"></div>
+      <div class="form-group"><label>Date</label><input id="rep-date" type="date"></div>
+      <div class="form-group"><label>Auteur</label><input id="rep-author" type="text" placeholder="Nom du rapporteur"></div>
+      <div class="form-group"><label>Contenu / Résumé <span style="color:var(--or)">*</span></label>
+        <textarea id="rep-content" rows="6" placeholder="Points discutés, décisions prises, actions à mener..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-report')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveReport()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL : ACTION ════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-action">
+  <div class="modal-box" style="max-width:520px">
+    <div class="modal-header">
+      <h3>📌 Ajouter une tâche</h3>
+      <button class="modal-close" onclick="closeModal('modal-action')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Tâche <span style="color:var(--or)">*</span></label><input id="act-title" type="text" placeholder="Décrire la tâche..."></div>
+      <div class="form-group"><label>Responsable</label><input id="act-resp" type="text" placeholder="Nom du responsable"></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>Date limite</label><input id="act-due" type="date"></div>
+        <div class="form-group"><label>Statut</label>
+          <select id="act-status"><option value="todo">À faire</option><option value="progress">En cours</option><option value="done">Réalisé</option></select>
+        </div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="act-notes" rows="2" placeholder="Notes complémentaires..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-action')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveAction()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL : GALLERY UPLOAD ════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-gallery">
+  <div class="modal-box" style="max-width:500px">
+    <div class="modal-header">
+      <h3>🖼️ Ajouter des photos</h3>
+      <button class="modal-close" onclick="closeModal('modal-gallery')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="upload-zone" onclick="document.getElementById('gal-file-input').click()">
+        <div class="upload-icon">📷</div>
+        <p><strong>Sélectionner des images</strong></p>
+        <p style="font-size:12px;margin-top:4px">JPG, PNG, GIF (max 5MB chacune)</p>
+      </div>
+      <input type="file" id="gal-file-input" style="display:none" accept="image/*" multiple onchange="handleGalleryFiles(this)">
+      <div class="form-group" style="margin-top:14px"><label>Légende</label><input id="gal-caption" type="text" placeholder="Description des photos..."></div>
+      <div id="gal-preview" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-gallery')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveGalleryItems()">Ajouter à la galerie</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL : VOIR MEMBRE ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-member-view">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Dossier d'adhésion</h3>
+      <button class="modal-close" onclick="closeModal('modal-member-view')">✕</button>
+    </div>
+    <div class="modal-body" id="member-view-body"></div>
+    <div class="modal-footer" id="member-view-footer"></div>
+  </div>
+</div>
+
+<!-- ═══ MODAL : ORGAN PV ══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-organ-pv">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📋 Procès-Verbal / Compte Rendu</h3>
+      <button class="modal-close" onclick="closeModal('modal-organ-pv')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Titre <span style="color:var(--or)">*</span></label><input id="pv-title" type="text" placeholder="Ex : PV Réunion CA – Février 2026"></div>
+      <div class="form-group"><label>Date</label><input id="pv-date" type="date"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="pv-type"><option>Procès-verbal</option><option>Compte rendu</option><option>Décision</option><option>Résolution</option></select>
+      </div>
+      <div class="form-group"><label>Contenu <span style="color:var(--or)">*</span></label>
+        <textarea id="pv-content" rows="6" placeholder="Contenu du PV ou résumé des décisions..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('modal-organ-pv')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveOrganPV()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Hidden frame conservé pour compatibilité -->
+<iframe name="hidden-sheets-frame" id="hidden-sheets-frame" style="display:none"></iframe>
+
+<script>
+
+// ════════════════════════════════════════════════════════════════════
+// DATA LAYER — localStorage + Excel Online / Power Automate
+// ════════════════════════════════════════════════════════════════════
+
+// URL Power Automate — peut être changée dans Administration
+const DEFAULT_API_URL = '';
+let API_URL = localStorage.getItem('yell_flow_url') || DEFAULT_API_URL;
+
+function saveApiUrl() {
+  const input = document.getElementById('api-url-input');
+  if (!input) return;
+  const url = input.value.trim();
+  if (!url || !/^https:\/\/.+/i.test(url)) {
+    showToast('⚠️ URL invalide — collez une URL HTTPS Power Automate / Logic Apps', 'error');
+    return;
+  }
+  API_URL = url;
+  localStorage.setItem('yell_flow_url', url);
+  REMOTE_LOADED = false;
+  REMOTE_MEMBERS = [];
+  showToast('✅ URL Power Automate sauvegardée');
+  updateSyncBars();
+}
+
+const DB = {
+  get: (k, def=[]) => { try { return JSON.parse(localStorage.getItem('yell_'+k)) ?? def; } catch { return def; } },
+  set: (k, v) => { try { localStorage.setItem('yell_'+k, JSON.stringify(v)); } catch {} },
+};
+
+// En mode Excel/Power Automate, l'application utilise la base locale côté site.
+// Le tableau de bord consolidé se trouve dans le fichier Excel.
+let REMOTE_MEMBERS = [];
+let REMOTE_LOADED = false;
+
+function getMembers() { return DB.get('members', []); }
+function getLocalMembers() { return DB.get('members', []); }
+function saveMembers(m) { DB.set('members', m); }
+
+function markMemberAsSynced(reference) {
+  const members = getLocalMembers().map(m => {
+    if (m.reference === reference) {
+      return {...m, cloudSyncedAt: new Date().toISOString()};
+    }
+    return m;
+  });
+  saveMembers(members);
+}
+
+function getPendingMembers() {
+  return getLocalMembers().filter(m => !m.cloudSyncedAt);
+}
+
+function mapMemberToFlowPayload(member) {
+  return {
+    reference: member.reference || '',
+    date_soumission: member.date || '',
+    nom_complet: ((member.prenom || '') + ' ' + (member.nom || '')).trim(),
+    prenom: member.prenom || '',
+    nom: member.nom || '',
+    sexe: member.sexe || '',
+    date_naissance: member.datenais || '',
+    telephone: member.tel || '',
+    email: member.email || '',
+    profession: member.profession || '',
+    adresse: member.adresse || '',
+    zone: member.zone || '',
+    categorie_cotisation: member.categorie || '',
+    montant_cotisation: Number(member.montant || 0),
+    mode_paiement: member.paiement || '',
+    reference_transaction: member.refTx || '',
+    statut_paiement: member.status === 'valide' ? 'Validé' : member.status === 'refuse' ? 'Refusé' : 'En attente',
+    section: member.section || '',
+    source: 'Site web',
+    created_at: new Date().toISOString()
+  };
+}
+
+// Envoi vers Power Automate / Excel
+async function sendToSheets(member) {
+  if (!API_URL || API_URL.includes('COLLER')) return false;
+
+  const payload = mapMemberToFlowPayload(member);
+  console.log('📤 Envoi vers Excel/Power Automate:', payload.reference);
+
+  // Méthode 1 : fetch JSON standard
+  try {
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if (resp.ok || resp.type === 'opaque') {
+      markMemberAsSynced(member.reference);
+      return true;
+    }
+  } catch(e) {
+    console.warn('fetch Power Automate échoué:', e);
+  }
+
+  // Méthode 2 : sendBeacon (utile si CORS / fermeture de page)
+  try {
+    if (navigator.sendBeacon) {
+      const blob = new Blob([JSON.stringify(payload)], {type:'application/json'});
+      const ok = navigator.sendBeacon(API_URL, blob);
+      if (ok) {
+        markMemberAsSynced(member.reference);
+        return true;
+      }
+    }
+  } catch(e) {
+    console.warn('sendBeacon échoué:', e);
+  }
+
+  return false;
+}
+
+// En mode Excel, on ne recharge pas les adhésions depuis le cloud.
+// Le fichier Excel sert de registre central et de tableau de bord externe.
+async function loadMembersFromSheets() {
+  REMOTE_MEMBERS = [];
+  REMOTE_LOADED = false;
+  return [];
+}
+
+function parseRemoteMembers() {
+  REMOTE_MEMBERS = [];
+  REMOTE_LOADED = false;
+}
+
+function normalizeStatus(s) {
+  if (!s) return 'attente';
+  const v = String(s).toLowerCase().trim();
+  if (v.includes('valid')) return 'valide';
+  if (v.includes('refus') || v.includes('rejet')) return 'refuse';
+  return 'attente';
+}
+
+// ─── DIAGNOSTIC : configuration Excel / Power Automate ─────────────
+async function testConnection() {
+  const panel = document.getElementById('diag-panel');
+  const panel2 = document.getElementById('diag-panel-admin');
+  const panels = [panel, panel2].filter(Boolean);
+  panels.forEach(p => { p.style.display = 'block'; p.innerHTML = ''; });
+
+  const log = (msg, color) => {
+    panels.forEach(p => {
+      p.innerHTML += `<span style="color:${color||'#E0E0E0'}">${msg}</span>
+`;
+      p.scrollTop = p.scrollHeight;
+    });
+  };
+
+  const configured = !!(API_URL && /^https:\/\/.+/i.test(API_URL));
+  const localCount = getLocalMembers().length;
+  const pending = getPendingMembers().length;
+
+  log('════════════════════════════════════════', '#888');
+  log('🔧 DIAGNOSTIC EXCEL / POWER AUTOMATE', '#FFD700');
+  log('════════════════════════════════════════', '#888');
+  log('');
+  log('📌 URL du flux :', '#8BE9FD');
+  log('   ' + (API_URL || 'Non configurée'), configured ? '#50FA7B' : '#FF5555');
+  log('');
+  log('📦 Mode de fonctionnement :', '#8BE9FD');
+  log('   - Le site stocke d’abord les dossiers en localStorage', '#50FA7B');
+  log('   - Le bouton "Synchroniser" envoie ensuite les dossiers vers Power Automate', '#50FA7B');
+  log('   - Le tableau Excel est la base centrale et le dashboard de suivi', '#50FA7B');
+  log('   - La lecture distante en direct est désactivée dans cette version', '#FFD700');
+  log('');
+  log('📊 État local :', '#8BE9FD');
+  log('   - Dossiers en cache local : ' + localCount, '#50FA7B');
+  log('   - Dossiers en attente d’envoi : ' + pending, pending ? '#FFD700' : '#50FA7B');
+  log('');
+  log('📋 Vérifications à faire dans Power Automate :', '#8BE9FD');
+  log('   1. Déclencheur = "When an HTTP request is received"', '#50FA7B');
+  log('   2. Action Excel = "Add a row into a table"', '#50FA7B');
+  log('   3. Le fichier Excel est dans OneDrive / SharePoint', '#50FA7B');
+  log('   4. La table cible existe bien dans Excel', '#50FA7B');
+  log('');
+  log('💡 Conseil : faites un envoi test, puis vérifiez directement le classeur Excel.', '#FFD700');
+  log('════════════════════════════════════════', '#888');
+}
+
+function getDocs(ctx='global') { return DB.get('docs_'+ctx, []); }
+function saveDocs(ctx, d) { DB.set('docs_'+ctx, d); }
+function getGallery(ctx) { return DB.get('gallery_'+ctx, []); }
+function saveGallery(ctx, g) { DB.set('gallery_'+ctx, g); }
+function getReports(ctx) { return DB.get('reports_'+ctx, []); }
+function saveReports(ctx, r) { DB.set('reports_'+ctx, r); }
+function getActions(ctx) { return DB.get('actions_'+ctx, []); }
+function saveActions(ctx, a) { DB.set('actions_'+ctx, a); }
+
+// ════════════════════════════════════════════════════════════════════
+// CONFIG : COMMISSIONS & ORGANES
+// ════════════════════════════════════════════════════════════════════
+
+const SECTIONS = [
+  {id:'edu',name:'Commission Éducation',short:'Éducation',icon:'📚',color:'#1A5C2A',
+    desc:'Promotion de l\'éducation, soutien scolaire, bourses et suivi des infrastructures éducatives du village de Thidé.',
+    resp:'Président Commission Éducation'},
+  {id:'eau',name:'Commission Eau & Assainissement',short:'Eau',icon:'💧',color:'#1565C0',
+    desc:'Accès à l\'eau potable, gestion des forages, adduction d\'eau et assainissement du village.',
+    resp:'Président Commission Eau'},
+  {id:'sante',name:'Commission Santé',short:'Santé',icon:'🏥',color:'#C9982A',
+    desc:'Amélioration des conditions sanitaires, suivi du poste de santé, sensibilisation et mutuelle Gure Ndenndi.',
+    resp:'Président Commission Santé'},
+  {id:'jeun',name:'Commission Jeunesse & Sport',short:'Jeunesse',icon:'⚽',color:'#7B1FA2',
+    desc:'Animation de la jeunesse, promotion du sport, activités culturelles et sensibilisation pour l\'adhésion massive.',
+    resp:'Président Commission Jeunesse'},
+  {id:'fem',name:'Commission Femmes',short:'Femmes',icon:'👩',color:'#E65100',
+    desc:'Promotion de la condition féminine, autonomisation des femmes, activités génératrices de revenus et alphabétisation.',
+    resp:'Présidente Commission Femmes'},
+  {id:'eco',name:'Commission Économie',short:'Économie',icon:'💼',color:'#2E7D32',
+    desc:'Projets de développement économique, activités génératrices de revenus et partenariats avec les ONGs.',
+    resp:'Président Commission Économie'},
+  {id:'dias',name:'Commission Diaspora',short:'Diaspora',icon:'🌍',color:'#00838F',
+    desc:'Coordination avec les ressortissants de Thidé à l\'extérieur, mobilisation de la diaspora et transferts solidaires.',
+    resp:'Président Commission Diaspora'},
+  {id:'infra',name:'Commission Infrastructures',short:'Infrastructures',icon:'🏗️',color:'#4E342E',
+    desc:'Planification, suivi et réalisation des projets d\'infrastructure : routes, bâtiments, électrification et équipements publics.',
+    resp:'Président Commission Infrastructures'},
+];
+
+const ORGANS = [
+  {id:'be',name:'Bureau Exécutif',icon:'⭐',color:'#1A5C2A',
+    desc:'L\'organe exécutif chargé de la mise en œuvre des décisions et de la gestion quotidienne de l\'association.',
+    members:['Président','Vice-Président','Secrétaire Général','Secrétaire Général Adjoint','Trésorier Général','Trésorier Général Adjoint']},
+  {id:'ca',name:'Conseil d\'Administration',icon:'🏛️',color:'#9B7015',
+    desc:'Organe de contrôle et de gouvernance. Valide les budgets, les statuts et les grandes orientations stratégiques.',
+    members:['Président du CA','Vice-Président','Membres élus']},
+  {id:'ag',name:'Assemblée Générale',icon:'👥',color:'#1565C0',
+    desc:'Instance suprême réunissant tous les membres. Élit les dirigeants, approuve les comptes et fixe les orientations.',
+    members:['Tous les membres à jour de cotisation']},
+  {id:'cc',name:'Commission de Contrôle',icon:'🔍',color:'#7B1FA2',
+    desc:'Organe de contrôle indépendant. Vérifie la gestion financière et le respect des statuts et procédures internes.',
+    members:['Commissaire aux comptes','Membres élus']},
+];
+
+// ════════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════════════════
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const p = document.getElementById('page-'+id);
+  if (p) { p.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+  // refresh relevant content
+  if (id==='home') renderHome();
+  if (id==='admin') { adminTab('membres'); refreshAdminSidebar(); }
+  if (id==='docs') renderGlobalDocs();
+  if (id==='sections') renderSectionsPage();
+  if (id==='organs') renderOrgansPage();
+  if (id==='tdb') tdbApplyFilters();
+  closeMobileMenu();
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>10);
+});
+
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+// Build nav dropdowns
+function buildNavDropdowns() {
+  const dd1 = document.getElementById('nav-sections-dd');
+  dd1.innerHTML = SECTIONS.map(s=>
+    `<button onclick="openSection('${s.id}')">${s.icon} ${s.short}</button>`).join('');
+  const dd2 = document.getElementById('nav-organs-dd');
+  dd2.innerHTML = ORGANS.map(o=>
+    `<button onclick="openOrgan('${o.id}')">${o.icon} ${o.name}</button>`).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// HOME PAGE
+// ════════════════════════════════════════════════════════════════════
+
+function renderHome() {
+  renderHomeStats();
+  renderHomeSections();
+  renderHomeDocs();
+}
+
+function renderHomeStats() {
+  const members = getMembers();
+  const valides = members.filter(m=>m.status==='valide').length;
+  const attente = members.filter(m=>m.status==='attente').length;
+  const docs = getDocs('global');
+  const stats = [
+    {num: members.length, lbl:'Adhérents total', gold:false},
+    {num: valides, lbl:'Membres validés', gold:false},
+    {num: attente, lbl:'Dossiers en attente', gold:true},
+    {num: docs.length + SECTIONS.reduce((a,s)=>a+getDocs(s.id).length,0), lbl:'Documents partagés', gold:true},
+  ];
+
+  // Hero stats
+  const hs = document.getElementById('hero-stats-home');
+  if(hs) hs.innerHTML = [
+    {num:members.length,lbl:'Membres'},
+    {num:valides,lbl:'Validés'},
+    {num:SECTIONS.length,lbl:'Commissions'},
+  ].map(s=>`<div class="hero-stat"><div class="hero-stat-num">${s.num}</div><div class="hero-stat-lbl">${s.lbl}</div></div>`).join('');
+
+  const grid = document.getElementById('home-stats-grid');
+  if(grid) grid.innerHTML = stats.map(s=>`
+    <div class="stat-card ${s.gold?'gold':''}">
+      <div class="stat-num">${s.num}</div>
+      <div class="stat-label">${s.lbl}</div>
+    </div>`).join('');
+}
+
+function renderHomeSections() {
+  const grid = document.getElementById('home-sections-grid');
+  if (!grid) return;
+  grid.innerHTML = SECTIONS.slice(0,3).map(s=>buildSectionCard(s)).join('');
+}
+
+function renderHomeDocs() {
+  const docs = getDocs('global').slice(-4).reverse();
+  const el = document.getElementById('home-docs-list');
+  if (!el) return;
+  if (!docs.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">📂</div><h4>Aucun document publié</h4><p>Les documents officiels apparaîtront ici.</p></div>`; return; }
+  el.innerHTML = docs.map(d=>buildDocCard(d,'global')).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// SECTIONS PAGE
+// ════════════════════════════════════════════════════════════════════
+
+function renderSectionsPage() {
+  const grid = document.getElementById('sections-grid');
+  if (!grid) return;
+  grid.innerHTML = SECTIONS.map(s=>buildSectionCard(s)).join('');
+}
+
+function buildSectionCard(s) {
+  const members = getMembers().filter(m=>normalizeZone(m.zone)===s.id || m.section===s.id);
+  const docs = getDocs(s.id);
+  return `<div class="section-card" onclick="openSection('${s.id}')">
+    <div class="sec-band" style="background:${s.color}"></div>
+    <div class="sec-body">
+      <div class="sec-icon" style="background:${s.color}22;color:${s.color}">${s.icon}</div>
+      <div class="sec-name">${s.name}</div>
+      <div class="sec-desc">${s.desc}</div>
+      <div class="sec-stats">
+        <div class="sec-stat"><span>${members.length}</span>membres</div>
+        <div class="sec-stat"><span>${docs.length}</span>documents</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ORGANS PAGE
+// ════════════════════════════════════════════════════════════════════
+
+function renderOrgansPage() {
+  const grid = document.getElementById('organs-grid');
+  if (!grid) return;
+  grid.innerHTML = ORGANS.map(o=>buildOrganCard(o)).join('');
+}
+
+function buildOrganCard(o) {
+  const docs = getDocs('org_'+o.id);
+  const actions = getActions('org_'+o.id);
+  return `<div class="card" style="cursor:pointer;border-top:4px solid ${o.color}" onclick="openOrgan('${o.id}')">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+      <div style="width:54px;height:54px;border-radius:14px;background:${o.color}22;display:flex;align-items:center;justify-content:center;font-size:26px">${o.icon}</div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--terre)">${o.name}</div>
+        <div style="font-size:12px;color:var(--gris);margin-top:2px">${o.members.join(' • ')}</div>
+      </div>
+    </div>
+    <p style="font-size:13.5px;color:var(--gris);line-height:1.6;margin-bottom:16px">${o.desc}</p>
+    <div style="display:flex;gap:14px;font-size:13px;color:var(--gris)">
+      <span style="color:${o.color};font-weight:700;font-family:'Playfair Display',serif;font-size:18px">${docs.length}</span> archives &nbsp;
+      <span style="color:${o.color};font-weight:700;font-family:'Playfair Display',serif;font-size:18px">${actions.length}</span> actions
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════════════
+// DRAWER : SECTION
+// ════════════════════════════════════════════════════════════════════
+
+let currentSection = null;
+let currentOrgan = null;
+let currentDocCtx = 'global';
+let pendingDocFiles = [];
+let pendingGalFiles = [];
+
+function openSection(id) {
+  const s = SECTIONS.find(x=>x.id===id);
+  if (!s) return;
+  currentSection = s;
+  document.getElementById('section-drawer-title').textContent = s.name;
+  document.getElementById('section-drawer-sub').textContent = s.resp + ' — ' + s.desc.substring(0,60)+'...';
+  document.getElementById('section-overlay').classList.add('open');
+  document.getElementById('section-drawer').classList.add('open');
+  document.body.style.overflow='hidden';
+  switchDrawerTab('membres');
+}
+
+function closeDrawer(which) {
+  document.getElementById(which+'-overlay').classList.remove('open');
+  document.getElementById(which+'-drawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function switchDrawerTab(tab) {
+  document.querySelectorAll('#section-drawer .dtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#section-drawer .dtab-panel').forEach(p=>p.classList.remove('active'));
+  const tabEl = document.querySelector(`#section-drawer .dtab[onclick*="${tab}"]`);
+  const panelEl = document.getElementById('dtab-'+tab);
+  if (tabEl) tabEl.classList.add('active');
+  if (panelEl) panelEl.classList.add('active');
+  if (tab==='membres') renderSectionMembers();
+  if (tab==='galerie') renderSectionGallery();
+  if (tab==='documents') renderSectionDocs();
+  if (tab==='rapports') renderSectionReports();
+  if (tab==='plan') renderSectionActions();
+}
+
+function renderSectionMembers() {
+  if (!currentSection) return;
+  const s = currentSection;
+  const search = (document.getElementById('sec-member-search')||{}).value||'';
+  const statusF = (document.getElementById('sec-member-status')||{}).value||'';
+  // Members matching this section (by zone mapping or section field)
+  let members = getMembers().filter(m=> {
+    const inSection = normalizeZone(m.zone)===s.id || m.section===s.id || !m.zone;
+    if (!inSection && m.zone) return false;
+    const q = search.toLowerCase();
+    const matchQ = !q || (m.nom+' '+m.prenom).toLowerCase().includes(q) || (m.reference||'').toLowerCase().includes(q);
+    const matchS = !statusF || m.status===statusF;
+    return matchQ && matchS;
+  });
+  const el = document.getElementById('sec-members-list');
+  if (!members.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">👥</div><h4>Aucun membre trouvé</h4></div>`; return; }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>Nom complet</th><th>Téléphone</th><th>Zone</th><th>Statut</th><th>Cotisation</th><th>Actions</th></tr></thead>
+    <tbody>${members.map(m=>`<tr>
+      <td><strong>${esc(m.prenom)} ${esc(m.nom||'')}</strong></td>
+      <td>${esc(m.tel||'—')}</td>
+      <td>${esc(m.zone||'—')}</td>
+      <td>${renderStatus(m.status)}</td>
+      <td>${m.montant?(Number(m.montant).toLocaleString('fr-FR')+' MRU'):'—'}</td>
+      <td><div class="actions-cell">
+        <button class="act-btn view" onclick="viewMemberModal('${esc(m.reference)}')">Voir</button>
+        ${m.status!=='valide'?`<button class="act-btn" style="background:var(--vert-clair);color:var(--vert)" onclick="quickValidate('${esc(m.reference)}')">✓ Valider</button>`:''}
+      </div></td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+function normalizeZone(zone) {
+  if (!zone) return '';
+  if (zone.includes('Thidé')) return 'edu';
+  if (zone.includes('Mauritanie') || zone.includes('Nation')) return 'eco';
+  if (zone.includes('Afrique')) return 'dias';
+  if (zone.includes('Europe')) return 'dias';
+  return '';
+}
+
+function renderSectionGallery() {
+  if (!currentSection) return;
+  const items = getGallery(currentSection.id);
+  const el = document.getElementById('sec-gallery-grid');
+  if (!items.length) { el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🖼️</div><h4>Galerie vide</h4><p>Ajoutez des photos avec le bouton ci-dessus.</p></div>`; return; }
+  el.innerHTML = items.map((item,i)=>`
+    <div class="gallery-item">
+      ${item.url ? `<img src="${esc(item.url)}" alt="${esc(item.caption||'')}">` : `<div class="gallery-placeholder">📷</div>`}
+      <div class="gal-overlay"><span>${esc(item.caption||'Photo '+(i+1))}</span></div>
+      <button style="position:absolute;top:6px;right:6px;background:rgba(255,0,0,.7);color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:12px" onclick="deleteGalleryItem('${currentSection.id}',${i})">✕</button>
+    </div>`).join('');
+}
+
+function renderSectionDocs() {
+  if (!currentSection) return;
+  renderDocList(getDocs(currentSection.id), 'sec-docs-list', currentSection.id);
+}
+
+function renderSectionReports() {
+  if (!currentSection) return;
+  const reports = getReports(currentSection.id);
+  const el = document.getElementById('sec-reports-list');
+  if (!reports.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><h4>Aucun compte rendu</h4><p>Rédigez votre premier CR avec le bouton ci-dessus.</p></div>`; return; }
+  el.innerHTML = reports.slice().reverse().map((r,i)=>`
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div style="font-size:15px;font-weight:600;color:var(--terre);margin-bottom:4px">${esc(r.title)}</div>
+          <div style="font-size:12px;color:var(--gris)">${r.date||''} ${r.author?'• '+r.author:''}</div>
+        </div>
+        <button class="act-btn del" onclick="deleteReport('${currentSection.id}',${reports.length-1-i})">🗑</button>
+      </div>
+      <p style="font-size:13.5px;color:var(--gris);margin-top:10px;line-height:1.6;white-space:pre-wrap">${esc(r.content)}</p>
+    </div>`).join('');
+}
+
+function renderSectionActions() {
+  if (!currentSection) return;
+  renderActionList(getActions(currentSection.id), 'sec-actions-list', currentSection.id, false);
+}
+
+function renderActionList(actions, elId, ctx, isOrgan) {
+  const el = document.getElementById(elId);
+  const statusIcon = {todo:'○',progress:'◑',done:'●'};
+  const statusClass = {todo:'todo',progress:'progress',done:'done'};
+  const statusLabel = {todo:'À faire',progress:'En cours',done:'Réalisé'};
+  if (!actions.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">📌</div><h4>Aucune tâche</h4><p>Ajoutez des tâches pour suivre les actions.</p></div>`; return; }
+  el.innerHTML = actions.slice().reverse().map((a,i)=>`
+    <div class="action-item">
+      <div class="action-status ${statusClass[a.status]||'todo'}">${statusIcon[a.status]||'○'}</div>
+      <div class="action-body">
+        <div class="action-title">${esc(a.title)}</div>
+        <div class="action-meta">${a.resp?'Responsable : '+esc(a.resp)+' — ':''}<span class="action-due">${a.due?'Échéance : '+a.due:''}</span></div>
+        ${a.notes?`<div style="font-size:12.5px;color:var(--gris);margin-top:6px">${esc(a.notes)}</div>`:''}
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        ${a.status!=='done'?`<button class="act-btn" style="background:var(--vert-clair);color:var(--vert);font-size:11px" onclick="toggleActionDone('${ctx}',${actions.length-1-i},${isOrgan})">✓</button>`:''}
+        <button class="act-btn del" onclick="deleteActionItem('${ctx}',${actions.length-1-i},${isOrgan})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// DRAWER : ORGANE
+// ════════════════════════════════════════════════════════════════════
+
+function openOrgan(id) {
+  const o = ORGANS.find(x=>x.id===id);
+  if (!o) return;
+  currentOrgan = o;
+  document.getElementById('organ-drawer-title').textContent = o.name;
+  document.getElementById('organ-drawer-sub').textContent = o.desc.substring(0,70)+'...';
+  document.getElementById('organ-overlay').classList.add('open');
+  document.getElementById('organ-drawer').classList.add('open');
+  document.body.style.overflow='hidden';
+  switchOrganTab('archives');
+}
+
+function switchOrganTab(tab) {
+  document.querySelectorAll('#organ-drawer .dtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#organ-drawer .dtab-panel').forEach(p=>p.classList.remove('active'));
+  const tabEl = document.querySelector(`#organ-drawer .dtab[onclick*="${tab}"]`);
+  const panelEl = document.getElementById('otab-'+tab);
+  if (tabEl) tabEl.classList.add('active');
+  if (panelEl) panelEl.classList.add('active');
+  if (tab==='archives') renderOrganArchives();
+  if (tab==='plans') renderOrganActions();
+  if (tab==='membres') renderOrganMembers();
+  if (tab==='pv') renderOrganPV();
+}
+
+function renderOrganArchives() {
+  if (!currentOrgan) return;
+  renderDocList(getDocs('org_'+currentOrgan.id), 'org-archives-list', 'org_'+currentOrgan.id);
+}
+
+function renderOrganActions() {
+  if (!currentOrgan) return;
+  renderActionList(getActions('org_'+currentOrgan.id), 'org-actions-list', 'org_'+currentOrgan.id, true);
+}
+
+function renderOrganMembers() {
+  if (!currentOrgan) return;
+  const el = document.getElementById('org-members-list');
+  el.innerHTML = `<div class="section-head"><h4 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:12px">Composition</h4></div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px">${currentOrgan.members.map(m=>`
+    <div style="padding:10px 18px;background:var(--vert-clair);border-radius:40px;font-size:13px;font-weight:600;color:var(--vert)">${esc(m)}</div>`).join('')}</div>`;
+}
+
+function renderOrganPV() {
+  if (!currentOrgan) return;
+  const pvs = getReports('org_'+currentOrgan.id);
+  const el = document.getElementById('org-pv-list');
+  if (!pvs.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><h4>Aucun PV</h4></div>`; return; }
+  el.innerHTML = pvs.slice().reverse().map((p,i)=>`
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div style="font-size:15px;font-weight:600">${esc(p.title)}</div>
+          <div style="font-size:12px;color:var(--gris);margin-top:3px">${p.date||''} ${p.type?'• '+p.type:''} ${p.author?'• '+p.author:''}</div>
+        </div>
+        <button class="act-btn del" onclick="deleteOrganPV(${pvs.length-1-i})">🗑</button>
+      </div>
+      <p style="font-size:13.5px;color:var(--gris);margin-top:10px;line-height:1.6;white-space:pre-wrap">${esc(p.content)}</p>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// DOCUMENTS
+// ════════════════════════════════════════════════════════════════════
+
+function renderGlobalDocs() {
+  const search = (document.getElementById('doc-search')||{}).value||'';
+  const cat = (document.getElementById('doc-cat-filter')||{}).value||'';
+  let docs = getDocs('global').filter(d=>{
+    const q = search.toLowerCase();
+    return (!q || d.title.toLowerCase().includes(q)) && (!cat || d.cat===cat);
+  });
+  const el = document.getElementById('docs-list-global');
+  if (!el) return;
+  if (!docs.length) { el.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📂</div><h4>Aucun document</h4></div>`; return; }
+  el.innerHTML = docs.slice().reverse().map(d=>buildDocCard(d,'global')).join('');
+}
+
+function filterDocs() { renderGlobalDocs(); }
+
+function renderDocList(docs, elId, ctx) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  if (!docs.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">📂</div><h4>Aucun document</h4><p>Ajoutez des documents avec le bouton ci-dessus.</p></div>`; return; }
+  el.innerHTML = docs.slice().reverse().map(d=>buildDocCard(d,ctx)).join('');
+}
+
+function buildDocCard(d, ctx) {
+  const ext = (d.name||'').split('.').pop().toLowerCase();
+  const iconClass = {pdf:'pdf',xlsx:'xlsx',xls:'xlsx',docx:'docx',doc:'docx',png:'img',jpg:'img',jpeg:'img'}[ext]||'other';
+  const iconEmoji = {pdf:'📄',xlsx:'📊',xls:'📊',docx:'📝',doc:'📝',png:'🖼️',jpg:'🖼️',jpeg:'🖼️'}[ext]||'📁';
+  return `<div class="doc-card">
+    <div class="doc-icon ${iconClass}">${iconEmoji}</div>
+    <div class="doc-info">
+      <div class="doc-name" title="${esc(d.title)}">${esc(d.title)}</div>
+      <div class="doc-meta">${d.date||''} ${d.cat?'• '+d.cat:''} ${d.desc?'• '+d.desc.substring(0,40)+'…':''}</div>
+    </div>
+    <div style="display:flex;gap:6px;flex-shrink:0">
+      ${d.data?`<button class="doc-dl" onclick="downloadDoc('${ctx}','${esc(d.id)}')">⬇ Télécharger</button>`:'<span style="font-size:12px;color:var(--gris)">Pas de fichier</span>'}
+      <button class="act-btn del" onclick="deleteDoc('${ctx}','${esc(d.id)}')">🗑</button>
+    </div>
+  </div>`;
+}
+
+function openUploadDocModal(ctx) {
+  currentDocCtx = ctx;
+  pendingDocFiles = [];
+  document.getElementById('doc-title-input').value='';
+  document.getElementById('doc-desc-input').value='';
+  document.getElementById('doc-file-preview').style.display='none';
+  openModal('modal-upload-doc');
+}
+
+function handleDocFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  pendingDocFiles = [file];
+  const prev = document.getElementById('doc-file-preview');
+  prev.style.display='block';
+  prev.textContent = `📎 ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+  if (!document.getElementById('doc-title-input').value)
+    document.getElementById('doc-title-input').value = file.name.replace(/\.[^.]+$/,'');
+}
+
+function saveDocument() {
+  const title = document.getElementById('doc-title-input').value.trim();
+  if (!title) { showToast('Veuillez saisir un titre','error'); return; }
+  const cat = document.getElementById('doc-cat-input').value;
+  const desc = document.getElementById('doc-desc-input').value.trim();
+  const id = 'doc_'+Date.now();
+  const doc = {id, title, cat, desc, date: new Date().toLocaleDateString('fr-FR'), name:''};
+  if (pendingDocFiles.length) {
+    const file = pendingDocFiles[0];
+    doc.name = file.name;
+    const reader = new FileReader();
+    reader.onload = e => {
+      doc.data = e.target.result;
+      finalizeDocSave(doc);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    finalizeDocSave(doc);
+  }
+}
+
+function finalizeDocSave(doc) {
+  const ctx = currentDocCtx;
+  const docs = getDocs(ctx);
+  docs.push(doc);
+  saveDocs(ctx, docs);
+  closeModal('modal-upload-doc');
+  showToast('✅ Document enregistré');
+  // Refresh relevant list
+  if (ctx==='global') { renderGlobalDocs(); renderHomeDocs(); }
+  else if (ctx.startsWith('org_')) renderOrganArchives();
+  else { renderSectionDocs(); }
+  pendingDocFiles = [];
+}
+
+function downloadDoc(ctx, docId) {
+  const docs = getDocs(ctx);
+  const d = docs.find(x=>x.id===docId);
+  if (!d||!d.data) { showToast('Fichier non disponible','error'); return; }
+  const a = document.createElement('a');
+  a.href = d.data; a.download = d.name||d.title;
+  a.click();
+}
+
+function deleteDoc(ctx, docId) {
+  if (!confirm('Supprimer ce document ?')) return;
+  const docs = getDocs(ctx).filter(d=>d.id!==docId);
+  saveDocs(ctx, docs);
+  showToast('Document supprimé');
+  if (ctx==='global') { renderGlobalDocs(); renderHomeDocs(); }
+  else if (ctx.startsWith('org_')) renderOrganArchives();
+  else renderSectionDocs();
+  renderAdminDocs();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// GALLERY
+// ════════════════════════════════════════════════════════════════════
+
+function openGalleryUpload() {
+  document.getElementById('gal-caption').value='';
+  document.getElementById('gal-preview').innerHTML='';
+  pendingGalFiles=[];
+  openModal('modal-gallery');
+}
+
+function handleGalleryFiles(input) {
+  const files = Array.from(input.files);
+  pendingGalFiles = files;
+  const prev = document.getElementById('gal-preview');
+  prev.innerHTML = '';
+  files.forEach(f=>{
+    const reader = new FileReader();
+    reader.onload = e => {
+      prev.innerHTML += `<img src="${e.target.result}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:2px solid var(--vert-clair)">`;
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+function saveGalleryItems() {
+  if (!currentSection) return;
+  const caption = document.getElementById('gal-caption').value.trim();
+  const items = getGallery(currentSection.id);
+  const reads = pendingGalFiles.map(f=>new Promise(res=>{
+    const reader = new FileReader();
+    reader.onload=e=>res({url:e.target.result,caption,date:new Date().toLocaleDateString('fr-FR')});
+    reader.readAsDataURL(f);
+  }));
+  Promise.all(reads).then(newItems=>{
+    saveGallery(currentSection.id, [...items,...newItems]);
+    closeModal('modal-gallery');
+    showToast(`✅ ${newItems.length} photo(s) ajoutée(s)`);
+    renderSectionGallery();
+    pendingGalFiles=[];
+  });
+  if (!pendingGalFiles.length) {
+    // No files - add placeholder
+    items.push({url:null,caption:caption||'Photo',date:new Date().toLocaleDateString('fr-FR')});
+    saveGallery(currentSection.id, items);
+    closeModal('modal-gallery');
+    showToast('✅ Photo ajoutée');
+    renderSectionGallery();
+  }
+}
+
+function deleteGalleryItem(ctx, i) {
+  if (!confirm('Supprimer cette photo ?')) return;
+  const items = getGallery(ctx);
+  items.splice(i,1);
+  saveGallery(ctx, items);
+  renderSectionGallery();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// REPORTS
+// ════════════════════════════════════════════════════════════════════
+
+function openReportModal() { openModal('modal-report'); }
+
+function saveReport() {
+  if (!currentSection) return;
+  const title = document.getElementById('rep-title').value.trim();
+  const content = document.getElementById('rep-content').value.trim();
+  if (!title||!content) { showToast('Titre et contenu requis','error'); return; }
+  const reports = getReports(currentSection.id);
+  reports.push({title, content,
+    date: document.getElementById('rep-date').value||new Date().toLocaleDateString('fr-FR'),
+    author: document.getElementById('rep-author').value.trim(),
+    id:'rep_'+Date.now()});
+  saveReports(currentSection.id, reports);
+  closeModal('modal-report');
+  showToast('✅ Compte rendu enregistré');
+  renderSectionReports();
+  document.getElementById('rep-title').value='';
+  document.getElementById('rep-content').value='';
+  document.getElementById('rep-author').value='';
+}
+
+function deleteReport(ctx, i) {
+  if (!confirm('Supprimer ce compte rendu ?')) return;
+  const r = getReports(ctx);
+  r.splice(i,1);
+  saveReports(ctx, r);
+  renderSectionReports();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ACTIONS
+// ════════════════════════════════════════════════════════════════════
+
+function openActionModal() { openModal('modal-action'); }
+function openOrganActionModal() { openModal('modal-action'); }
+
+function saveAction() {
+  const title = document.getElementById('act-title').value.trim();
+  if (!title) { showToast('Titre de la tâche requis','error'); return; }
+  const ctx = currentSection ? currentSection.id : (currentOrgan ? 'org_'+currentOrgan.id : 'global');
+  const actions = getActions(ctx);
+  actions.push({title, resp:document.getElementById('act-resp').value.trim(),
+    due:document.getElementById('act-due').value,
+    status:document.getElementById('act-status').value,
+    notes:document.getElementById('act-notes').value.trim(), id:'act_'+Date.now()});
+  saveActions(ctx, actions);
+  closeModal('modal-action');
+  showToast('✅ Tâche enregistrée');
+  if (currentSection) renderSectionActions();
+  else if (currentOrgan) renderOrganActions();
+  document.getElementById('act-title').value='';
+  document.getElementById('act-resp').value='';
+  document.getElementById('act-notes').value='';
+}
+
+function toggleActionDone(ctx, i, isOrgan) {
+  const actions = getActions(ctx);
+  if (!actions[i]) return;
+  actions[i].status = actions[i].status==='done'?'todo':'done';
+  saveActions(ctx, actions);
+  if (isOrgan) renderOrganActions();
+  else renderSectionActions();
+}
+
+function deleteActionItem(ctx, i, isOrgan) {
+  if (!confirm('Supprimer cette tâche ?')) return;
+  const a = getActions(ctx);
+  a.splice(i,1);
+  saveActions(ctx, a);
+  if (isOrgan) renderOrganActions();
+  else renderSectionActions();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ORGAN PV
+// ════════════════════════════════════════════════════════════════════
+
+function openOrganPVModal() { openModal('modal-organ-pv'); }
+
+function saveOrganPV() {
+  if (!currentOrgan) return;
+  const title = document.getElementById('pv-title').value.trim();
+  const content = document.getElementById('pv-content').value.trim();
+  if (!title||!content) { showToast('Titre et contenu requis','error'); return; }
+  const pvs = getReports('org_'+currentOrgan.id);
+  pvs.push({title, content,
+    date: document.getElementById('pv-date').value||new Date().toLocaleDateString('fr-FR'),
+    type: document.getElementById('pv-type').value,
+    id:'pv_'+Date.now()});
+  saveReports('org_'+currentOrgan.id, pvs);
+  closeModal('modal-organ-pv');
+  showToast('✅ PV enregistré');
+  renderOrganPV();
+}
+
+function deleteOrganPV(i) {
+  if (!confirm('Supprimer ce PV ?')) return;
+  if (!currentOrgan) return;
+  const pvs = getReports('org_'+currentOrgan.id);
+  pvs.splice(i,1);
+  saveReports('org_'+currentOrgan.id, pvs);
+  renderOrganPV();
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ADHÉSION
+// ════════════════════════════════════════════════════════════════════
+
+let adhData = {step:1, cotisId:null, cotisName:'', cotisAmount:0, paieType:'', paieLabel:''};
+
+function adhStep(n) {
+  if (n===2) {
+    const prenom = document.getElementById('a-prenom').value.trim();
+    const nom = document.getElementById('a-nom').value.trim();
+    const sexe = document.getElementById('a-sexe').value;
+    const tel = document.getElementById('a-tel').value.trim();
+    if (!prenom||!nom||!sexe||!tel) { showToast('Champs obligatoires incomplets','error'); return; }
+  }
+  if (n===3) {
+    if (!document.getElementById('a-zone').value) { showToast('Sélectionnez votre zone','error'); return; }
+    if (!adhData.cotisId) { showToast('Sélectionnez une catégorie de cotisation','error'); return; }
+  }
+  document.querySelectorAll('.adh-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('adh-s'+n).classList.add('active');
+  adhData.step = n;
+  for(let i=1;i<=4;i++){
+    const dot=document.getElementById('sdot-'+i), lbl=document.getElementById('slbl-'+i);
+    if(!dot||!lbl)continue;
+    if(i<n){dot.classList.add('done');dot.classList.remove('active');lbl.classList.remove('active')}
+    else if(i===n){dot.classList.add('active');dot.classList.remove('done');lbl.classList.add('active')}
+    else{dot.classList.remove('done','active');lbl.classList.remove('active')}
+  }
+  if (n===3) document.getElementById('adh-amount-display').textContent = adhData.cotisAmount.toLocaleString('fr-FR')+' MRU';
+}
+
+function updateCotis() {
+  // nothing extra needed
+}
+
+function selectCotis(id, name, amount) {
+  adhData.cotisId=id; adhData.cotisName=name; adhData.cotisAmount=amount;
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('co-'+i)?.classList.remove('selected');
+  });
+  document.getElementById('co-'+id)?.classList.add('selected');
+}
+
+function selectPaie(type, label, detail) {
+  adhData.paieType=type; adhData.paieLabel=label;
+  document.querySelectorAll('.paie-option').forEach(p=>p.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  const extra = document.getElementById('paie-extra');
+  extra.style.display = (type==='especes')?'none':'block';
+}
+
+function generateRef() {
+  return 'ADH-YELLITAARE-'+new Date().getFullYear()+'-'+(1000+getMembers().length);
+}
+
+async function submitAdhesion() {
+  if (!adhData.paieType) { showToast('Choisissez un mode de paiement','error'); return; }
+  const prenom=document.getElementById('a-prenom').value.trim();
+  const nom=document.getElementById('a-nom').value.trim();
+  const zone=document.getElementById('a-zone').value;
+  const ref = generateRef();
+  const member = {
+    reference: ref,
+    date: new Date().toLocaleDateString('fr-FR'),
+    nom, prenom, sexe:document.getElementById('a-sexe').value,
+    datenais:document.getElementById('a-dob').value,
+    tel:document.getElementById('a-tel').value.trim(),
+    email:document.getElementById('a-email').value.trim(),
+    profession:document.getElementById('a-prof').value.trim(),
+    adresse:document.getElementById('a-adr').value.trim(),
+    zone, categorie:adhData.cotisName, montant:adhData.cotisAmount,
+    paiement:adhData.paieLabel,
+    refTx:document.getElementById('a-reftx')?.value.trim()||'',
+    status:'attente', section: getSectionFromZone(zone)
+  };
+
+  // Sauvegarder localement d'abord (fallback)
+  const members = getLocalMembers();
+  members.push(member);
+  saveMembers(members);
+
+  // Désactiver le bouton pendant l'envoi
+  const submitBtn = document.querySelector('#adh-s3 .btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours...'; }
+
+  // Envoyer vers Google Sheets
+  const sent = await sendToSheets(member);
+  updateSyncBars();
+
+  // Rétablir le bouton
+  if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Soumettre mon dossier ✦'; }
+
+  // Afficher la confirmation
+  document.getElementById('conf-ref-display').textContent = ref;
+  const confMsg = document.getElementById('conf-msg');
+  if (sent) {
+    if (confMsg) confMsg.innerHTML = 'Votre dossier <strong>' + ref + '</strong> a été enregistré avec succès et transmis vers le registre Excel.<br>Utilisez votre référence pour suivre votre adhésion dans <strong>Espace Membre</strong>.';
+    showToast('🎉 Dossier enregistré et transmis vers Excel : '+ref);
+  } else {
+    if (confMsg) confMsg.innerHTML = 'Votre dossier <strong>' + ref + '</strong> a été sauvegardé localement.<br>⚠️ L’envoi vers Excel sera effectué lors de la prochaine synchronisation.<br>Conservez votre référence pour le suivi.';
+    showToast('⚠️ Dossier enregistré localement (en attente Excel) : '+ref, 'error');
+  }
+  adhStep(4);
+  refreshAdminSidebar();
+}
+
+function getSectionFromZone(zone) {
+  if (zone?.includes('Thidé')) return 'edu';
+  if (zone?.includes('Nationale')||zone?.includes('Mauritanie')) return 'eco';
+  if (zone?.includes('Afrique')) return 'dias';
+  if (zone?.includes('Europe')||zone?.includes('Amér')) return 'dias';
+  return 'edu';
+}
+
+function resetAdhesion() {
+  adhData = {step:1, cotisId:null, cotisName:'', cotisAmount:0, paieType:'', paieLabel:''};
+  document.querySelectorAll('.adh-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('adh-s1').classList.add('active');
+  // Reset form
+  ['a-prenom','a-nom','a-dob','a-tel','a-email','a-prof','a-adr'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('a-sexe').value='';
+  document.getElementById('a-zone').value='';
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('sdot-'+i)?.classList.remove('active','done');
+    document.getElementById('slbl-'+i)?.classList.remove('active');
+  });
+  document.getElementById('sdot-1')?.classList.add('active');
+  document.getElementById('slbl-1')?.classList.add('active');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ESPACE MEMBRE
+// ════════════════════════════════════════════════════════════════════
+
+function searchMember() {
+  const q = document.getElementById('membre-search-ref').value.trim().toLowerCase();
+  if (!q) { showToast('Entrez une référence, un nom ou un téléphone','error'); return; }
+  const members = getMembers().filter(m=>
+    (m.reference||'').toLowerCase().includes(q) ||
+    (m.nom||'').toLowerCase().includes(q) ||
+    (m.prenom+' '+(m.nom||'')).toLowerCase().includes(q) ||
+    (m.tel||'').replace(/\s/g,'').includes(q.replace(/\s/g,''))
+  );
+  const el = document.getElementById('membre-result');
+  if (!members.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><h4>Aucun dossier trouvé</h4><p>Vérifiez votre référence ou contactez l'administration.</p></div>`;
+    return;
+  }
+  el.innerHTML = members.map(m=>buildMemberCard(m)).join('');
+}
+
+function buildMemberCard(m) {
+  const statusLabel = {attente:'⏳ En attente de validation',valide:'✅ Membre validé',refuse:'❌ Dossier refusé'};
+  const statusCls = m.status||'attente';
+  return `<div class="member-card" style="margin-bottom:16px">
+    <div class="member-card-header">
+      <div class="member-status ${statusCls}">${statusLabel[statusCls]||statusCls}</div>
+      <div class="member-avatar">${(m.prenom||'?')[0].toUpperCase()}</div>
+      <div class="member-name">${esc(m.prenom)} ${esc(m.nom||'').toUpperCase()}</div>
+      <div class="member-ref">${esc(m.reference||'')}</div>
+    </div>
+    <div class="member-card-body">
+      <div class="member-info-row"><label>Date d'adhésion</label><span>${esc(m.date||'—')}</span></div>
+      <div class="member-info-row"><label>Zone</label><span>${esc(m.zone||'—')}</span></div>
+      <div class="member-info-row"><label>Catégorie</label><span>${esc(m.categorie||'—')}</span></div>
+      <div class="member-info-row"><label>Cotisation</label><span style="font-weight:700;color:var(--vert)">${m.montant?(Number(m.montant).toLocaleString('fr-FR')+' MRU'):'—'}</span></div>
+      <div class="member-info-row"><label>Mode de paiement</label><span>${esc(m.paiement||'—')}</span></div>
+      <div class="member-info-row"><label>Téléphone</label><span>${esc(m.tel||'—')}</span></div>
+      ${m.email?`<div class="member-info-row"><label>Email</label><span>${esc(m.email)}</span></div>`:''}
+    </div>
+    ${m.status==='valide'?`<div style="padding:16px 20px;background:var(--vert-clair);text-align:center">
+      <p style="font-size:13px;color:var(--vert);font-weight:600">🎉 Bienvenue dans la famille YELLITAARE ! Votre dossier a été validé.</p>
+    </div>`:''}
+    ${m.status==='attente'?`<div style="padding:16px 20px;background:var(--or-clair);text-align:center">
+      <p style="font-size:13px;color:var(--or-fonce);font-weight:600">⏳ Votre dossier est en cours d'examen par l'administration.</p>
+    </div>`:''}
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ADMINISTRATION
+// ════════════════════════════════════════════════════════════════════
+
+function adminTab(tab) {
+  document.querySelectorAll('.admin-panel').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('admin-panel-'+tab).style.display='block';
+  document.getElementById('sb-'+tab)?.classList.add('active');
+  if(tab==='membres'){renderAdminTable();renderAdminStatsCards();}
+  if(tab==='docs'){renderAdminDocs();}
+  if(tab==='sections'){renderAdminSections();}
+  if(tab==='organs'){renderAdminOrgans();}
+}
+
+function renderAdminStatsCards() {
+  const members = getMembers();
+  const el = document.getElementById('admin-stats-cards');
+  if (!el) return;
+  const stats = [
+    {num:members.length,lbl:'Total dossiers',gold:false},
+    {num:members.filter(m=>m.status==='valide').length,lbl:'Validés',gold:false},
+    {num:members.filter(m=>m.status==='attente').length,lbl:'En attente',gold:true},
+    {num:members.filter(m=>m.status==='refuse').length,lbl:'Refusés',gold:false},
+  ];
+  el.innerHTML = stats.map(s=>`<div class="stat-card ${s.gold?'gold':''}">
+    <div class="stat-num">${s.num}</div><div class="stat-label">${s.lbl}</div></div>`).join('');
+}
+
+function refreshAdminSidebar() {
+  const m = getMembers();
+  const el = document.getElementById('admin-stats-sidebar');
+  if (el) el.innerHTML = `<strong>${m.length}</strong> dossiers au total<br><strong style="color:var(--vert)">${m.filter(x=>x.status==='valide').length}</strong> validés`;
+}
+
+function renderAdminTable() {
+  const search = (document.getElementById('adm-search')||{}).value?.toLowerCase()||'';
+  const zone = (document.getElementById('adm-zone')||{}).value||'';
+  const status = (document.getElementById('adm-status')||{}).value||'';
+  let members = getMembers().filter(m=>{
+    const q = search;
+    const matchQ = !q || (m.nom+' '+m.prenom+' '+(m.reference||'')).toLowerCase().includes(q);
+    const matchZ = !zone || m.zone===zone;
+    const matchS = !status || m.status===status;
+    return matchQ && matchZ && matchS;
+  });
+  const el = document.getElementById('admin-table-body');
+  if (!members.length) { el.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h4>Aucun dossier trouvé</h4></div>`; return; }
+  el.innerHTML = `<table><thead><tr>
+    <th>Référence</th><th>Nom complet</th><th>Zone</th><th>Téléphone</th>
+    <th>Catégorie</th><th>Cotisation</th><th>Statut</th><th>Date</th><th>Actions</th>
+  </tr></thead><tbody>${members.map(m=>`<tr>
+    <td style="font-size:12px;font-family:monospace">${esc(m.reference||'')}</td>
+    <td><strong>${esc(m.prenom)} ${esc(m.nom||'')}</strong></td>
+    <td><span class="tag tag-grey" style="font-size:10px">${esc((m.zone||'').substring(0,18))}</span></td>
+    <td>${esc(m.tel||'—')}</td>
+    <td style="font-size:12px">${esc(m.categorie||'—')}</td>
+    <td style="font-weight:700;color:var(--vert)">${m.montant?(Number(m.montant).toLocaleString('fr-FR')+' MRU'):'—'}</td>
+    <td>${renderStatus(m.status)}</td>
+    <td style="font-size:12px">${esc(m.date||'—')}</td>
+    <td><div class="actions-cell">
+      <button class="act-btn view" onclick="viewMemberModal('${esc(m.reference)}')">Voir</button>
+      ${m.status!=='valide'?`<button class="act-btn" style="background:var(--vert-clair);color:var(--vert)" onclick="changeStatus('${esc(m.reference)}','valide')">✓</button>`:''}
+      ${m.status!=='refuse'?`<button class="act-btn del" onclick="changeStatus('${esc(m.reference)}','refuse')">✗</button>`:''}
+      <button class="act-btn del" onclick="deleteMember('${esc(m.reference)}')">🗑</button>
+    </div></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function renderAdminDocs() {
+  const docs = getDocs('global');
+  const el = document.getElementById('admin-docs-list');
+  if (!el) return;
+  if (!docs.length) { el.innerHTML=`<div class="empty-state"><div class="empty-icon">📂</div><h4>Aucun document global</h4></div>`; return; }
+  el.innerHTML = docs.slice().reverse().map(d=>buildDocCard(d,'global')).join('');
+}
+
+function renderAdminSections() {
+  const el = document.getElementById('admin-sections-list');
+  if (!el) return;
+  el.innerHTML = SECTIONS.map(s=>`
+    <div class="card" style="cursor:pointer;border-top:3px solid ${s.color}" onclick="openSection('${s.id}')">
+      <div style="font-size:24px;margin-bottom:10px">${s.icon}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:6px">${s.name}</div>
+      <div style="font-size:12px;color:var(--gris);margin-bottom:10px">${s.resp}</div>
+      <div style="display:flex;gap:12px;font-size:12.5px">
+        <span><strong style="color:var(--vert)">${getDocs(s.id).length}</strong> docs</span>
+        <span><strong style="color:var(--vert)">${getReports(s.id).length}</strong> CR</span>
+        <span><strong style="color:var(--vert)">${getActions(s.id).length}</strong> tâches</span>
+      </div>
+      <button class="btn btn-sm btn-outline" style="margin-top:12px;width:100%;justify-content:center">Gérer →</button>
+    </div>`).join('');
+}
+
+function renderAdminOrgans() {
+  const el = document.getElementById('admin-organs-list');
+  if (!el) return;
+  el.innerHTML = ORGANS.map(o=>`
+    <div class="card" style="cursor:pointer;border-top:3px solid ${o.color}" onclick="openOrgan('${o.id}')">
+      <div style="font-size:28px;margin-bottom:10px">${o.icon}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:6px">${o.name}</div>
+      <p style="font-size:13px;color:var(--gris);margin-bottom:12px;line-height:1.5">${o.desc.substring(0,80)}...</p>
+      <div style="display:flex;gap:14px;font-size:13px">
+        <span><strong style="color:${o.color}">${getDocs('org_'+o.id).length}</strong> archives</span>
+        <span><strong style="color:${o.color}">${getActions('org_'+o.id).length}</strong> actions</span>
+        <span><strong style="color:${o.color}">${getReports('org_'+o.id).length}</strong> PV</span>
+      </div>
+      <button class="btn btn-sm btn-outline" style="margin-top:14px;width:100%;justify-content:center">Gérer →</button>
+    </div>`).join('');
+}
+
+// Member actions
+function viewMemberModal(ref) {
+  const m = getMembers().find(x=>x.reference===ref);
+  if (!m) return;
+  const body = document.getElementById('member-view-body');
+  const footer = document.getElementById('member-view-footer');
+  body.innerHTML = buildMemberCard(m);
+  footer.innerHTML = `
+    <button class="btn btn-outline btn-sm" onclick="closeModal('modal-member-view')">Fermer</button>
+    ${m.status!=='valide'?`<button class="btn btn-primary btn-sm" onclick="changeStatus('${esc(ref)}','valide');closeModal('modal-member-view')">✅ Valider</button>`:''}
+    ${m.status!=='refuse'?`<button class="btn btn-sm btn-danger" onclick="if(confirm('Refuser ?')){changeStatus('${esc(ref)}','refuse');closeModal('modal-member-view')}">❌ Refuser</button>`:''}`;
+  openModal('modal-member-view');
+}
+
+function changeStatus(ref, status) {
+  const members = getMembers();
+  const i = members.findIndex(m=>m.reference===ref);
+  if (i===-1) return;
+  members[i].status = status;
+  saveMembers(members);
+  showToast(status==='valide'?'✅ Dossier validé':'❌ Dossier refusé', status==='refuse'?'error':'');
+  renderAdminTable(); renderAdminStatsCards(); refreshAdminSidebar(); renderHomeStats();
+  if (currentSection) renderSectionMembers();
+}
+
+function quickValidate(ref) { changeStatus(ref, 'valide'); }
+
+function deleteMember(ref) {
+  if (!confirm('Supprimer définitivement ce dossier ?')) return;
+  saveMembers(getMembers().filter(m=>m.reference!==ref));
+  showToast('Dossier supprimé');
+  renderAdminTable(); renderAdminStatsCards(); refreshAdminSidebar(); renderHomeStats();
+  if (currentSection) renderSectionMembers();
+}
+
+function resetAdminFilters() {
+  ['adm-search','adm-zone','adm-status'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderAdminTable();
+}
+
+function exportCSV() {
+  const members = getMembers();
+  if (!members.length) { showToast('Aucun dossier à exporter','error'); return; }
+  const headers = ['Référence','Date','Prénom','Nom','Sexe','Téléphone','Email','Zone','Profession','Catégorie','Montant (MRU)','Paiement','Réf. transaction','Statut'];
+  const rows = members.map(m=>[m.reference,m.date,m.prenom,m.nom,m.sexe,m.tel,m.email,m.zone,m.profession,m.categorie,m.montant,m.paiement,m.refTx,m.status].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`));
+  const csv = [headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='YELLITAARE_adherents_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  showToast('✅ Export CSV téléchargé');
+}
+
+
+// ════════════════════════════════════════════════════════════════════
+// DEMO DATA
+// ════════════════════════════════════════════════════════════════════
+
+function purgeLocalCache() {
+  if (!confirm('Supprimer les documents et dossiers locaux non synchronisés ?')) return;
+  const syncedMembers = getLocalMembers().filter(m => m.cloudSyncedAt);
+  saveMembers(syncedMembers);
+  saveDocs('global', []);
+  saveGallery('global', []);
+  saveReports('global', []);
+  saveActions('global', []);
+  showToast('✅ Cache local nettoyé');
+  renderAdminTable(); renderAdminStatsCards(); refreshAdminSidebar();
+  renderHomeStats(); renderHomeSections(); renderHomeDocs();
+  renderGlobalDocs();
+  updateSyncBars();
+}
+
+function loadDemoData() {
+  showToast('Le mode démo a été supprimé dans cette version.', 'error');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════════════════════════════════
+
+function renderStatus(s) {
+  const m = {valide:'✅ Validé',attente:'⏳ En attente',refuse:'❌ Refusé'};
+  const c = {valide:'tag-green',attente:'tag-gold',refuse:'tag-red'};
+  return `<span class="tag ${c[s]||'tag-grey'}">${m[s]||s}</span>`;
+}
+
+function esc(s) {
+  if (s==null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function openModal(id) {
+  const m = document.getElementById(id);
+  if (m) { m.classList.add('open'); document.body.style.overflow='hidden'; }
+}
+function closeModal(id) {
+  const m = document.getElementById(id);
+  if (m) { m.classList.remove('open'); document.body.style.overflow=''; }
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) closeModal(o.id); });
+});
+
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show' + (type==='error'?' error':'');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.className='', 3500);
+}
+
+// ════════════════════════════════════════════════════════════════════
+// TDB ADHÉSIONS — Tableau de bord
+// ════════════════════════════════════════════════════════════════════
+
+let tdbCharts = {};
+let TDB_FILTERED = [];
+
+async function tdbRefresh() {
+  showToast('⏳ Actualisation en cours...');
+  try {
+    await loadMembersFromSheets();
+  } catch(e) { /* continue with local data */ }
+  tdbApplyFilters();
+  updateSyncBars();
+  showToast('✅ Tableau de bord actualisé (données locales / Excel)');
+}
+
+function tdbApplyFilters() {
+  const members = getMembers();
+  const s = (document.getElementById('tdb-fSearch')?.value||'').trim().toLowerCase();
+  const z = document.getElementById('tdb-fZone')?.value||'';
+  const c = document.getElementById('tdb-fCat')?.value||'';
+  const st = document.getElementById('tdb-fStat')?.value||'';
+  const d = document.getElementById('tdb-fDate')?.value||'';
+
+  TDB_FILTERED = members.filter(m => {
+    const txt = [m.reference,m.prenom,m.nom,m.tel,m.zone,m.categorie,m.paiement].join(' ').toLowerCase();
+    const hitS = !s || txt.includes(s);
+    const hitZ = !z || m.zone===z;
+    const hitC = !c || m.categorie===c;
+    const hitSt = !st || m.status===st;
+    // Date filter: convert DD/MM/YYYY to YYYY-MM
+    let hitD = true;
+    if (d && m.date) {
+      const parts = m.date.split('/');
+      if (parts.length===3) {
+        const ym = parts[2]+'-'+parts[1];
+        hitD = ym === d;
+      }
+    }
+    return hitS && hitZ && hitC && hitSt && hitD;
+  });
+
+  tdbRenderStats();
+  tdbRenderTable();
+  tdbRenderCharts();
+  tdbRenderAlerts();
+  tdbRenderTopZones();
+  updateSyncBars();
+}
+
+function tdbRenderStats() {
+  const total = TDB_FILTERED.length;
+  const valides = TDB_FILTERED.filter(m=>m.status==='valide').length;
+  const attente = TDB_FILTERED.filter(m=>m.status==='attente').length;
+  const montant = TDB_FILTERED.reduce((a,m)=>a+(Number(m.montant)||0),0);
+  const el = document.getElementById('tdb-stats');
+  if (!el) return;
+  el.innerHTML = [
+    {n:total,l:'Total adhérents',g:false},
+    {n:valides,l:'Paiements validés',g:false},
+    {n:attente,l:'En attente',g:true},
+    {n:montant.toLocaleString('fr-FR')+' MRU',l:'Montant total collecté',g:true},
+  ].map(s=>`<div class="stat-card ${s.g?'gold':''}"><div class="stat-num">${s.n}</div><div class="stat-label">${s.l}</div></div>`).join('');
+}
+
+function tdbRenderTable() {
+  const el = document.getElementById('tdb-table-body');
+  const note = document.getElementById('tdb-table-note');
+  if (!el) return;
+  if (!TDB_FILTERED.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><h4>Aucune donnée</h4><p>Aucun adhérent ne correspond aux filtres sélectionnés.</p></div>';
+    if(note) note.textContent = '0 ligne affichée.';
+    return;
+  }
+  el.innerHTML = `<table><thead><tr>
+    <th>Référence</th><th>Date</th><th>Nom complet</th><th>Téléphone</th>
+    <th>Zone</th><th>Catégorie</th><th>Montant</th><th>Mode</th><th>Statut</th>
+  </tr></thead><tbody>${TDB_FILTERED.map(m=>`<tr>
+    <td style="font-size:12px;font-family:monospace">${esc(m.reference||'')}</td>
+    <td>${esc(m.date||'—')}</td>
+    <td><strong>${esc(m.prenom||'')} ${esc(m.nom||'')}</strong></td>
+    <td>${esc(m.tel||'—')}</td>
+    <td><span class="tag tag-grey" style="font-size:10px">${esc((m.zone||'').substring(0,20))}</span></td>
+    <td style="font-size:12px">${esc(m.categorie||'—')}</td>
+    <td style="font-weight:700;color:var(--vert)">${m.montant?(Number(m.montant).toLocaleString('fr-FR')+' MRU'):'—'}</td>
+    <td>${esc(m.paiement||'—')}</td>
+    <td>${renderStatus(m.status)}</td>
+  </tr>`).join('')}</tbody></table>`;
+  if(note) note.textContent = TDB_FILTERED.length+' ligne(s) affichée(s).';
+}
+
+function tdbRenderCharts() {
+  // Destroy existing
+  Object.values(tdbCharts).forEach(c=>c&&c.destroy&&c.destroy());
+  tdbCharts = {};
+
+  const rows = TDB_FILTERED;
+  if (!rows.length) return;
+
+  // Monthly
+  const monthly = {};
+  rows.forEach(m=>{
+    if (!m.date) return;
+    const p = m.date.split('/');
+    const k = p.length===3 ? p[1]+'/'+p[2] : 'N/A';
+    monthly[k] = (monthly[k]||0)+1;
+  });
+
+  const el1 = document.getElementById('tdb-chartMonth');
+  if(el1) tdbCharts.month = new Chart(el1, {
+    type:'bar',
+    data:{labels:Object.keys(monthly),datasets:[{label:'Adhésions',data:Object.values(monthly),backgroundColor:'#1A5C2A'}]},
+    options:{responsive:true,maintainAspectRatio:false}
+  });
+
+  // Status
+  const statuses = {};
+  rows.forEach(m=>{ const k=m.status==='valide'?'Validé':m.status==='refuse'?'Refusé':'En attente'; statuses[k]=(statuses[k]||0)+1; });
+  const el2 = document.getElementById('tdb-chartStatus');
+  if(el2) tdbCharts.status = new Chart(el2, {
+    type:'doughnut',
+    data:{labels:Object.keys(statuses),datasets:[{data:Object.values(statuses),backgroundColor:['#1A5C2A','#DC2626','#C9982A','#94A3B8']}]},
+    options:{responsive:true,maintainAspectRatio:false}
+  });
+
+  // Zone
+  const zones = {};
+  rows.forEach(m=>{ const k=m.zone||'Non renseignée'; zones[k]=(zones[k]||0)+1; });
+  const el3 = document.getElementById('tdb-chartZone');
+  if(el3) tdbCharts.zone = new Chart(el3, {
+    type:'bar',
+    data:{labels:Object.keys(zones),datasets:[{label:'Membres',data:Object.values(zones),backgroundColor:'#2E7D32'}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y'}
+  });
+
+  // Catégorie
+  const cats = {};
+  rows.forEach(m=>{ const k=m.categorie||'Non renseignée'; cats[k]=(cats[k]||0)+1; });
+  const el4 = document.getElementById('tdb-chartCat');
+  if(el4) tdbCharts.cat = new Chart(el4, {
+    type:'pie',
+    data:{labels:Object.keys(cats),datasets:[{data:Object.values(cats),backgroundColor:['#1A5C2A','#C9982A','#1565C0','#7B1FA2','#E65100','#00838F']}]},
+    options:{responsive:true,maintainAspectRatio:false}
+  });
+}
+
+function tdbRenderAlerts() {
+  const el = document.getElementById('tdb-alerts');
+  if (!el) return;
+  const alerts = [];
+  const att = TDB_FILTERED.filter(m=>m.status==='attente').length;
+  const rej = TDB_FILTERED.filter(m=>m.status==='refuse').length;
+  const sansZone = TDB_FILTERED.filter(m=>!m.zone).length;
+  if(att) alerts.push(`<div class="card" style="padding:12px;margin-bottom:8px;border-left:4px solid var(--or)">⏳ Paiements en attente : <strong>${att}</strong></div>`);
+  if(rej) alerts.push(`<div class="card" style="padding:12px;margin-bottom:8px;border-left:4px solid var(--rouge)">❌ Paiements refusés : <strong>${rej}</strong></div>`);
+  if(sansZone) alerts.push(`<div class="card" style="padding:12px;margin-bottom:8px;border-left:4px solid var(--gris)">⚠️ Dossiers sans zone : <strong>${sansZone}</strong></div>`);
+  if(!alerts.length) alerts.push(`<div class="card" style="padding:12px;border-left:4px solid var(--vert)">✅ Aucune alerte critique.</div>`);
+  el.innerHTML = alerts.join('');
+}
+
+function tdbRenderTopZones() {
+  const el = document.getElementById('tdb-topZones');
+  if (!el) return;
+  const sums = {};
+  TDB_FILTERED.forEach(m=>{ const k=m.zone||'Non renseignée'; sums[k]=(sums[k]||0)+(Number(m.montant)||0); });
+  const top = Object.entries(sums).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  if(!top.length) { el.innerHTML='<div class="card" style="padding:12px">Aucune donnée.</div>'; return; }
+  el.innerHTML = top.map(([k,v])=>`
+    <div class="card" style="padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+      <strong>${esc(k)}</strong>
+      <span style="font-family:'Playfair Display',serif;font-weight:900;color:var(--vert)">${Number(v).toLocaleString('fr-FR')} MRU</span>
+    </div>`).join('');
+}
+
+// Synchroniser tous les membres locaux non encore envoyés vers Excel
+async function syncAllToSheets() {
+  const local = getLocalMembers();
+  if (!local.length) { showToast('Aucun dossier local à synchroniser','error'); return; }
+  if (!API_URL || API_URL.includes('COLLER')) { showToast('URL Power Automate non configurée','error'); return; }
+
+  showToast('⏳ Envoi vers Excel en cours...');
+  let sent = 0, failed = 0;
+
+  for (const m of local) {
+    if (m.cloudSyncedAt) { sent++; continue; }
+    const ok = await sendToSheets(m);
+    if (ok) sent++; else failed++;
+  }
+
+  updateSyncBars();
+
+  if (failed === 0) {
+    showToast('✅ Envoi vers Excel terminé : '+sent+' dossier(s)');
+  } else {
+    showToast('⚠️ '+sent+' envoyé(s), '+failed+' échoué(s)', 'error');
+  }
+
+  renderAdminTable(); renderAdminStatsCards(); refreshAdminSidebar(); renderHomeStats();
+}
+
+async function adminRefreshFromSheets() {
+  showToast('⏳ Actualisation locale...');
+  await loadMembersFromSheets();
+  updateSyncBars();
+  renderAdminTable(); renderAdminStatsCards(); refreshAdminSidebar();
+  showToast('✅ Données locales actualisées. Le registre central est dans Excel.');
+}
+
+
+function updateSyncBars() {
+  const bars = [
+    {dot:'tdb-sync-dot', text:'tdb-sync-text'},
+    {dot:'admin-sync-dot', text:'admin-sync-text'}
+  ];
+  const localCount = getLocalMembers().length;
+  const pendingCount = getPendingMembers().length;
+  const syncedCount = localCount - pendingCount;
+  const configured = !!(API_URL && /^https:\/\/.+/i.test(API_URL));
+
+  bars.forEach(b => {
+    const dot = document.getElementById(b.dot);
+    const txt = document.getElementById(b.text);
+    if (!dot || !txt) return;
+
+    if (!configured) {
+      dot.className = 'sync-dot offline';
+      txt.innerHTML = '🟠 URL Power Automate non configurée · ' + localCount + ' dossier(s) stocké(s) localement';
+      return;
+    }
+
+    if (pendingCount > 0) {
+      dot.className = 'sync-dot offline';
+      txt.innerHTML = '🟠 Excel configuré · <strong style="color:var(--or-fonce)">' + pendingCount + ' dossier(s) en attente</strong> · ' + syncedCount + ' déjà envoyé(s)';
+    } else {
+      dot.className = 'sync-dot online';
+      txt.innerHTML = '🟢 Excel / Power Automate prêt · ' + syncedCount + ' dossier(s) envoyé(s)';
+    }
+  });
+}
+
+
+function tdbExportExcel() {
+  if (!TDB_FILTERED.length) { showToast('Aucune donnée à exporter','error'); return; }
+  const rows = TDB_FILTERED.map(m=>({
+    Référence:m.reference, Date:m.date,
+    Prénom:m.prenom, Nom:m.nom,
+    Téléphone:m.tel, Zone:m.zone,
+    Catégorie:m.categorie, 'Montant (MRU)':m.montant,
+    'Mode de paiement':m.paiement, Statut:m.status==='valide'?'Validé':m.status==='refuse'?'Refusé':'En attente'
+  }));
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Adhésions');
+  XLSX.writeFile(wb, 'YELLITAARE_TDB_Adhesions_'+new Date().toISOString().slice(0,10)+'.xlsx');
+  showToast('✅ Export Excel téléchargé');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', async ()=>{
+  buildNavDropdowns();
+  renderHome();
+  refreshAdminSidebar();
+
+  // Remplir le champ URL
+  const urlInput = document.getElementById('api-url-input');
+  if (urlInput) urlInput.value = API_URL;
+
+  // Version production : pas de chargement de données démo.
+  updateSyncBars();
+});
+</script>
+</body>
+</html>
