@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "members": {
+      ".read": true,
+      ".write": true
+    },
+    "spaces": {
+      ".read": true,
+      ".write": true
+    },
+    "docs": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
