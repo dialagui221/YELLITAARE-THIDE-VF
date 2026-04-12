@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
 <style>
 :root{
   --vert:#1A5C2A;--vert-mid:#2E7D32;--vert-clair:#E8F5E9;--vert-pale:#F1F9F2;
@@ -39,9 +40,11 @@ nav{
 }
 nav.scrolled{box-shadow:0 4px 24px rgba(26,92,42,.1)}
 .nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}
-.nav-logo img{
-  height:42px;width:auto;object-fit:contain;display:block;flex-shrink:0;
-  filter:drop-shadow(0 3px 8px rgba(0,0,0,.08));
+.nav-badge{
+  width:40px;height:40px;border-radius:50%;background:var(--vert);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;
+  flex-shrink:0;
 }
 .nav-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert)}
 .nav-links{display:flex;align-items:center;gap:4px}
@@ -222,28 +225,10 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
   align-items:center;padding:80px 48px;
   position:relative;overflow:hidden;
 }
-.hero::before{
-  content:"";
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,152,42,.1) 0%,transparent 70%),
-    radial-gradient(ellipse 40% 60% at 10% 80%,rgba(26,92,42,.07) 0%,transparent 60%),
-    url('logo-thide.png') no-repeat right 8% center;
-  background-size:auto,auto,420px;
-  opacity:1;
-  pointer-events:none;
-}
-.hero::after{
-  content:"";
-  position:absolute;inset:0;
-  background:url('logo-thide.png') no-repeat right 8% center;
-  background-size:420px;
-  opacity:.05;
-  filter:blur(1px);
-  pointer-events:none;
-}
 .hero-bg{
   position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,152,42,.1) 0%,transparent 70%),
+             radial-gradient(ellipse 40% 60% at 10% 80%,rgba(26,92,42,.07) 0%,transparent 60%);
   pointer-events:none;
 }
 .hero-slab{
@@ -251,11 +236,6 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
   background:var(--sable);clip-path:polygon(10% 0,100% 0,100% 100%,0% 100%);z-index:0;
 }
 .hero-content{position:relative;z-index:1;padding-right:40px}
-.hero-logo{margin-bottom:18px}
-.hero-logo img{
-  height:92px;width:auto;object-fit:contain;display:block;
-  filter:drop-shadow(0 6px 16px rgba(0,0,0,.12));
-}
 .hero-pill{
   display:inline-flex;align-items:center;gap:8px;
   font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
@@ -360,6 +340,24 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
 .g5{background:linear-gradient(135deg,#FAEEDA,#FAC775)}
 .g6{background:linear-gradient(135deg,#E8F5E9,#A5D6A7)}
 .gallery-caption{position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.4));color:#fff;font-size:12px;font-weight:600}
+.gallery-topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.gallery-actions{display:flex;gap:10px;flex-wrap:wrap}
+.gallery-item{outline:none}
+.gallery-item.has-image{align-items:flex-end;justify-content:flex-start}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,24,39,.08) 0%,rgba(17,24,39,.58) 100%);display:flex;flex-direction:column;justify-content:space-between;padding:14px;opacity:0;transition:opacity .2s}
+.gallery-item:hover .gallery-overlay,.gallery-item:focus .gallery-overlay{opacity:1}
+.gallery-actions-mini{display:flex;gap:8px;flex-wrap:wrap}
+.gallery-mini-btn,.gallery-folder-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:600;backdrop-filter:blur(8px)}
+.gallery-mini-btn{background:rgba(255,255,255,.92);color:var(--vert);border:1px solid rgba(255,255,255,.95)}
+.gallery-folder-chip{background:rgba(26,92,42,.82);color:#fff;border:1px solid rgba(255,255,255,.16)}
+.gallery-item .gallery-caption{display:flex;flex-direction:column;gap:4px}
+.gallery-caption-title{font-size:12px;font-weight:700;color:#fff}
+.gallery-caption-sub{font-size:10px;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.8px}
+.gallery-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:18px}
+.gallery-placeholder-icon{font-size:52px;line-height:1}
+.gallery-placeholder-text{font-size:12px;font-weight:600;color:var(--vert);background:rgba(255,255,255,.85);padding:7px 12px;border-radius:999px}
+@media(max-width:768px){.gallery-topbar{align-items:stretch}.gallery-actions{width:100%}.gallery-actions .btn{flex:1}.gallery-overlay{opacity:1}.gallery-mini-btn,.gallery-folder-chip{font-size:10px;padding:5px 9px}}
+
 
 /* ═══ PAGE FAQ ══════════════════════════════════════════════════════════ */
 .faq-cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
@@ -436,22 +434,8 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
   .nav-links{display:none}
   .hamburger{display:flex}
   .hero{grid-template-columns:1fr;padding:40px 20px;min-height:auto}
-  .hero::before{
-    background:
-      radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,152,42,.1) 0%,transparent 70%),
-      radial-gradient(ellipse 40% 60% at 10% 80%,rgba(26,92,42,.07) 0%,transparent 60%),
-      url('logo-thide.png') no-repeat center 36%;
-    background-size:auto,auto,250px;
-  }
-  .hero::after{
-    background:url('logo-thide.png') no-repeat center 36%;
-    background-size:250px;
-    opacity:.04;
-  }
   .hero-slab,.hero-visual{display:none}
   .hero-content{padding-right:0}
-  .hero-logo img{height:72px}
-  .nav-logo img{height:38px}
   .section-wrap{padding:56px 20px}
   .card-grid-3,.card-grid-4{grid-template-columns:1fr}
   .card-grid-2{grid-template-columns:1fr}
@@ -1292,7 +1276,7 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
 <!-- ═══ NAV ═══════════════════════════════════════════════════════════════ -->
 <nav id="navbar">
   <div class="nav-logo" onclick="navigate('accueil')">
-    <img src="logo-thide.png" alt="Logo YELLITAARE THIDÉ">
+    <div class="nav-badge">YT</div>
     <span class="nav-name">YELLITAARE Thidé</span>
   </div>
   <div class="nav-links">
@@ -1336,9 +1320,6 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
     <div class="hero-bg"></div>
     <div class="hero-slab"></div>
     <div class="hero-content fade">
-      <div class="hero-logo">
-        <img src="logo-thide.png" alt="Logo YELLITAARE THIDÉ">
-      </div>
       <div class="hero-pill"><div class="pulse"></div><span data-i18n="hero_pill">Organisation communautaire inclusive</span></div>
       <h1 data-i18n="hero_title">Ensemble pour <em>Thidé</em>,<br>de partout dans le monde</h1>
       <p class="hero-sub" data-i18n="hero_sub">YELLITAARE Thidé unit les ressortissants du village — résidents, citadins et diaspora — autour d'un cadre formel, transparent et exigeant, au service du développement durable de la communauté.</p>
@@ -2324,12 +2305,18 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
   </div>
   <div class="section-wrap">
     <div class="container">
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px">
-        <button class="faq-cat active" onclick="filterGallery('all',this)">Tous</button>
-        <button class="faq-cat" onclick="filterGallery('projets',this)">Projets</button>
-        <button class="faq-cat" onclick="filterGallery('evenements',this)">Événements</button>
-        <button class="faq-cat" onclick="filterGallery('village',this)">Village</button>
-        <button class="faq-cat" onclick="filterGallery('diaspora',this)">Diaspora</button>
+      <div class="gallery-topbar">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="faq-cat active" onclick="filterGallery('all',this)">Tous</button>
+          <button class="faq-cat" onclick="filterGallery('projets',this)">Projets</button>
+          <button class="faq-cat" onclick="filterGallery('evenements',this)">Événements</button>
+          <button class="faq-cat" onclick="filterGallery('village',this)">Village</button>
+          <button class="faq-cat" onclick="filterGallery('diaspora',this)">Diaspora</button>
+        </div>
+        <div class="gallery-actions">
+          <button class="btn btn-outline" onclick="openAddGalleryModal()">+ Ajouter l'image</button>
+          <button class="btn btn-outline" onclick="manageGalleryFolders()">📁 Dossier</button>
+        </div>
       </div>
       <div class="gallery-grid" id="gallery-grid">
         <!-- Rempli par JS -->
@@ -2800,6 +2787,11 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
               </select>
             </div>
             <div class="form-group">
+              <label>Dossier / album</label>
+              <input type="text" id="gal-dossier" placeholder="Ex : Projets 2026, Village, Événement Baaba Maal">
+              <span class="hint">Permet de classer les images dans un dossier logique.</span>
+            </div>
+            <div class="form-group">
               <label>Image <span class="req">*</span></label>
               <div style="border:2px dashed var(--gris-clair);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;" onclick="document.getElementById('gal-file-input').click()">
                 <div id="gal-preview" style="margin-bottom:8px;">
@@ -2807,6 +2799,7 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
                 </div>
                 <p style="font-size:13px;color:var(--vert);font-weight:600;">Cliquez pour choisir une image</p>
                 <p style="font-size:11px;color:var(--gris);margin-top:4px;">JPG, PNG ou WebP — max 3 Mo</p>
+                <p id="gal-storage-note" style="font-size:11px;color:var(--or-fonce);margin-top:6px;">☁ Si Firebase est activé, l’image sera enregistrée en ligne pour tous les visiteurs.</p>
                 <input type="file" id="gal-file-input" accept="image/*" style="display:none" onchange="previewGalleryImage(this)">
               </div>
             </div>
@@ -4028,6 +4021,7 @@ function toggleAccordion(btn) {
 const TDB_KEY = 'yellitaare_members';
 var fbApp = null;
 var fbDB = null;
+var fbStorage = null;
 var fbReady = false;
 var fbListenerAttached = false;
 
@@ -4042,9 +4036,10 @@ function fbInit() {
     if (!fbApp) {
       fbApp = firebase.initializeApp(config);
       fbDB = firebase.database();
+      fbStorage = config.storageBucket ? firebase.storage() : null;
     }
     fbReady = true;
-    fbSetStatus('online', '🟢 Firebase connecté — données synchronisées en temps réel');
+    fbSetStatus('online', fbStorage ? '🟢 Firebase connecté — données et images synchronisées en temps réel' : '🟢 Firebase connecté — données synchronisées en temps réel');
 
     // Écouter les changements en temps réel
     if (!fbListenerAttached) {
@@ -4142,6 +4137,7 @@ function fbClearConfig() {
   fbReady = false;
   fbApp = null;
   fbDB = null;
+  fbStorage = null;
   fbSetStatus('off', 'Firebase désactivé — données en local uniquement');
   showToast('Firebase désactivé');
 }
@@ -4157,7 +4153,7 @@ function fbSyncNow() {
     return fbDB.ref('gallery').set(gallery);
   }).then(function() {
     showToast('✅ Synchronisation Firebase terminée');
-    fbSetStatus('online', '🟢 Firebase synchronisé — ' + members.length + ' membre(s)');
+    fbSetStatus('online', fbStorage ? '🟢 Firebase synchronisé — données et galerie en ligne' : '🟢 Firebase synchronisé — ' + members.length + ' membre(s)');
   }).catch(function(e) {
     showToast('⚠ Erreur sync : ' + e.message);
   });
@@ -5986,13 +5982,50 @@ var galImageData = null;
 
 var GAL_COLORS = ['g1','g2','g3','g4','g5','g6'];
 var GAL_DEFAULTS = [
-  { id:'def-1', titre:'École réhabilitée — Village de Thidé', categorie:'projets', emoji:'🏫', layout:'wide tall', color:'g1', imageUrl:null },
-  { id:'def-2', titre:'Projet Baaba Maal', categorie:'evenements', emoji:'🎵', layout:'normal', color:'g2', imageUrl:null },
-  { id:'def-3', titre:'Mosquée communautaire', categorie:'village', emoji:'🕌', layout:'normal', color:'g3', imageUrl:null },
-  { id:'def-4', titre:'Réunion de section — Nouakchott', categorie:'diaspora', emoji:'🤝', layout:'normal', color:'g4', imageUrl:null },
-  { id:'def-5', titre:'Projet eau potable', categorie:'projets', emoji:'💧', layout:'normal', color:'g5', imageUrl:null },
-  { id:'def-6', titre:'Rencontre diaspora Europe', categorie:'diaspora', emoji:'🌍', layout:'wide', color:'g6', imageUrl:null }
+  { id:'def-1', titre:'École réhabilitée — Village de Thidé', categorie:'projets', dossier:'Infrastructures éducatives', emoji:'🏫', layout:'wide tall', color:'g1', imageUrl:null },
+  { id:'def-2', titre:'Projet Baaba Maal', categorie:'evenements', dossier:'Événements communautaires', emoji:'🎵', layout:'normal', color:'g2', imageUrl:null },
+  { id:'def-3', titre:'Mosquée communautaire', categorie:'village', dossier:'Patrimoine du village', emoji:'🕌', layout:'normal', color:'g3', imageUrl:null },
+  { id:'def-4', titre:'Réunion de section — Nouakchott', categorie:'diaspora', dossier:'Sections & diaspora', emoji:'🤝', layout:'normal', color:'g4', imageUrl:null },
+  { id:'def-5', titre:'Projet eau potable', categorie:'projets', dossier:'Hydraulique', emoji:'💧', layout:'normal', color:'g5', imageUrl:null },
+  { id:'def-6', titre:'Rencontre diaspora Europe', categorie:'diaspora', dossier:'Sections & diaspora', emoji:'🌍', layout:'wide', color:'g6', imageUrl:null }
 ];
+
+function suggestGalleryFolder(categorie) {
+  var map = {
+    projets: 'Projets communautaires',
+    evenements: 'Événements communautaires',
+    village: 'Vie du village',
+    diaspora: 'Sections & diaspora'
+  };
+  return map[categorie] || 'Galerie générale';
+}
+
+function manageGalleryFolders() {
+  var items = loadGallery();
+  var folders = [];
+  items.forEach(function(g) {
+    var folder = (g.dossier || '').trim();
+    if (folder && folders.indexOf(folder) === -1) folders.push(folder);
+  });
+  var existing = folders.length ? '\n\nDossiers existants :\n- ' + folders.join('\n- ') : '';
+  var name = window.prompt('Nom du dossier à utiliser pour la galerie :' + existing, '');
+  if (name === null) return;
+  name = name.trim();
+  if (!name) { showToast('⚠ Aucun dossier saisi'); return; }
+  openAddGalleryModal();
+  document.getElementById('gal-dossier').value = name;
+  showToast('📁 Dossier prêt : ' + name);
+}
+
+async function uploadGalleryFileToFirebase(file, itemId) {
+  if (!fbReady || !fbStorage) throw new Error('Firebase Storage non configuré');
+  var originalName = (file && file.name ? file.name : 'image').replace(/[^a-zA-Z0-9._-]/g, '-');
+  var ext = originalName.indexOf('.') !== -1 ? originalName.split('.').pop() : 'jpg';
+  var storagePath = 'gallery/' + itemId + '/' + Date.now() + '.' + ext;
+  var ref = fbStorage.ref(storagePath);
+  await ref.put(file, { contentType: file.type || 'image/jpeg' });
+  return await ref.getDownloadURL();
+}
 
 function loadGallery() {
   try {
@@ -6026,15 +6059,19 @@ function renderGallery() {
   grid.innerHTML = filtered.map(function(g, i) {
     var layoutClass = (g.layout || 'normal').split(' ').filter(function(c) { return c === 'wide' || c === 'tall'; }).join(' ');
     var colorClass = g.color || GAL_COLORS[i % GAL_COLORS.length];
-    var bgStyle = g.imageUrl
-      ? 'background-image:url(' + g.imageUrl + ');background-size:cover;background-position:center;'
-      : '';
-    var content = g.imageUrl ? '' : '<span>' + (g.emoji || '📷') + '</span>';
+    var dossier = g.dossier || suggestGalleryFolder(g.categorie);
+    var styleParts = [];
+    if (g.imageUrl) {
+      styleParts.push('background-image:url(' + g.imageUrl + ')');
+      styleParts.push('background-size:cover');
+      styleParts.push('background-position:center');
+    }
+    var placeholder = g.imageUrl ? '' : '<div class="gallery-placeholder"><div class="gallery-placeholder-icon">' + (g.emoji || '📷') + '</div><div class="gallery-placeholder-text">Ajouter l\'image</div></div>';
+    var overlay = '<div class="gallery-overlay"><div class="gallery-actions-mini"><span class="gallery-mini-btn">🖼 Ajouter l\'image</span><span class="gallery-folder-chip">📁 ' + dossier + '</span></div><div class="gallery-caption"><span class="gallery-caption-title">' + (g.titre || '') + '</span><span class="gallery-caption-sub">Cliquer pour modifier</span></div></div>';
 
-    return '<div class="gallery-item ' + colorClass + ' ' + layoutClass + '" style="' + bgStyle + '">' +
-      content +
-      '<div class="gallery-caption">' + (g.titre || '') + '</div>' +
-    '</div>';
+    return '<button type="button" class="gallery-item ' + colorClass + ' ' + layoutClass + (g.imageUrl ? ' has-image' : '') + '" style="' + styleParts.join(';') + '" onclick="editGalleryItem(\'' + g.id + '\')" aria-label="Ajouter ou modifier une image pour ' + (g.titre || 'la galerie') + '">' +
+      placeholder + overlay +
+    '</button>';
   }).join('');
 }
 
@@ -6053,9 +6090,11 @@ document.addEventListener('DOMContentLoaded', function() { renderGallery(); });
 function openAddGalleryModal() {
   editingGalId = null;
   galImageData = null;
+  galPendingFile = null;
   document.getElementById('gallery-modal-title').textContent = 'Ajouter une photo';
   document.getElementById('gal-titre').value = '';
   document.getElementById('gal-categorie').value = '';
+  document.getElementById('gal-dossier').value = '';
   document.getElementById('gal-emoji').value = '';
   document.getElementById('gal-layout').value = 'normal';
   document.getElementById('gal-preview').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:36px;color:var(--gris);"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
@@ -6071,14 +6110,18 @@ function editGalleryItem(id) {
 
   editingGalId = id;
   galImageData = item.imageUrl || null;
-  document.getElementById('gallery-modal-title').textContent = 'Modifier la photo';
+  galPendingFile = null;
+  document.getElementById('gallery-modal-title').textContent = item.imageUrl ? 'Modifier la photo' : 'Ajouter une image';
   document.getElementById('gal-titre').value = item.titre || '';
   document.getElementById('gal-categorie').value = item.categorie || '';
+  document.getElementById('gal-dossier').value = item.dossier || suggestGalleryFolder(item.categorie);
   document.getElementById('gal-emoji').value = item.emoji || '';
   document.getElementById('gal-layout').value = item.layout || 'normal';
 
   if (item.imageUrl) {
     document.getElementById('gal-preview').innerHTML = '<img src="' + item.imageUrl + '" style="max-height:120px;border-radius:8px;">';
+  } else {
+    document.getElementById('gal-preview').innerHTML = '<div style="font-size:40px;">' + (item.emoji || '📷') + '</div>';
   }
   document.getElementById('gallery-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -6089,12 +6132,14 @@ function closeGalleryModal() {
   document.body.style.overflow = '';
   editingGalId = null;
   galImageData = null;
+  galPendingFile = null;
 }
 
 function previewGalleryImage(input) {
   var file = input.files[0];
   if (!file) return;
-  if (file.size > 3 * 1024 * 1024) { showToast('⚠ Image trop lourde (max 3 Mo)'); return; }
+  if (file.size > 3 * 1024 * 1024) { showToast('⚠ Image trop lourde (max 3 Mo)'); input.value = ''; return; }
+  galPendingFile = file;
   var reader = new FileReader();
   reader.onload = function(e) {
     galImageData = e.target.result;
@@ -6103,9 +6148,10 @@ function previewGalleryImage(input) {
   reader.readAsDataURL(file);
 }
 
-function saveGalleryItem() {
+async function saveGalleryItem() {
   var titre = document.getElementById('gal-titre').value.trim();
   var categorie = document.getElementById('gal-categorie').value;
+  var dossier = document.getElementById('gal-dossier').value.trim();
   var emoji = document.getElementById('gal-emoji').value.trim();
   var layout = document.getElementById('gal-layout').value;
 
@@ -6113,37 +6159,52 @@ function saveGalleryItem() {
   if (!categorie) { showToast('⚠ Veuillez choisir une catégorie'); return; }
 
   var items = loadGallery();
-
-  if (editingGalId) {
-    var idx = items.findIndex(function(g) { return g.id === editingGalId; });
-    if (idx !== -1) {
-      items[idx].titre = titre;
-      items[idx].categorie = categorie;
-      items[idx].emoji = emoji || items[idx].emoji;
-      items[idx].layout = layout;
-      if (galImageData) items[idx].imageUrl = galImageData;
-    }
-  } else {
-    var colorIdx = items.length % GAL_COLORS.length;
-    items.push({
-      id: 'gal-' + Date.now(),
-      titre: titre,
-      categorie: categorie,
-      emoji: emoji || '📷',
-      layout: layout,
-      color: GAL_COLORS[colorIdx],
-      imageUrl: galImageData || null
-    });
-  }
+  var targetId = editingGalId || ('gal-' + Date.now());
+  var uploadedUrl = null;
+  var hadPendingUpload = !!galPendingFile;
 
   try {
+    if (galPendingFile && fbReady && fbStorage) {
+      showToast('⏳ Téléversement de l’image vers Firebase...');
+      uploadedUrl = await uploadGalleryFileToFirebase(galPendingFile, targetId);
+    } else if (galPendingFile && fbReady && !fbStorage) {
+      showToast('ℹ Firebase Storage non configuré : image enregistrée dans la base partagée.');
+    }
+
+    if (editingGalId) {
+      var idx = items.findIndex(function(g) { return g.id === editingGalId; });
+      if (idx !== -1) {
+        items[idx].titre = titre;
+        items[idx].categorie = categorie;
+        items[idx].dossier = dossier || items[idx].dossier || suggestGalleryFolder(categorie);
+        items[idx].emoji = emoji || items[idx].emoji;
+        items[idx].layout = layout;
+        if (uploadedUrl) items[idx].imageUrl = uploadedUrl;
+        else if (galImageData) items[idx].imageUrl = galImageData;
+      }
+    } else {
+      var colorIdx = items.length % GAL_COLORS.length;
+      items.push({
+        id: targetId,
+        titre: titre,
+        categorie: categorie,
+        dossier: dossier || suggestGalleryFolder(categorie),
+        emoji: emoji || '📷',
+        layout: layout,
+        color: GAL_COLORS[colorIdx],
+        imageUrl: uploadedUrl || galImageData || null
+      });
+    }
+
     saveGallery(items);
     closeGalleryModal();
     renderGallery();
     renderGalleryAdmin();
-    showToast(editingGalId ? '✅ Photo modifiée' : '✅ Photo ajoutée à la galerie');
+    if (hadPendingUpload && fbReady && fbStorage) showToast(editingGalId ? '✅ Image mise à jour et publiée en ligne' : '✅ Image ajoutée et publiée en ligne');
+    else showToast(editingGalId ? '✅ Photo modifiée' : '✅ Photo ajoutée à la galerie');
   } catch(e) {
-    showToast('⚠ Espace de stockage insuffisant — réduisez la taille de l\'image');
+    console.error('Gallery save error:', e);
+    showToast('⚠ ' + (e && e.message ? e.message : 'Erreur lors de l’enregistrement de l’image'));
   }
 }
 
@@ -6184,7 +6245,7 @@ function renderGalleryAdmin() {
       thumb +
       '<div class="doc-info">' +
         '<div class="doc-name">' + g.titre + '</div>' +
-        '<div class="doc-meta">' + (catLabels[g.categorie] || g.categorie) + ' · ' + layoutLabel + '</div>' +
+        '<div class="doc-meta">' + (catLabels[g.categorie] || g.categorie) + ' · ' + layoutLabel + ' · 📁 ' + (g.dossier || suggestGalleryFolder(g.categorie)) + '</div>' +
       '</div>' +
       '<div class="doc-actions">' +
         '<button class="doc-btn download" onclick="editGalleryItem(\'' + g.id + '\')">✏ Modifier</button>' +
