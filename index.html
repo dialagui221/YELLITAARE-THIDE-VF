@@ -6405,4 +6405,64 @@ if ('serviceWorker' in navigator) {
 </div>
 
 </body>
-</html>
+</html>function openAddGalleryModal() {
+  const folders = getGalleryFolders();
+  openAppModal({
+    icon: '📷',
+    title: 'Ajouter une image',
+    subtitle: 'Galerie Photos',
+    fields: [
+      { type: 'file', id: 'gallery_file', label: 'Sélectionner l\'image', accept: 'image/*' },
+      { type: 'input', id: 'gallery_title', label: 'Titre / Légende', placeholder: 'Ex: Assemblée Générale' },
+      { type: 'select', id: 'gallery_folder', label: 'Dossier', options: [{value:'Village', label:'Village'}].concat(folders.map(f => ({value:f, label:f}))) }
+    ],
+    confirmText: 'Ajouter',
+    onConfirm: function(values) {
+      const fileInput = document.getElementById('gallery_file');
+      if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const newItem = {
+            id: 'G-' + Date.now(),
+            title: values.gallery_title || 'Sans titre',
+            folder: values.gallery_folder,
+            url: e.target.result, // Base64 pour le local, à remplacer par URL Firebase si actif
+            date: new Date().toISOString()
+          };
+          saveToGallery(newItem);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  });
+}function manageGalleryFolders() {
+  const name = prompt("Nom du nouveau dossier pour la galerie :");
+  if (name && name.trim() !== "") {
+    let gallery = JSON.parse(localStorage.getItem('yellitaare_gallery_folders') || '["Projets", "Événements", "Village", "Diaspora"]');
+    if (!gallery.includes(name.trim())) {
+      gallery.push(name.trim());
+      localStorage.getItem('yellitaare_gallery_folders', JSON.stringify(gallery));
+      renderGalleryFilters(); // Rafraîchit les boutons de filtrage
+      showToast("Dossier créé");
+    }
+  }
+}
+
+function getGalleryFolders() {
+  return JSON.parse(localStorage.getItem('yellitaare_gallery_folders') || '["Projets", "Événements", "Village", "Diaspora"]');
+}function saveToGallery(item) {
+  if (fbReady) {
+    fbDB.ref('gallery').push(item).then(() => {
+      closeAppModal();
+      showToast("Image enregistrée sur Firebase");
+    });
+  } else {
+    // Fallback LocalStorage
+    let localG = JSON.parse(localStorage.getItem('yellitaare_gallery') || '[]');
+    localG.push(item);
+    localStorage.setItem('yellitaare_gallery', JSON.stringify(localG));
+    renderGallery();
+    closeAppModal();
+  }
+}
