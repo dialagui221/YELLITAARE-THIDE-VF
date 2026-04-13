@@ -209,7 +209,39 @@ nav.scrolled{box-shadow:0 4px 24px rgba(26,92,42,.1)}
     <img src="logo-thide-light.png" alt="YELLITAARE Thidé">
   </picture>
 </div>
+.footer-logo img{
+  height: 90px;
+  width: auto;
+  display: block;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+  animation: floatLogo 4s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
 
+@keyframes floatLogo{
+  0%, 100%{transform: translateY(0);}
+  50%{transform: translateY(-6px);}
+}
+
+.footer-logo img:hover{
+  transform: scale(1.08);
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25));
+}
+
+@media (prefers-color-scheme: dark){
+  .footer-logo img{
+    filter:
+      drop-shadow(0 0 8px rgba(201,152,42,0.65))
+      drop-shadow(0 0 18px rgba(201,152,42,0.35));
+  }
+
+  .footer-logo img:hover{
+    filter:
+      drop-shadow(0 0 10px rgba(201,152,42,0.85))
+      drop-shadow(0 0 22px rgba(201,152,42,0.55));
+  }
+}
 /* ═══ PAGE ACCUEIL ══════════════════════════════════════════════════════ */
 .hero{
   min-height:calc(100vh - var(--nav-h));
