@@ -6406,3 +6406,123 @@ if ('serviceWorker' in navigator) {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellitaare Thide - Plateforme Communautaire</title>
+    <style>
+        /* Styles de base */
+        body { font-family: sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
+
+        /* Header */
+        header { background: #fff; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ddd; position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box; }
+        
+        /* MODIFICATION : Agrandissement du logo */
+        .logo-container { display: flex; align-items: center; }
+        .logo-container img { height: 60px; width: auto; margin-right: 10px; }
+        .site-title { font-size: 1.5em; font-weight: bold; color: #333; }
+
+        nav ul { display: flex; gap: 20px; }
+        nav a { font-weight: 500; color: #555; }
+        nav a:hover { color: #007bff; }
+
+        /* Section Galerie */
+        .gallery-section { padding: 100px 20px 60px; max-width: 1200px; margin: 0 auto; }
+        
+        /* MODIFICATION : Style de l'en-tête de la galerie avec les icônes */
+        .gallery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        .gallery-title { font-size: 2em; margin: 0; color: #333; }
+        .gallery-actions { display: flex; gap: 15px; align-items: center; }
+        
+        .action-icon { font-size: 1.5rem; color: #555; cursor: pointer; transition: color 0.3s, transform 0.2s; background: none; border: none; padding: 5px; }
+        .action-icon:hover { color: #007bff; transform: scale(1.1); }
+        .action-icon:active { transform: scale(0.95); }
+
+        /* Grille de la galerie */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .gallery-item { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer; }
+        .gallery-item:hover { transform: translateY(-5px); }
+        .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .gallery-item-info { padding: 15px; }
+        .gallery-item-title { font-weight: bold; margin-bottom: 5px; color: #333; }
+        .gallery-item-meta { font-size: 0.9em; color: #777; }
+
+        /* Responsivité */
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 15px; text-align: center; }
+            .logo-container { margin-bottom: 10px; flex-direction: column; }
+            .logo-container img { margin-right: 0; margin-bottom: 5px; height: 50px; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .gallery-section { padding-top: 160px; }
+            .gallery-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .gallery-actions { width: 100%; justify-content: flex-end; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="logo-thide.jpg" alt="Logo Yellitaare Thide">
+        <span class="site-title">Yellitaare Thide</span>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#actualites">Actualités</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="galerie" class="gallery-section">
+        <div class="gallery-header">
+            <h1 class="gallery-title">Galerie Communautaire</h1>
+            
+            <div class="gallery-actions">
+                <button class="action-icon" title="Créer un nouveau dossier" onclick="alert('Fonctionnalité de création de dossier à implémenter.')">📁</button>
+                <button class="action-icon" title="Ajouter une image" onclick="openAddGalleryModal()">➕</button>
+            </div>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+            <div class="gallery-item" onclick="alert('Afficher l image en grand')">
+                <img src="https://via.placeholder.com/400x300?text=Evenement+1" alt="Événement communutaire 1">
+                <div class="gallery-item-info">
+                    <div class="gallery-item-title">Réunion Publique - Janvier 2024</div>
+                    <div class="gallery-item-meta">Par : Admin | 15/01/2024</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="alert('Afficher l image en grand')">
+                <img src="https://via.placeholder.com/400x300?text=Projet+Route" alt="Construction Route">
+                <div class="gallery-item-info">
+                    <div class="gallery-item-title">Avancement Travaux Route</div>
+                    <div class="gallery-item-meta">Par : Commission Travaux | 02/02/2024</div>
+                </div>
+            </div>
+             <div class="gallery-item" onclick="alert('Afficher l image en grand')">
+                <img src="https://via.placeholder.com/400x300?text=Ecole" alt="École Thide">
+                <div class="gallery-item-info">
+                    <div class="gallery-item-title">Rénovation de l'École</div>
+                    <div class="gallery-item-meta">Par : Association Parents | 10/02/2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    function openAddGalleryModal() {
+        alert("Ouverture du formulaire d'ajout d'image (à implémenter avec votre logique de backend/Firebase).");
+    }
+</script>
+
+</body>
+</html>
