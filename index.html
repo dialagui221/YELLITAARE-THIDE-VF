@@ -214,4 +214,1912 @@ footer{background:var(--terre);color:rgba(255,255,255,.7);padding:64px 48px 32px
 .footer-col button:hover{color:#fff}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;font-size:12px;opacity:.4;flex-wrap:wrap;gap:8px}
 
-/* ═══ PAGE ACCUEIL ════════════════════════════════════════════════════
+/* ═══ PAGE ACCUEIL ══════════════════════════════════════════════════════ */
+.hero{
+  min-height:calc(100vh - var(--nav-h));
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;padding:80px 48px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,152,42,.1) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%,rgba(26,92,42,.07) 0%,transparent 60%),
+    url('logo-thide.png') no-repeat right 8% center;
+  background-size:auto,auto,420px;
+  opacity:1;
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background:url('logo-thide.png') no-repeat right 8% center;
+  background-size:420px;
+  opacity:.05;
+  filter:blur(1px);
+  pointer-events:none;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  pointer-events:none;
+}
+.hero-slab{
+  position:absolute;top:0;right:0;width:52%;height:100%;
+  background:var(--sable);clip-path:polygon(10% 0,100% 0,100% 100%,0% 100%);z-index:0;
+}
+.hero-content{position:relative;z-index:1;padding-right:40px}
+.hero-logo{margin-bottom:18px}
+.hero-logo img{
+  height:92px;width:auto;object-fit:contain;display:block;
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.12));
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--or-fonce);background:var(--or-clair);border:1px solid rgba(201,152,42,.3);
+  padding:6px 14px;border-radius:40px;margin-bottom:26px;
+}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--or);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(1.4)}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,68px);font-weight:900;line-height:1.08;color:var(--vert);margin-bottom:22px}
+.hero h1 em{font-style:italic;color:var(--or)}
+.hero-sub{font-size:16px;line-height:1.7;color:var(--gris);max-width:460px;margin-bottom:36px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-visual{position:relative;z-index:1;height:440px}
+.h-card{position:absolute;background:#fff;border-radius:var(--radius);padding:22px;box-shadow:0 8px 36px rgba(0,0,0,.1);border:1px solid rgba(26,92,42,.08)}
+.h-card-main{width:300px;top:60px;right:60px;animation:fl1 6s ease-in-out infinite}
+.h-card-stat{width:160px;bottom:80px;right:20px;animation:fl2 5s ease-in-out infinite 1s}
+.h-card-tag{width:170px;top:16px;right:10px;padding:14px 18px;animation:fl3 7s ease-in-out infinite .5s}
+@keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fl2{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes fl3{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.hc-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gris);margin-bottom:8px}
+.hc-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--vert);margin-bottom:6px}
+.hc-text{font-size:12px;color:var(--gris);line-height:1.5}
+.hc-bar{height:4px;background:var(--vert-clair);border-radius:2px;margin-top:14px;overflow:hidden}
+.hc-fill{height:100%;background:linear-gradient(90deg,var(--vert),var(--or));border-radius:2px;width:78%}
+.hc-num{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:var(--vert);line-height:1}
+.hc-desc{font-size:12px;color:var(--gris);margin-top:4px}
+.hc-dot{width:8px;height:8px;border-radius:50%;background:var(--or);margin-right:8px;display:inline-block}
+
+/* ═══ PAGE QUI SOMMES-NOUS ══════════════════════════════════════════════ */
+.gouvernance-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.organe-card{background:#fff;border-radius:var(--radius);padding:28px;border:1px solid rgba(26,92,42,.1);border-top:4px solid var(--vert)}
+.organe-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--vert);margin-bottom:6px}
+.organe-card .role{font-size:12px;color:var(--or-fonce);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.organe-card ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.organe-card li{font-size:13px;color:var(--gris);display:flex;gap:8px;line-height:1.5}
+.organe-card li::before{content:'›';color:var(--or);font-weight:700;flex-shrink:0}
+.valeurs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:32px}
+.valeur-card{text-align:center;padding:28px 20px}
+.valeur-icon{font-size:36px;margin-bottom:14px}
+.valeur-card h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px}
+.valeur-card p{font-size:13px;color:var(--gris);line-height:1.6}
+
+/* ═══ PAGE PROJETS ══════════════════════════════════════════════════════ */
+.projet-big{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:40px;border-radius:var(--radius);background:var(--vert-pale);border:1px solid rgba(26,92,42,.1);margin-bottom:32px}
+.rapport-row{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-radius:var(--radius);background:#fff;border:1px solid rgba(26,92,42,.09);margin-bottom:10px;transition:.2s}
+.rapport-row:hover{box-shadow:0 4px 16px rgba(0,0,0,.07);transform:translateX(4px)}
+.rapport-row h4{font-size:14px;font-weight:600;color:var(--terre)}
+.rapport-row .meta{font-size:12px;color:var(--gris)}
+
+/* ═══ PAGE ACTUALITÉS ═══════════════════════════════════════════════════ */
+.actu-featured{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-bottom:40px}
+.actu-img-big{height:260px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:64px;margin-bottom:20px}
+.agenda-item{display:flex;gap:20px;padding:20px;border-radius:var(--radius);background:#fff;border:1px solid rgba(26,92,42,.09);margin-bottom:12px;align-items:flex-start;transition:.2s}
+.agenda-item:hover{box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.agenda-date{flex-shrink:0;text-align:center;padding:10px 14px;background:var(--vert);border-radius:10px;color:#fff;min-width:56px}
+.agenda-date .day{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;line-height:1}
+.agenda-date .month{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;opacity:.8}
+.agenda-body h4{font-size:15px;font-weight:600;color:var(--terre);margin-bottom:4px}
+.agenda-body p{font-size:13px;color:var(--gris);line-height:1.5}
+.agenda-body .lieu{font-size:11px;color:var(--or-fonce);font-weight:600;margin-top:6px}
+
+/* ═══ PAGE ESPACE MEMBRE ════════════════════════════════════════════════ */
+.cotis-table{width:100%;border-collapse:collapse;margin-top:20px}
+.cotis-table th{background:var(--vert);color:#fff;padding:12px 20px;text-align:left;font-weight:600;font-size:13px}
+.cotis-table td{padding:14px 20px;border-bottom:1px solid rgba(26,92,42,.08);font-size:14px}
+.cotis-table tr:nth-child(even) td{background:var(--vert-pale)}
+.cotis-table .amount{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert)}
+.member-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:32px}
+.m-step{text-align:center;padding:28px 20px}
+.m-step-num{
+  width:52px;height:52px;border-radius:50%;background:var(--vert);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#fff;
+}
+.m-step h3{font-size:15px;font-weight:600;color:var(--terre);margin-bottom:8px}
+.m-step p{font-size:13px;color:var(--gris);line-height:1.6}
+
+/* ═══ PAGE CONTACT ══════════════════════════════════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.contact-info-card{background:var(--vert);border-radius:var(--radius);padding:36px;color:#fff}
+.contact-info-card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:20px}
+.c-info-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px}
+.c-info-icon{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:16px}
+.c-info-row h4{font-size:13px;font-weight:600;margin-bottom:3px}
+.c-info-row p{font-size:13px;opacity:.72;line-height:1.5}
+.sections-locales{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.sl-card{background:rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.15)}
+.sl-card h4{font-size:13px;font-weight:600;margin-bottom:4px}
+.sl-card p{font-size:12px;opacity:.7}
+
+/* ═══ PAGE GALERIE ══════════════════════════════════════════════════════ */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:16px;margin-top:32px}
+.gallery-item{border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:52px;cursor:pointer;transition:.25s;position:relative}
+.gallery-item:hover{transform:scale(1.02)}
+.gallery-item.wide{grid-column:span 2}
+.gallery-item.tall{grid-row:span 2}
+.g1{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
+.g2{background:linear-gradient(135deg,#FDF6E3,#F5E6B0)}
+.g3{background:linear-gradient(135deg,#F5F0E8,#E8D9C4)}
+.g4{background:linear-gradient(135deg,#E1F5EE,#9FE1CB)}
+.g5{background:linear-gradient(135deg,#FAEEDA,#FAC775)}
+.g6{background:linear-gradient(135deg,#E8F5E9,#A5D6A7)}
+.gallery-caption{position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.4));color:#fff;font-size:12px;font-weight:600}
+.gallery-admin-badge{position:absolute;top:10px;left:10px;padding:6px 10px;border-radius:20px;background:rgba(26,92,42,.88);color:#fff;font-size:11px;font-weight:700;z-index:2;backdrop-filter:blur(4px)}
+.gallery-file-count{position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:20px;background:rgba(255,255,255,.92);color:var(--vert);font-size:11px;font-weight:700;z-index:2}
+.gallery-item span{position:relative;z-index:1}
+
+/* ═══ PAGE FAQ ══════════════════════════════════════════════════════════ */
+.faq-cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.faq-cat{padding:8px 18px;border-radius:40px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--vert);color:var(--vert);background:transparent;font-family:'Outfit',sans-serif;transition:.2s}
+.faq-cat.active,.faq-cat:hover{background:var(--vert);color:#fff}
+
+/* ═══ PAGE DONS ═════════════════════════════════════════════════════════ */
+.don-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:32px}
+.don-card{background:#fff;border-radius:var(--radius);padding:28px;border:2px solid rgba(26,92,42,.1);text-align:center;cursor:pointer;transition:.2s}
+.don-card:hover,.don-card.selected{border-color:var(--vert);background:var(--vert-pale)}
+.don-amount{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--vert);margin-bottom:6px}
+.don-desc{font-size:13px;color:var(--gris);line-height:1.5}
+
+/* ═══ PAGE MENTIONS ═════════════════════════════════════════════════════ */
+.legal-section{margin-bottom:40px}
+.legal-section h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--vert);margin-bottom:12px}
+.legal-section p,.legal-section li{font-size:14px;color:var(--gris);line-height:1.8}
+.legal-section ul{padding-left:20px;margin-top:8px}
+.legal-section ul li{margin-bottom:4px}
+
+/* ═══ ADHESION MODE TOGGLE ═════════════════════════════════════════════ */
+.adh-mode-btn{padding:12px 24px;border-radius:40px;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid var(--vert);color:var(--vert);background:#fff;font-family:'Outfit',sans-serif;transition:.2s}
+.adh-mode-btn:hover,.adh-mode-btn.active{background:var(--vert);color:#fff}
+
+/* ═══ FORMULAIRE IMPRIMABLE ════════════════════════════════════════════ */
+.print-form{background:#fff;border:1px solid #ddd;border-radius:var(--radius);padding:40px;font-family:'Outfit',sans-serif;color:#1E2D26;line-height:1.5}
+.pf-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:24px;padding-bottom:20px;border-bottom:3px double #1A5C2A}
+.pf-logo{width:60px;height:60px;border-radius:50%;background:#1A5C2A;color:#fff;font-family:'Playfair Display',serif;font-size:24px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pf-header-text{flex:1}
+.pf-header-text h1{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#1A5C2A;margin:0}
+.pf-header-text p{font-size:12px;color:#6B7280;margin:2px 0}
+.pf-header-line{height:2px;background:linear-gradient(90deg,#C9982A,#1A5C2A);margin:8px 0;border-radius:1px}
+.pf-header-text h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#C9982A;margin:0;letter-spacing:2px;text-transform:uppercase}
+.pf-ref{font-family:monospace;font-size:11px;color:#6B7280;margin-top:4px}
+.pf-photo-box{width:90px;height:110px;border:2px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;color:#999;flex-shrink:0}
+.pf-article{background:#E8F5E9;border-left:4px solid #1A5C2A;padding:12px 16px;border-radius:0 8px 8px 0;font-size:12px;color:#3D4D44;margin-bottom:24px;line-height:1.6}
+.pf-section-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#1A5C2A;padding:8px 0;margin:20px 0 12px;border-bottom:1.5px solid #E8F5E9}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.pf-field{display:flex;flex-direction:column;gap:4px}
+.pf-field label{font-size:11px;font-weight:600;color:#1A5C2A;text-transform:uppercase;letter-spacing:.5px}
+.pf-input{border-bottom:1.5px solid #ccc;padding:6px 4px;min-height:28px;font-size:13px;color:#333}
+.pf-full{grid-column:1/-1}
+.pf-checkboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pf-check{font-size:13px;padding:4px 0;color:#333}
+.pf-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.pf-table th{background:#1A5C2A;color:#fff;padding:8px 12px;text-align:left;font-weight:600;font-size:12px}
+.pf-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.pf-table tr:nth-child(even) td{background:#F1F9F2}
+.pf-engagement{font-size:13px;color:#333;line-height:1.7;padding:12px 0}
+.pf-engagement .pf-check{padding:6px 0}
+.pf-signature{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:20px;margin-top:20px;padding-top:16px;border-top:1px solid #eee}
+.pf-sig-block{display:flex;flex-direction:column;gap:4px}
+.pf-sig-block label{font-size:11px;font-weight:600;color:#1A5C2A;text-transform:uppercase;letter-spacing:.5px}
+.pf-footer{margin-top:28px;padding-top:16px;text-align:center;font-size:11px;color:#999;line-height:1.6}
+.pf-footer-line{height:1px;background:linear-gradient(90deg,transparent,#C9982A,transparent);margin-bottom:12px}
+.pf-admin-box{margin-top:28px;border:2px solid #C9982A;border-radius:8px;padding:16px 20px}
+.pf-admin-title{font-size:12px;font-weight:700;color:#C9982A;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;text-align:center}
+
+/* ═══ PRINT STYLES ═════════════════════════════════════════════════════ */
+@media print{
+  body *{visibility:hidden}
+  #print-form,#print-form *{visibility:visible}
+  #print-form{position:absolute;left:0;top:0;width:100%;padding:20px;border:none;box-shadow:none;border-radius:0}
+  .no-print,nav,footer,.mobile-menu,.page-hero,.admin-tabs,.admin-panel,.tdb-stats,.tdb-filters,.tdb-table-wrap,.tdb-charts,.tdb-export-bar,#gs-config-bar,#fb-config-bar,#adh-online-panel,.adh-mode-btn{display:none!important}
+  .pf-header{page-break-after:avoid}
+  .pf-admin-box{page-break-before:auto}
+  .print-form{font-size:12px}
+  .pf-signature{page-break-inside:avoid}
+}
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{grid-template-columns:1fr;padding:40px 20px;min-height:auto}
+  .hero::before{
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,152,42,.1) 0%,transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%,rgba(26,92,42,.07) 0%,transparent 60%),
+      url('logo-thide.png') no-repeat center 36%;
+    background-size:auto,auto,250px;
+  }
+  .hero::after{
+    background:url('logo-thide.png') no-repeat center 36%;
+    background-size:250px;
+    opacity:.04;
+  }
+  .hero-slab,.hero-visual{display:none}
+  .hero-content{padding-right:0}
+  .hero-logo img{height:72px}
+  .nav-logo img{height:38px}
+  .section-wrap{padding:56px 20px}
+  .card-grid-3,.card-grid-4{grid-template-columns:1fr}
+  .card-grid-2{grid-template-columns:1fr}
+  .gouvernance-grid,.valeurs-grid,.member-steps{grid-template-columns:1fr}
+  .contact-grid,.actu-featured,.projet-big{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
+  .gallery-item.wide{grid-column:span 1}
+  .don-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-bottom{flex-direction:column;gap:8px}
+  .stat-strip{grid-template-columns:repeat(2,1fr)!important}
+  .form-grid{grid-template-columns:1fr}
+  .page-hero{padding:60px 20px 40px}
+}
+
+/* ═══ PAGE TDB ADHÉSIONS ════════════════════════════════════════════════ */
+.tdb-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:36px}
+.tdb-stat{background:#fff;border-radius:var(--radius);padding:24px 20px;border:1px solid rgba(26,92,42,.09);position:relative;overflow:hidden}
+.tdb-stat::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:var(--vert-pale);opacity:.7;pointer-events:none}
+.tdb-stat-icon{font-size:24px;margin-bottom:10px}
+.tdb-stat-val{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--vert);line-height:1;margin-bottom:6px}
+.tdb-stat-val.or{color:var(--or)}
+.tdb-stat-label{font-size:12px;color:var(--gris);font-weight:500}
+.tdb-stat-delta{font-size:11px;font-weight:600;margin-top:6px}
+.tdb-stat-delta.up{color:#16a34a}
+.tdb-stat-delta.warn{color:var(--or-fonce)}
+.tdb-filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:28px;padding:18px 20px;background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09)}
+.tdb-filters input,.tdb-filters select{padding:8px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--terre);outline:none;transition:.18s}
+.tdb-filters input:focus,.tdb-filters select:focus{border-color:var(--vert)}
+.tdb-filters input{flex:1;min-width:200px}
+.tdb-filters label{font-size:12px;font-weight:600;color:var(--vert);text-transform:uppercase;letter-spacing:.5px;align-self:center}
+.tdb-table-wrap{background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09);overflow:hidden;margin-bottom:32px}
+.tdb-table-head{padding:18px 24px;border-bottom:1px solid var(--gris-clair);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.tdb-table-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert)}
+.tdb-table-count{font-size:12px;color:var(--gris);background:var(--vert-clair);padding:4px 12px;border-radius:20px;font-weight:600}
+.tdb-table{width:100%;border-collapse:collapse;font-size:13px}
+.tdb-table th{background:var(--vert-pale);color:var(--vert);padding:11px 16px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid rgba(26,92,42,.1)}
+.tdb-table td{padding:13px 16px;border-bottom:1px solid var(--gris-clair);vertical-align:middle}
+.tdb-table tr:last-child td{border-bottom:none}
+.tdb-table tr:hover td{background:var(--vert-pale);cursor:default}
+.tdb-member-name{font-weight:600;color:var(--terre)}
+.tdb-member-ref{font-size:11px;color:var(--gris);font-family:monospace;margin-top:2px}
+.tdb-empty{text-align:center;padding:64px 24px;color:var(--gris)}
+.tdb-empty .tdb-empty-icon{font-size:48px;margin-bottom:16px}
+.tdb-empty h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--vert);margin-bottom:8px}
+.tdb-empty p{font-size:14px;line-height:1.6;max-width:360px;margin:0 auto 24px}
+.tdb-charts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.tdb-chart-card{background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09);padding:24px}
+.tdb-chart-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--vert);margin-bottom:20px}
+.tdb-donut-wrap{display:flex;align-items:center;gap:24px}
+.tdb-legend{display:flex;flex-direction:column;gap:8px;flex:1}
+.tdb-legend-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--terre)}
+.tdb-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.tdb-legend-pct{margin-left:auto;font-weight:700;color:var(--vert)}
+.tdb-bar-chart{display:flex;flex-direction:column;gap:12px}
+.tdb-bar-row{display:flex;align-items:center;gap:12px;font-size:12px}
+.tdb-bar-label{min-width:140px;color:var(--gris);font-size:11.5px;line-height:1.3}
+.tdb-bar-bg{flex:1;height:10px;background:var(--vert-clair);border-radius:5px;overflow:hidden}
+.tdb-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--vert),var(--or));transition:width .8s ease}
+.tdb-bar-count{min-width:24px;text-align:right;font-weight:700;color:var(--vert)}
+.tdb-status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.status-attente{background:#FEF3C7;color:#92400E}
+.status-valide{background:var(--vert-clair);color:var(--vert)}
+.status-refuse{background:#FEE2E2;color:#991B1B}
+.tdb-action-btn{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:.15s}
+.tdb-action-btn.validate{background:var(--vert-clair);color:var(--vert)}
+.tdb-action-btn.validate:hover{background:var(--vert);color:#fff}
+.tdb-action-btn.refuse{background:#FEE2E2;color:#991B1B}
+.tdb-action-btn.refuse:hover{background:#991B1B;color:#fff}
+.tdb-action-btn.view{background:var(--gris-clair);color:var(--gris)}
+.tdb-action-btn.view:hover{background:var(--terre);color:#fff}
+.tdb-export-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;align-items:center}
+.tdb-section-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--or-fonce);margin-bottom:8px}
+/* Modal membre */
+.member-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(26,45,38,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px}
+.member-modal.open{display:flex}
+.member-modal-box{background:#fff;border-radius:18px;width:100%;max-width:620px;max-height:88vh;overflow-y:auto;animation:slideUp .28s cubic-bezier(.34,1.46,.64,1) both}
+.mem-modal-header{background:var(--vert);padding:28px;display:flex;align-items:flex-start;gap:20px;position:relative}
+.mem-modal-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 80% 0,rgba(201,152,42,.2),transparent 70%)}
+.mem-photo{width:80px;height:96px;border-radius:10px;overflow:hidden;border:3px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+.mem-photo img{width:100%;height:100%;object-fit:cover}
+.mem-header-info{position:relative;z-index:1;color:#fff}
+.mem-header-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px}
+.mem-header-ref{font-size:12px;opacity:.7;font-family:monospace}
+.mem-header-zone{display:inline-block;margin-top:8px;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.mem-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;z-index:2}
+.mem-body{padding:28px}
+.mem-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.mem-field{display:flex;flex-direction:column;gap:4px}
+.mem-field-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--vert)}
+.mem-field-value{font-size:14px;color:var(--terre);font-weight:500}
+.mem-divider{border:none;border-top:1px solid var(--gris-clair);margin:20px 0}
+.mem-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+@media(max-width:900px){.tdb-stats{grid-template-columns:repeat(2,1fr)}.tdb-charts{grid-template-columns:1fr}.mem-grid{grid-template-columns:1fr}.admin-tabs{gap:2px}.admin-tab{padding:8px 12px;font-size:12px}#sections-grid,#commissions-grid{grid-template-columns:1fr 1fr}}
+
+/* ═══ DOCUMENTS SECTION ════════════════════════════════════════════════ */
+.doc-filter{padding:7px 16px;border-radius:40px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid rgba(26,92,42,.2);color:var(--gris);background:#fff;font-family:'Outfit',sans-serif;transition:.2s}
+.doc-filter:hover,.doc-filter.active{background:var(--vert);color:#fff;border-color:var(--vert)}
+.doc-card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09);margin-bottom:10px;transition:.2s}
+.doc-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07);transform:translateX(2px)}
+.doc-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.doc-icon.pdf{background:#FEE2E2;color:#991B1B}
+.doc-icon.word{background:#DBEAFE;color:#1E40AF}
+.doc-icon.excel{background:#DCFCE7;color:#166534}
+.doc-icon.image{background:#FDF6E3;color:#9B7015}
+.doc-info{flex:1;min-width:0}
+.doc-name{font-size:14px;font-weight:600;color:var(--terre);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-meta{font-size:11px;color:var(--gris);margin-top:3px}
+.doc-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.doc-btn{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:.15s}
+.doc-btn.download{background:var(--vert-clair);color:var(--vert)}
+.doc-btn.download:hover{background:var(--vert);color:#fff}
+.doc-btn.delete{background:#FEE2E2;color:#991B1B}
+.doc-btn.delete:hover{background:#991B1B;color:#fff}
+
+/* ═══ ADMIN TABS & PANELS ══════════════════════════════════════════════ */
+.admin-tabs{display:flex;gap:4px;margin-bottom:28px;border-bottom:2px solid var(--gris-clair);padding-bottom:0;flex-wrap:wrap}
+.admin-tab{padding:12px 20px;border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--gris);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s;border-radius:8px 8px 0 0}
+.admin-tab:hover{color:var(--vert);background:var(--vert-pale)}
+.admin-tab.active{color:var(--vert);border-bottom-color:var(--vert);background:var(--vert-pale)}
+.admin-panel{display:none;animation:pageIn .3s ease both}
+.admin-panel.active{display:block}
+
+/* ═══ SPACE CARDS ══════════════════════════════════════════════════════ */
+.space-card{background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09);padding:24px;text-align:center;cursor:pointer;transition:.2s}
+.space-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1);border-color:var(--vert)}
+.space-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}
+.space-card h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--vert);margin-bottom:6px}
+.space-count{font-size:12px;color:var(--gris)}
+.activity-card{background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.09);padding:16px 20px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.activity-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.activity-date{font-size:11px;color:var(--or-fonce);font-weight:600;white-space:nowrap}
+.activity-text{font-size:13px;color:var(--terre);line-height:1.6;flex:1}
+
+/* ═══ PAGE ADHÉSION — CSS scopé ══════════════════════════════════════════ */
+#adh-embed {
+  --green:#1A6B3C;--green-dark:#124D2C;--green-light:#EAF5EE;--green-mid:#2D8A56;
+  --gold:#C9982A;--gold-light:#FDF6E3;--gold-dark:#9B7015;
+  --white:#FFFFFF;--off-white:#F8FAF9;--gray-100:#F2F4F3;--gray-300:#D0D8D3;
+  --gray-500:#7A8C82;--gray-700:#3D4D44;--text:#1E2D26;
+  --radius:10px;--shadow:0 4px 24px rgba(26,107,60,0.10);--shadow-lg:0 12px 48px rgba(26,107,60,0.18);
+  font-family:'DM Sans',sans-serif;color:#1E2D26;
+}
+
+#adh-embed :root {
+    --green:       #1A6B3C;
+    --green-dark:  #124D2C;
+    --green-light: #EAF5EE;
+    --green-mid:   #2D8A56;
+    --gold:        #C9982A;
+    --gold-light:  #FDF6E3;
+    --gold-dark:   #9B7015;
+    --white:       #FFFFFF;
+    --off-white:   #F8FAF9;
+    --gray-100:    #F2F4F3;
+    --gray-300:    #D0D8D3;
+    --gray-500:    #7A8C82;
+    --gray-700:    #3D4D44;
+    --text:        #1E2D26;
+    --radius:      10px;
+    --shadow:      0 4px 24px rgba(26,107,60,0.10);
+    --shadow-lg:   0 12px 48px rgba(26,107,60,0.18);
+  }
+*, #adh-embed *::before, #adh-embed *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+#adh-embed {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO HEADER ─────────────────────────── */
+#adh-embed .hero {
+    background: var(--green-dark);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+#adh-embed .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,152,42,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+#adh-embed .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 52px 32px 44px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+#adh-embed .logo-badge {
+    flex-shrink: 0;
+    width: 72px; height: 72px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--white);
+    box-shadow: 0 4px 18px rgba(201,152,42,.4);
+    letter-spacing: 1px;
+  }
+#adh-embed .hero-text { flex: 1; }
+#adh-embed .hero-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+#adh-embed .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px; font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+#adh-embed .hero-title em { color: var(--gold); font-style: normal; }
+#adh-embed .hero-sub {
+    font-size: 14px; color: rgba(255,255,255,.62);
+    line-height: 1.55;
+  }
+#adh-embed .hero-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--green-mid) 100%);
+  }
+
+  /* ── PROGRESS STEPS ──────────────────────── */
+#adh-embed .steps-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-300);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+#adh-embed .steps {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: stretch;
+  }
+#adh-embed .step {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 14px 8px;
+    font-size: 12px; font-weight: 500; color: var(--gray-500);
+    border-bottom: 3px solid transparent;
+    cursor: default;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+#adh-embed .step.active { color: var(--green); border-bottom-color: var(--green); }
+#adh-embed .step.done { color: var(--green-mid); border-bottom-color: var(--gold); }
+#adh-embed .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--gray-300); color: var(--white);
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; flex-shrink: 0;
+  }
+#adh-embed .step.active .step-num { background: var(--green); }
+#adh-embed .step.done   .step-num { background: var(--gold); }
+#adh-embed .step-label { display: none; }
+  @media(min-width:560px){ .step-label { display: inline; } }
+
+  /* ── MAIN CONTENT ────────────────────────── */
+#adh-embed .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 24px 64px;
+  }
+
+  /* ── PANELS ──────────────────────────────── */
+#adh-embed .panel {
+    display: none;
+    animation: fadeUp .35s ease both;
+  }
+#adh-embed .panel.active { display: block; }
+@keyframes fadeUp {
+    from { opacity:0; transform: translateY(16px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+
+  /* ── ARTICLE BOX ─────────────────────────── */
+#adh-embed .article-box {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+#adh-embed .article-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 700; color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+#adh-embed .article-list { list-style: none; }
+#adh-embed .article-list li {
+    font-size: 13.5px; color: var(--gray-700); line-height: 1.65;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(26,107,60,.1);
+  }
+#adh-embed .article-list li:last-child { border-bottom: none; }
+#adh-embed .article-list li::before {
+    content: '–';
+    position: absolute; left: 0;
+    color: var(--gold); font-weight: 700;
+  }
+
+  /* ── SECTION HEADING ─────────────────────── */
+#adh-embed .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 22px;
+  }
+#adh-embed .section-head-bar {
+    width: 4px; height: 28px;
+    background: linear-gradient(to bottom, var(--gold), var(--green));
+    border-radius: 2px;
+  }
+#adh-embed .section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 700; color: var(--green-dark);
+  }
+#adh-embed .section-head p { font-size: 13px; color: var(--gray-500); }
+
+  /* ── FORM GRID ───────────────────────────── */
+#adh-embed .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+    margin-bottom: 20px;
+  }
+#adh-embed .form-grid .full { grid-column: 1 / -1; }
+  @media(max-width:560px){ .form-grid { grid-template-columns: 1fr; } }
+
+#adh-embed .field { display: flex; flex-direction: column; gap: 6px; }
+#adh-embed .field label {
+    font-size: 11.5px; font-weight: 600; letter-spacing: .5px;
+    text-transform: uppercase; color: var(--green-dark);
+  }
+#adh-embed .field label .req { color: var(--gold); margin-left: 2px; }
+  .field input,
+  .field select,
+#adh-embed .field textarea {
+    padding: 10px 14px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    background: var(--white);
+    transition: border-color .18s, box-shadow .18s;
+    outline: none;
+  }
+  .field input:focus,
+  .field select:focus,
+#adh-embed .field textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(26,107,60,.1);
+  }
+  .field input.error,
+#adh-embed .field select.error { border-color: #c0392b; }
+#adh-embed .field .hint { font-size: 11.5px; color: var(--gray-500); }
+#adh-embed .field .err-msg { font-size: 11.5px; color: #c0392b; display:none; }
+  .field input.error ~ .err-msg,
+#adh-embed .field select.error ~ .err-msg { display:block; }
+
+  /* ── BAREME TABLE ────────────────────────── */
+#adh-embed .bareme-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+#adh-embed .bareme-table th {
+    background: var(--green); color: var(--white);
+    font-size: 12px; font-weight: 600; letter-spacing: .5px;
+    text-transform: uppercase; padding: 10px 16px; text-align: left;
+  }
+#adh-embed .bareme-table td {
+    padding: 10px 16px; font-size: 13.5px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+  }
+#adh-embed .bareme-table tr:last-child td { border-bottom: none; }
+#adh-embed .bareme-table tr:nth-child(even) td { background: var(--gray-100); }
+#adh-embed .bareme-table .highlight td {
+    background: var(--gold-light) !important;
+    font-weight: 600; color: var(--gold-dark);
+  }
+#adh-embed .bareme-table .amount {
+    font-weight: 700; color: var(--green-dark); font-family: 'Cormorant Garamond', serif; font-size: 16px;
+  }
+#adh-embed .radio-group { display: flex; flex-direction: column; gap: 10px; }
+#adh-embed .radio-opt {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    cursor: pointer; transition: all .18s;
+    background: var(--white);
+  }
+#adh-embed .radio-opt:hover { border-color: var(--green); background: var(--green-light); }
+#adh-embed .radio-opt.selected { border-color: var(--green); background: var(--green-light); }
+#adh-embed .radio-opt input[type=radio] { accent-color: var(--green); width:16px;height:16px;flex-shrink:0; }
+#adh-embed .radio-opt .opt-label { font-size: 14px; font-weight: 500; color: var(--text); }
+#adh-embed .radio-opt .opt-amount { margin-left: auto; font-weight: 700; color: var(--green-dark);
+    font-family: 'Cormorant Garamond',serif; font-size: 17px; }
+#adh-embed .radio-opt .opt-desc { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  /* ── ENGAGEMENT BOX ──────────────────────── */
+#adh-embed .engagement-scroll {
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    padding: 24px;
+    max-height: 340px;
+    overflow-y: auto;
+    font-size: 13.5px; line-height: 1.75;
+    color: var(--gray-700);
+    margin-bottom: 20px;
+    scroll-behavior: smooth;
+  }
+#adh-embed .engagement-scroll::-webkit-scrollbar { width: 6px; }
+#adh-embed .engagement-scroll::-webkit-scrollbar-track { background: var(--gray-100); }
+#adh-embed .engagement-scroll::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+#adh-embed .engagement-scroll h3 {
+    font-family: 'Cormorant Garamond',serif; font-size: 17px; font-weight: 700;
+    color: var(--green-dark); margin-bottom: 12px;
+  }
+#adh-embed .engagement-scroll .clause {
+    margin-bottom: 14px;
+    padding-left: 14px;
+    border-left: 2px solid var(--gold);
+  }
+#adh-embed .engagement-scroll .clause strong { color: var(--green-dark); }
+
+#adh-embed .read-indicator {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    font-size: 12px; color: var(--gray-500);
+  }
+#adh-embed .read-indicator .bar-bg {
+    flex: 1; height: 5px; background: var(--gray-300); border-radius: 3px; overflow: hidden;
+  }
+#adh-embed .read-indicator .bar-fill {
+    height: 100%; background: var(--gold); border-radius: 3px; transition: width .2s;
+    width: 0%;
+  }
+
+#adh-embed .checkbox-line {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px;
+    background: var(--gold-light);
+    border: 1.5px solid var(--gold);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+#adh-embed .checkbox-line input[type=checkbox] { accent-color: var(--green); width:16px;height:16px;flex-shrink:0;margin-top:2px; }
+#adh-embed .checkbox-line span { font-size: 13.5px; color: var(--gray-700); line-height: 1.55; }
+#adh-embed .checkbox-line span strong { color: var(--green-dark); }
+
+  /* ── RECAP CARD ──────────────────────────── */
+#adh-embed .recap-card {
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+#adh-embed .recap-header {
+    background: var(--green-dark);
+    padding: 14px 20px;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 17px; font-weight: 700; color: var(--white);
+    display: flex; align-items: center; gap: 8px;
+  }
+#adh-embed .recap-body { padding: 20px; }
+#adh-embed .recap-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13.5px;
+  }
+#adh-embed .recap-row:last-child { border-bottom: none; }
+#adh-embed .recap-key { color: var(--gray-500); font-weight: 500; }
+#adh-embed .recap-val { color: var(--text); font-weight: 600; text-align: right; }
+#adh-embed .recap-total {
+    background: var(--green-light);
+    margin: 12px -20px -20px;
+    padding: 14px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+#adh-embed .recap-total-label { font-size: 13px; font-weight: 600; color: var(--green-dark); }
+#adh-embed .recap-total-amount { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:var(--green-dark); }
+
+  /* ── CONFIRMATION ────────────────────────── */
+#adh-embed .confirm-panel {
+    text-align: center;
+    padding: 48px 24px;
+  }
+#adh-embed .confirm-icon {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    animation: popIn .4s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+  .confirm-icon svg { width: 38px; color: white; }
+#adh-embed .confirm-title {
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 30px; font-weight: 700; color: var(--green-dark); margin-bottom: 10px;
+  }
+#adh-embed .confirm-sub { font-size: 14px; color: var(--gray-500); margin-bottom: 28px; max-width: 440px; margin-left: auto; margin-right: auto; }
+
+#adh-embed .ref-badge {
+    display: inline-block;
+    background: var(--gold-light);
+    border: 1.5px solid var(--gold);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--gold-dark);
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+  }
+
+#adh-embed .cert-box {
+    background: var(--white);
+    border: 2px solid var(--green);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: left;
+    max-width: 580px;
+    margin: 0 auto 28px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+#adh-embed .cert-box::before {
+    content: '';
+    position: absolute; top:0;left:0;right:0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--green), var(--gold));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+#adh-embed .cert-title {
+    font-family:'Cormorant Garamond',serif;
+    font-size:17px;font-weight:700;color:var(--green-dark);
+    text-align:center;margin-bottom:16px;
+    text-transform:uppercase;letter-spacing:1px;
+  }
+#adh-embed .cert-row { display:flex;gap:8px;margin-bottom:8px;font-size:13px; }
+#adh-embed .cert-row .k { font-weight:600;color:var(--gray-500);min-width:130px; }
+#adh-embed .cert-row .v { color:var(--text);font-weight:500; }
+#adh-embed .cert-sep { border:none;border-top:1px solid var(--gray-300);margin:14px 0; }
+#adh-embed .cert-footer { text-align:center;font-size:12px;color:var(--gray-500);margin-top:12px; }
+
+  /* ── BUTTONS ─────────────────────────────── */
+#adh-embed .btn-row { display: flex; gap: 12px; justify-content: flex-end; margin-top: 28px; flex-wrap: wrap; }
+#adh-embed .btn {
+    padding: 11px 28px;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; border: none; transition: all .18s;
+    display: flex; align-items: center; gap: 7px;
+  }
+#adh-embed .btn-primary {
+    background: var(--green); color: white;
+    box-shadow: 0 4px 14px rgba(26,107,60,.3);
+  }
+#adh-embed .btn-primary:hover { background: var(--green-dark); box-shadow: 0 6px 18px rgba(26,107,60,.4); transform: translateY(-1px); }
+#adh-embed .btn-secondary { background: var(--gray-100); color: var(--gray-700); }
+#adh-embed .btn-secondary:hover { background: var(--gray-300); }
+#adh-embed .btn-gold { background: var(--gold); color: white; box-shadow: 0 4px 14px rgba(201,152,42,.3); }
+#adh-embed .btn-gold:hover { background: var(--gold-dark); }
+#adh-embed .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+#adh-embed .btn svg { width:16px;height:16px;flex-shrink:0; }
+
+  /* ── NOTIF ───────────────────────────────── */
+#adh-embed .toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    background: var(--green-dark); color: white;
+    padding: 12px 20px; border-radius: var(--radius);
+    font-size: 13.5px; box-shadow: var(--shadow-lg);
+    transform: translateY(80px); opacity: 0;
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    max-width: 320px;
+  }
+  /* ── PAYMENT METHODS ─────────────────────── */
+#adh-embed .pay-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+#adh-embed .pay-card {
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius);
+    padding: 14px 14px 12px;
+    cursor: pointer;
+    background: var(--white);
+    transition: all .18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    text-align: center;
+  }
+#adh-embed .pay-card:hover { border-color: var(--green); background: var(--green-light); transform: translateY(-2px); box-shadow: var(--shadow); }
+#adh-embed .pay-card.selected { border-color: var(--green); background: var(--green-light); box-shadow: 0 0 0 3px rgba(26,107,60,.12); }
+#adh-embed .pay-logo { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+#adh-embed .pay-logo svg { width: 100%; height: 100%; }
+#adh-embed .pay-name { font-size: 13px; font-weight: 700; color: var(--text); }
+#adh-embed .pay-desc { font-size: 10.5px; color: var(--gray-500); line-height: 1.35; }
+#adh-embed .pay-check {
+    position: absolute; top: 8px; right: 8px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--green); color: white;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity .15s;
+  }
+#adh-embed .pay-card.selected .pay-check { opacity: 1; }
+
+  /* ── MOBILE DETAIL PANEL ─────────────────── */
+#adh-embed .mobile-detail {
+    display: none;
+    border: 1.5px solid var(--gray-300);
+    border-left: 5px solid;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: fadeUp .3s ease both;
+  }
+#adh-embed .mobile-detail.visible { display: block; }
+#adh-embed #detail-bankily { border-left-color: #FF6B00; }
+#adh-embed #detail-masrevi { border-left-color: #0062B8; }
+#adh-embed #detail-seddad { border-left-color: #8B1A2B; }
+
+#adh-embed .mobile-detail-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    color: white;
+  }
+#adh-embed .bankily-hdr { background: #FF6B00; }
+#adh-embed .masrevi-hdr { background: #0062B8; }
+#adh-embed .seddad-hdr { background: #8B1A2B; }
+
+#adh-embed .mobile-amount-badge {
+    margin-left: auto;
+    background: rgba(255,255,255,.22);
+    border: 1.5px solid rgba(255,255,255,.4);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 15px; font-weight: 700;
+    white-space: nowrap;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+#adh-embed .mobile-steps {
+    padding: 16px 20px 8px;
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--white);
+  }
+#adh-embed .mobile-step {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 13.5px; color: var(--gray-700); line-height: 1.55;
+  }
+#adh-embed .ms-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--green); color: white;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+
+#adh-embed .phone-box {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--gray-100);
+    border: 1.5px dashed var(--gray-300);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 0 0 4px 36px;
+  }
+#adh-embed .phone-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--green-dark); letter-spacing: 1px; flex: 1;
+  }
+#adh-embed .copy-btn {
+    padding: 5px 14px;
+    border: none; border-radius: 6px;
+    background: var(--green); color: white;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background .15s;
+  }
+#adh-embed .copy-btn:hover { background: var(--green-dark); }
+#adh-embed .copy-btn.copied { background: var(--gold); }
+
+#adh-embed .ref-input-wrap {
+    padding: 12px 20px 18px;
+    background: var(--off-white);
+    border-top: 1px solid var(--gray-100);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+#adh-embed .ref-input-wrap label {
+    font-size: 11.5px; font-weight: 600; letter-spacing: .5px;
+    text-transform: uppercase; color: var(--green-dark);
+  }
+#adh-embed .ref-input-wrap input {
+    padding: 10px 14px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    outline: none; transition: border-color .18s, box-shadow .18s;
+  }
+#adh-embed .ref-input-wrap input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(26,107,60,.1);
+  }
+#adh-embed .ref-input-wrap .hint { font-size: 11.5px; color: var(--gray-500); }
+#adh-embed .toast.show { transform: translateY(0); opacity: 1; }
+  /* ── UPLOAD ZONE ─────────────────────────── */
+#adh-embed .upload-zone {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    cursor: pointer;
+    background: var(--white);
+    transition: all .2s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 4px;
+  }
+  .upload-zone:hover,
+#adh-embed .upload-zone.drag-over {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+#adh-embed .upload-zone.has-file {
+    border-color: var(--green);
+    border-style: solid;
+    background: var(--green-light);
+    padding: 14px 16px;
+    cursor: default;
+    text-align: left;
+  }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* ═══ SYSTÈME MODAL ════════════════════════════════════════════════════════ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(26,45,38,.78);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex}
+.modal-box{
+  background:#fff;border-radius:18px;
+  width:100%;max-width:660px;max-height:88vh;
+  overflow-y:auto;position:relative;
+  box-shadow:0 32px 80px rgba(0,0,0,.3);
+  animation:slideUp .28s cubic-bezier(.34,1.46,.64,1) both;
+}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.modal-header{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:16px;
+  padding:22px 28px 18px;
+  background:#fff;border-bottom:1px solid #E5E7EB;
+}
+.modal-icon{flex-shrink:0;width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.modal-htitle{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--vert);flex:1;line-height:1.2}
+.modal-hsub{font-size:12px;color:var(--gris);margin-top:3px}
+.modal-close{flex-shrink:0;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#F3F4F6;border:none;cursor:pointer;font-size:20px;color:var(--gris);transition:.15s;line-height:1}
+.modal-close:hover{background:#E5E7EB;color:var(--terre)}
+.modal-body{padding:28px}
+.modal-stitle{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--or-fonce);margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(201,152,42,.2)}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.modal-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#374151;line-height:1.6}
+.modal-list li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--or);margin-top:7px}
+.modal-kv{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.modal-kv-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 14px;background:var(--vert-pale);border-radius:8px;font-size:13.5px}
+.modal-kv-row .mk{color:var(--gris);font-weight:500}
+.modal-kv-row .mv{color:var(--vert);font-weight:700}
+.modal-hl{background:linear-gradient(135deg,var(--vert-pale),var(--or-clair));border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid var(--vert);font-size:14px;color:var(--terre);line-height:1.7}
+.modal-cta{display:block;width:100%;padding:13px;margin-top:4px;border-radius:40px;background:var(--vert);color:#fff;font-size:14px;font-weight:600;text-align:center;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
+.modal-cta:hover{background:var(--vert-mid);transform:translateY(-1px)}
+.clickable-card{cursor:pointer;transition:transform .2s,box-shadow .2s}
+.clickable-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.12)!important}
+.modal-hint{font-size:11px;color:var(--or-fonce);font-weight:600;margin-top:8px;display:none}
+.clickable-card:hover .modal-hint{display:flex;align-items:center;gap:4px}
+.organe-card.clickable-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+
+
+
+/* ═══ DOSSIERS DOCUMENTAIRES ═══════════════════════════════════════════ */
+.folder-btn{display:inline-flex;align-items:center;gap:8px}
+.folder-block{border:1px solid rgba(26,92,42,.08);border-radius:14px;padding:14px 16px;margin-bottom:14px;background:#fff}
+.folder-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.folder-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--vert)}
+.folder-count{font-size:11px;color:var(--gris);font-weight:600;background:var(--vert-pale);padding:4px 10px;border-radius:20px}
+.folder-empty{padding:10px 12px;border:1px dashed rgba(26,92,42,.18);border-radius:10px;font-size:12px;color:var(--gris);background:var(--vert-pale)}
+.doc-folder-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;background:var(--or-clair);color:var(--or-fonce);font-size:11px;font-weight:700;margin-bottom:8px}
+
+
+/* ═══ APP ACTION MODAL ═════════════════════════════════════════════════ */
+.app-modal{display:none;position:fixed;inset:0;z-index:9500;background:rgba(26,45,38,.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:18px}
+.app-modal.open{display:flex}
+.app-modal-box{width:100%;max-width:520px;background:#fff;border-radius:18px;box-shadow:0 20px 70px rgba(0,0,0,.22);overflow:hidden;animation:slideUp .24s ease both}
+.app-modal-head{display:flex;align-items:flex-start;gap:14px;padding:24px 24px 16px;background:linear-gradient(135deg,var(--vert-pale),#fff)}
+.app-modal-icon{flex-shrink:0;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--vert-clair);color:var(--vert)}
+.app-modal-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--vert);line-height:1.15}
+.app-modal-sub{font-size:12px;color:var(--gris);margin-top:4px;line-height:1.5}
+.app-modal-x{margin-left:auto;width:36px;height:36px;border:none;border-radius:50%;background:#F3F4F6;color:var(--gris);font-size:20px;cursor:pointer}
+.app-modal-x:hover{background:#E5E7EB;color:var(--terre)}
+.app-modal-body{padding:20px 24px 24px}
+.app-modal-text{font-size:14px;color:var(--terre);line-height:1.7;margin-bottom:16px}
+.app-modal-error{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;background:#FEF2F2;color:#991B1B;font-size:13px;border:1px solid #FECACA}
+.app-modal-error.show{display:block}
+.app-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;flex-wrap:wrap}
+.app-modal-actions .btn{padding:11px 20px}
+.app-modal-select,.app-modal-input{width:100%;padding:12px 14px;border:1.5px solid #E5E7EB;border-radius:12px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--terre);background:#fff;outline:none}
+.app-modal-select:focus,.app-modal-input:focus{border-color:var(--vert);box-shadow:0 0 0 3px rgba(26,92,42,.08)}
+.app-modal-note{font-size:12px;color:var(--gris);margin-top:8px;line-height:1.5}
+
+
+/* ===== Contact form sending ===== */
+.contact-form-status.success{display:block;background:#E8F5E9;color:#166534;border:1px solid #A7F3D0}
+.contact-form-status.error{display:block;background:#FEF2F2;color:#991B1B;border:1px solid #FECACA}
+.contact-submit[disabled]{opacity:.7;cursor:not-allowed}
+
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo" onclick="navigate('accueil')">
+    <img src="logo-thide.png" alt="Logo YELLITAARE THIDÉ">
+    <span class="nav-name">YELLITAARE Thidé</span>
+  </div>
+  <div class="nav-links">
+    <button onclick="navigate('qui')" id="nav-qui" data-i18n="nav_qui">Qui sommes-nous</button>
+    <button onclick="navigate('projets')" id="nav-projets" data-i18n="nav_projets">Projets</button>
+    <button onclick="navigate('baaba')" id="nav-baaba" style="color:var(--or-fonce);font-weight:600">Baaba Maal</button>
+    <button onclick="navigate('actualites')" id="nav-actualites" data-i18n="nav_actus">Actualités</button>
+    <button onclick="navigate('galerie')" id="nav-galerie" data-i18n="nav_galerie">Galerie</button>
+    <button onclick="navigate('contact')" id="nav-contact" data-i18n="nav_contact">Contact</button>
+    <button onclick="navigate('tdb')" id="nav-tdb" style="color:var(--or-fonce);font-weight:600" data-i18n="nav_admin">⚙ Admin Wagne</button>
+    <button class="lang-toggle" id="lang-btn" onclick="switchLang()">PU</button>
+    <button class="nav-cta" onclick="navigate('adhesion')" data-i18n="nav_adhesion">Adhérer</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button onclick="navigate('qui');toggleMenu()" data-i18n="nav_qui">Qui sommes-nous</button>
+  <button onclick="navigate('projets');toggleMenu()" data-i18n="mob_projets">Projets & réalisations</button>
+  <button onclick="navigate('baaba');toggleMenu()" style="color:var(--or-fonce);font-weight:600">🎵 Baaba Maal</button>
+  <button onclick="navigate('actualites');toggleMenu()" data-i18n="mob_actus">Actualités & agenda</button>
+  <button onclick="navigate('galerie');toggleMenu()" data-i18n="nav_galerie">Galerie</button>
+  <button onclick="navigate('faq');toggleMenu()">FAQ</button>
+  <button onclick="navigate('contact');toggleMenu()" data-i18n="mob_contact">Nous contacter</button>
+  <button onclick="navigate('tdb');toggleMenu()" style="color:var(--or-fonce);font-weight:600" data-i18n="nav_admin">⚙ Admin Wagne</button>
+  <button onclick="navigate('dons');toggleMenu()" data-i18n="mob_dons">Faire un don</button>
+  <button class="mob-cta" onclick="navigate('adhesion');toggleMenu()" data-i18n="mob_adhesion">Adhérer à l'organisation →</button>
+  <button class="lang-toggle" onclick="switchLang();toggleMenu()" id="lang-btn-mob" style="margin-top:8px;align-self:flex-start;">PU</button>
+</div>
+
+<div class="page active" id="page-accueil">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-slab"></div>
+    <div class="hero-content fade">
+      <div class="hero-logo">
+        <img src="logo-thide.png" alt="Logo YELLITAARE THIDÉ">
+      </div>
+      <div class="hero-pill"><div class="pulse"></div><span data-i18n="hero_pill">Organisation communautaire inclusive</span></div>
+      <h1 data-i18n="hero_title">Ensemble pour <em>Thidé</em>,<br>de partout dans le monde</h1>
+      <p class="hero-sub" data-i18n="hero_sub">YELLITAARE Thidé unit les ressortissants du village — résidents, citadins et diaspora — autour d'un cadre formel, transparent et exigeant, au service du développement durable de la communauté.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="navigate('adhesion')" data-i18n="mob_adhesion">Adhérer à l'organisation →</button>
+        <button class="btn btn-outline" onclick="navigate('qui')" data-i18n="btn_histoire">Notre histoire</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative;height:100%">
+        <div class="h-card h-card-main">
+          <div class="hc-label">Prochaine échéance</div>
+          <div class="hc-title">AG Constitutive</div>
+          <div class="hc-text">Adoption des Statuts · Élection du CG · Installation du COSC</div>
+          <div class="hc-bar"><div class="hc-fill"></div></div>
+        </div>
+        <div class="h-card h-card-stat">
+          <div class="hc-num">3</div>
+          <div class="hc-desc">Sections géographiques représentées</div>
+        </div>
+        <div class="h-card h-card-tag">
+          <div><div class="hc-dot"></div><strong style="font-size:13px">Projet Baaba Maal ✓</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap dark" style="padding:0">
+    <div class="stat-strip" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-strip-item"><div class="stat-big">1960</div><div class="stat-desc"><span data-i18n="stat_1960">Premières solidarités organisées entre ressortissants</span></div></div>
+      <div class="stat-strip-item"><div class="stat-big">3</div><div class="stat-desc"><span data-i18n="stat_sections">Sections : Village · Villes · Diaspora internationale</span></div></div>
+      <div class="stat-strip-item"><div class="stat-big">8</div><div class="stat-desc"><span data-i18n="stat_commissions">Commissions thématiques pilotant les projets</span></div></div>
+    </div>
+  </div>
+
+  <div class="section-wrap alt">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+        <div class="fade">
+          <div class="section-label" data-i18n="home_histoire_label">Notre histoire</div>
+          <h2 class="section-title"><span data-i18n="home_histoire_title">De la solidarité spontanée à la gouvernance formelle</span></h2>
+          <div class="timeline" style="margin-top:28px">
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1960–1970</div><div class="tl-content"><p>Premiers réseaux d'entraide dans les centres urbains. Accueil, hébergement, prise en charge.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Années 80–2000</div><div class="tl-content"><p>Construction d'écoles, mosquées, infrastructures. Réalisations réelles, cadre insuffisant.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Mai 2016</div><div class="tl-content"><p>YELLITAARE Thidé Nouakchott : gestion rigoureuse, redevabilité effective. La voie est tracée.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Aujourd'hui</div><div class="tl-content"><p>Refondation nationale : un cadre légal pour tous — village, villes, diaspora.</p></div></div>
+          </div>
+          <button class="btn btn-outline" style="margin-top:28px" onclick="navigate('qui')">Lire le préambule complet →</button>
+        </div>
+        <div class="fade" style="transition-delay:.15s">
+          <blockquote style="font-family:'Playfair Display',serif;font-size:22px;font-style:italic;line-height:1.6;color:var(--vert);border-left:3px solid var(--or);padding-left:24px;margin-bottom:24px">
+            « Le village de Thidé a toujours su compter sur ses enfants. Qu'ils vivent au village, dans les grandes villes ou aux quatre coins du monde, le lien n'a jamais rompu. »
+          </blockquote>
+          <p style="font-size:15px;color:var(--gris);line-height:1.8">YELLITAARE Thidé réunit l'ensemble des composantes de la communauté dans un cadre légal et transparent, parce que la confiance de ses membres est la condition de toute action collective durable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head flex-between">
+        <div><div class="section-label" data-i18n="home_org_label">Organisation</div><h2 class="section-title"><span data-i18n="home_org_title">Trois sections, une seule communauté</span></h2></div>
+      </div>
+      <div class="card-grid-3">
+        <div class="card fade clickable-card" onclick="openModal('sec-village')" style="position:relative;overflow:hidden">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(26,92,42,.06);line-height:1">01</div>
+          <div style="font-size:28px;margin-bottom:16px">🏡</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--vert);margin-bottom:8px">Section Village</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:16px">Résidents permanents de Thidé et des localités environnantes. Socle territorial de l'organisation.</p>
+          <div class="tag tag-gold">100 MRU / an</div>
+        </div>
+        <div class="card fade clickable-card" onclick="openModal('sec-nationaux')" style="position:relative;overflow:hidden;transition-delay:.1s">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(26,92,42,.06);line-height:1">02</div>
+          <div style="font-size:28px;margin-bottom:16px">🏙️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--vert);margin-bottom:8px">Section Nationaux</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:16px">Ressortissants résidant en Mauritanie : Nouakchott, Nouadhibou, Zouerat et autres villes.</p>
+          <div class="tag tag-gold">300 MRU / an</div>
+        </div>
+        <div class="card fade clickable-card" onclick="openModal('sec-diaspora')" style="position:relative;overflow:hidden;transition-delay:.2s">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(26,92,42,.06);line-height:1">03</div>
+          <div style="font-size:28px;margin-bottom:16px">🌍</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--vert);margin-bottom:8px">Section Diaspora</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:16px">Membres résidant à l'étranger : Afrique, Europe, Amériques. Sous-sections dès 5 membres.</p>
+          <div class="tag tag-gold">500 – 1 000 MRU / an</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap dark">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+      <div>
+        <div class="section-label light">Rejoindre l'organisation</div>
+        <h2 class="section-title light" style="font-size:clamp(28px,3.5vw,44px)">Devenez membre de <em style="font-style:italic;color:var(--or)">YELLITAARE Thidé</em></h2>
+        <p class="section-sub light" style="margin-bottom:32px">Un développement porté de l'intérieur, par nous, pour Thidé. Pas une aide ponctuelle qui s'évapore — un effort collectif, structuré, durable.</p>
+        <button class="btn btn-gold" onclick="navigate('adhesion')">Remplir le formulaire d'adhésion</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+          <span style="font-size:12px;color:rgba(255,255,255,.45);align-self:center">Paiement :</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Bankily</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Masrevi</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Seddad</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Espèces</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:var(--radius);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
+          <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#fff">1</div>
+          <div><h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Remplir le formulaire</h4><p style="font-size:12px;color:rgba(255,255,255,.6)">Informations personnelles, section d'appartenance, photo d'identité.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:var(--radius);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
+          <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#fff">2</div>
+          <div><h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Choisir sa catégorie</h4><p style="font-size:12px;color:rgba(255,255,255,.6)">De 100 MRU (résident Thidé) à 1 000 MRU (diaspora internationale).</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:var(--radius);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
+          <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#fff">3</div>
+          <div><h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Signer l'engagement</h4><p style="font-size:12px;color:rgba(255,255,255,.6)">Attestation officielle générée automatiquement et imprimable.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head flex-between">
+        <div><div class="section-label" data-i18n="home_vie_label">Vie du village</div><h2 class="section-title"><span data-i18n="home_actus_title">Actualités récentes</span></h2></div>
+        <button class="btn btn-outline" onclick="navigate('actualites')">Toutes les actualités</button>
+      </div>
+      <div class="card-grid-3">
+        <div class="card fade" style="cursor:pointer" onclick="navigate('actualites')">
+          <div style="height:140px;border-radius:8px;background:linear-gradient(135deg,#E8F5E9,#C8E6C9);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:18px">🏛️</div>
+          <div class="tag tag-green" style="margin-bottom:10px">Gouvernance</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px;line-height:1.3">AG Constitutive — date fixée</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Adoption des Statuts et élection des premiers organes de YELLITAARE Thidé.</p>
+        </div>
+        <div class="card fade" style="cursor:pointer;transition-delay:.1s" onclick="navigate('actualites')">
+          <div style="height:140px;border-radius:8px;background:linear-gradient(135deg,#FDF6E3,#F5E6B0);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:18px">📋</div>
+          <div class="tag tag-gold" style="margin-bottom:10px">Organisation</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px;line-height:1.3">Consultations des 3 sections validées</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Les représentants désignés dans les délais du planning de réalisation.</p>
+        </div>
+        <div class="card fade" style="cursor:pointer;transition-delay:.2s" onclick="navigate('adhesion')">
+          <div style="height:140px;border-radius:8px;background:linear-gradient(135deg,#F5F0E8,#E8D9C4);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:18px">💳</div>
+          <div class="tag tag-grey" style="margin-bottom:10px">Adhésion</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px;line-height:1.3">Plateforme d'adhésion en ligne</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Formulaire officiel disponible. Bankily, Masrevi, Seddad acceptés.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline">Organisation Communautaire Inclusive de Thidé — Un cadre légal, transparent et exigeant au service de tous les ressortissants.</div><div class="footer-badges"><span class="f-badge">Village</span><span class="f-badge">Nationaux</span><span class="f-badge">Diaspora</span></div></div>
+      <div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Préambule & histoire</button><button onclick="navigate('qui')">Statuts</button><button onclick="navigate('qui')">Gouvernance</button><button onclick="navigate('qui')">Règlement intérieur</button></div>
+      <div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhésion en ligne</button><button onclick="navigate('adhesion')">Cotisations</button><button onclick="navigate('faq')">FAQ</button><button onclick="navigate('projets')">Rapports financiers</button></div>
+      <div class="footer-col"><h4>Liens</h4><button onclick="navigate('contact')">Nous contacter</button><button onclick="navigate('galerie')">Galerie photos</button><button onclick="navigate('dons')">Faire un don</button><button onclick="navigate('mentions')">Mentions légales</button></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 YELLITAARE Thidé — Tous droits réservés</span><span>Village de Thidé · Mauritanie · Monde</span></div>
+  </div></footer>
+</div>
+
+<div class="page" id="page-qui">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Qui sommes-nous</span></div>
+      <h1 data-i18n="page_qui_title">Histoire, valeurs & gouvernance</h1>
+      <p><span data-i18n="page_qui_sub">De la solidarité spontanée des années 1960 à la refondation formelle d'aujourd'hui — l'histoire de YELLITAARE Thidé est celle de toute une communauté.</span></p>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-label" data-i18n="qui_preambule">Préambule</div>
+      <h2 class="section-title"><span data-i18n="qui_contexte">Contexte et évolution historique</span></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:32px">
+        <div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1960–1970</div><div class="tl-content"><h4>Les premières solidarités</h4><p>Les ressortissants actifs de Thidé établis dans les centres urbains organisent entre eux une solidarité concrète : accueil, hébergement, prise en charge des membres en déplacement. Sans statuts, sans budget formalisé — mais ça fonctionnait.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Années 80–2000</div><div class="tl-content"><h4>Les grandes réalisations</h4><p>Les ambitions s'élargissent. Des écoles sont construites, des mosquées, des équipements collectifs. Ces réalisations sont là, dans le village. Mais le cadre organisationnel n'a pas grandi avec elles : contrôle insuffisant, gestion floue, règles peu formalisées.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Mai 2016</div><div class="tl-content"><h4>YELLITAARE Thidé Nouakchott</h4><p>Création de la première structure formalisée. Gestion rigoureuse, comptes rendus effectifs, gouvernance ancrée dans la réalité. La voie est tracée pendant près d'une décennie.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Projet Baaba Maal</div><div class="tl-content"><h4>La preuve par l'action</h4><p>La communauté démontre ce dont elle est capable : avec un cadre et une mobilisation réelle, elle produit des résultats. On ne repart pas de zéro — on repart de là.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Aujourd'hui</div><div class="tl-content"><h4>La refondation</h4><p>YELLITAARE Thidé élargit le cercle : le village, les villes, la diaspora. Elle le fait dans un cadre légal, avec des règles claires et une gouvernance qui rend des comptes.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <blockquote style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;line-height:1.65;color:var(--vert);border-left:3px solid var(--or);padding-left:24px;margin-bottom:28px">« Nous ne recommençons pas. Nous élevons le niveau. Nous élargissons le cercle. Nous ouvrons la maison à tous : le village, les villes, la diaspora. »</blockquote>
+          <p style="font-size:15px;color:var(--gris);line-height:1.8;margin-bottom:16px">Le décalage entre ce que la communauté veut accomplir et ce que ses outils lui permettent de faire est aujourd'hui trop grand pour être ignoré. C'est ce constat qui fonde la présente refondation.</p>
+          <p style="font-size:15px;color:var(--gris);line-height:1.8">YELLITAARE Thidé réunit l'ensemble des composantes de la communauté dans un cadre légal et transparent, parce que la confiance des membres ne se décrète pas — elle se mérite.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label" data-i18n="qui_valeurs_label">Nos valeurs</div>
+        <h2 class="section-title"><span data-i18n="qui_valeurs_title">Les principes qui nous guident</span></h2>
+      </div>
+      <div class="valeurs-grid">
+        <div class="valeur-card card"><div class="valeur-icon">🤝</div><h3>Solidarité</h3><p>L'entraide entre membres, quelle que soit leur situation ou leur section géographique.</p></div>
+        <div class="valeur-card card"><div class="valeur-icon">📊</div><h3>Transparence</h3><p>Gestion financière rigoureuse, comptes rendus réguliers, accès aux informations pour tous.</p></div>
+        <div class="valeur-card card"><div class="valeur-icon">⚖️</div><h3>Équité</h3><p>Représentation proportionnelle, participation inclusive de toutes les sections et composantes.</p></div>
+        <div class="valeur-card card"><div class="valeur-icon">🌱</div><h3>Durabilité</h3><p>Un développement porté de l'intérieur, autonome et pérenne, au service des générations futures.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label" data-i18n="qui_organes">Organes</div>
+        <h2 class="section-title"><span data-i18n="qui_gouv_title">Structure de gouvernance</span></h2>
+        <p class="section-sub">YELLITAARE Thidé est dotée d'organes formels aux rôles clairement définis par les Statuts.</p>
+      </div>
+      <div class="gouvernance-grid">
+        <div class="organe-card clickable-card" onclick="openModal('org-ag')" style="cursor:pointer">
+          <div class="tag tag-green" style="margin-bottom:14px">Organe souverain</div>
+          <h3>Assemblée Générale</h3>
+          <div class="role">AG · Art. 10–18</div>
+          <ul>
+            <li>Organe suprême de l'organisation</li>
+            <li>Adopte et modifie les Statuts</li>
+            <li>Élit les membres du Comité de Gestion</li>
+            <li>Approuve les budgets et comptes annuels</li>
+            <li>Statue sur les décisions dépassant 200 000 MRU</li>
+          </ul>
+        </div>
+        <div class="organe-card clickable-card" onclick="openModal('org-cg')" style="cursor:pointer">
+          <div class="tag tag-gold" style="margin-bottom:14px">Organe exécutif</div>
+          <h3>Comité de Gestion</h3>
+          <div class="role">CG · Art. 19–30</div>
+          <ul>
+            <li>Assure la gestion courante de l'organisation</li>
+            <li>Prépare et exécute les décisions de l'AG</li>
+            <li>Président, Secrétaire Général, Trésorier…</li>
+            <li>Autorisation des dépenses jusqu'à 200 000 MRU</li>
+            <li>Rend compte à l'AG lors de chaque session</li>
+          </ul>
+        </div>
+        <div class="organe-card clickable-card" onclick="openModal('org-cosc')" style="cursor:pointer">
+          <div class="tag tag-grey" style="margin-bottom:14px">Organe de contrôle</div>
+          <h3>COSC</h3>
+          <div class="role">Comité d'Orientation Stratégique & Contrôle · Art. 31–38</div>
+          <ul>
+            <li>Contrôle la gestion financière et organisationnelle</li>
+            <li>Peut déclencher un audit externe (2/3 des voix)</li>
+            <li>Vise toutes les dépenses > 5 000 MRU</li>
+            <li>Reçoit les rapports mensuels de trésorerie</li>
+            <li>Conduit la médiation interne en premier recours</li>
+          </ul>
+        </div>
+        <div class="organe-card">
+          <div class="tag tag-green" style="margin-bottom:14px">Organes opérationnels</div>
+          <h3>8 Commissions thématiques</h3>
+          <div class="role">Commissions · Art. 39–44</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+<button onclick="openModal('com-education')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>📚</span>Education & Formation</button>
+<button onclick="openModal('com-sante')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🏥</span>Sante & Bien-etre</button>
+<button onclick="openModal('com-infra')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🏗️</span>Infrastructures & Habitat</button>
+<button onclick="openModal('com-culture')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🎭</span>Culture & Patrimoine</button>
+<button onclick="openModal('com-finances')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>💰</span>Finances & Ressources</button>
+<button onclick="openModal('com-diaspora')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>✈️</span>Diaspora & Relations Ext.</button>
+<button onclick="openModal('com-jeunesse')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>⚽</span>Jeunesse & Sports</button>
+<button onclick="openModal('com-agri')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🌾</span>Agriculture & Env.</button>
+</div>
+<div style="font-size:11px;color:var(--gris);margin-top:10px">→ Cliquez pour voir le détail de chaque commission</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline"><span data-i18n="footer_tagline">Organisation Communautaire Inclusive de Thidé.</span></div></div>
+      <div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Histoire</button><button onclick="navigate('qui')">Gouvernance</button></div>
+      <div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button><button onclick="navigate('faq')">FAQ</button></div>
+      <div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous écrire</button><button onclick="navigate('mentions')">Mentions légales</button></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span><span>Village de Thidé · Mauritanie · Monde</span></div>
+  </div></footer>
+</div>
+
+<div class="page" id="page-projets">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Projets & réalisations</span></div>
+      <h1 data-i18n="page_projets_title">Projets & réalisations</h1>
+      <p><span data-i18n="page_projets_sub">Ce que la communauté de Thidé construit, ensemble, depuis des décennies et pour les générations à venir.</span></p>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+
+      <div class="section-label">Projet phare — Réalisé</div>
+      <div style="background:linear-gradient(135deg,var(--vert-pale) 0%,var(--or-clair) 100%);border-radius:var(--radius);border:1px solid rgba(26,92,42,.12);overflow:hidden;margin-bottom:40px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+          <div style="padding:40px">
+            <div class="tag tag-green" style="margin-bottom:16px">✓ Terminé · Décembre 2025</div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:var(--vert);line-height:1.1;margin-bottom:6px">Baaba Maal</h2>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--or-fonce);margin-bottom:16px;font-style:italic">& Daande Lenol — Concerts 27 & 28 décembre 2025</h3>
+            <p style="font-size:14px;color:var(--gris);line-height:1.75;margin-bottom:24px">Deux concerts mémorables organisés au village de Thidé, portés par toute la communauté. Une mobilisation exceptionnelle de 26,4 millions MRO collectés, 9 commissions, des centaines de bénévoles, et un excédent de 13,6 millions MRO réinvesti dans le patrimoine communautaire.</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <button class="btn btn-primary" onclick="navigate('baaba')">Voir le rapport →</button>
+              <a href="Rapport_Narratif_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="display:inline-flex;align-items:center;gap:6px">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                Rapport narratif PDF
+              </a>
+              <a href="Rapport_Financier_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="display:inline-flex;align-items:center;gap:6px">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                Rapport financier PDF
+              </a>
+            </div>
+          </div>
+          <div style="background:var(--vert);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">26,4M</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">MRO collectés</div>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">13,6M</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">MRO d'excédent</div>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">9</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Commissions</div>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">207%</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Taux de couverture</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:14px;border:1px solid rgba(255,255,255,.15)">
+              <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:4px">Rapport rédigé par</div>
+              <div style="font-size:14px;font-weight:600;color:#fff">Souleymane WAGNE · Janvier 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label" data-i18n="projets_label">Nos projets</div>
+      <h2 class="section-title" data-i18n="projets_actifs_title">Projets communautaires</h2>
+      <div class="card-grid-3" style="margin-top:24px" id="projets-cards">
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:14px">🏫</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert);margin-bottom:8px">Infrastructure éducative</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Réhabilitation des salles de classe et fourniture de matériaux pédagogiques aux établissements de Thidé.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:14px">💧</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert);margin-bottom:8px">Accès à l'eau potable</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Amélioration des infrastructures hydrauliques du village.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:14px">📚</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert);margin-bottom:8px">Bibliothèque communautaire</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Espace culturel et numérique pour la jeunesse de Thidé.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:56px">
+        <div class="section-label">Transparence financière</div>
+        <h2 class="section-title">Rapports archivés</h2>
+        <p class="section-sub" style="margin-bottom:24px">Conformément à l'Article 52 des Statuts, tous les rapports sont archivés et accessibles aux membres.</p>
+        <div class="rapport-row">
+          <div><h4>Rapport Narratif — Concerts Baaba Maal à Thidé</h4><div class="meta">27–28 décembre 2025 · Rédigé par Souleymane WAGNE · Janvier 2026 · 23 pages</div></div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tag tag-green">PDF · 399 Ko</div>
+            <a href="Rapport_Narratif_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="padding:8px 18px;font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Télécharger
+            </a>
+          </div>
+        </div>
+        <div class="rapport-row">
+          <div><h4>Rapport Financier — Concerts Baaba Maal à Thidé</h4><div class="meta">Commission Financière · Excédent 13 644 920 MRO · Janvier 2026 · 4 pages</div></div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tag tag-green">PDF · 165 Ko</div>
+            <a href="Rapport_Financier_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="padding:8px 18px;font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Télécharger
+            </a>
+          </div>
+        </div>
+        <div class="rapport-row">
+          <div>
+            <h4>Outil de procédures financières — YELLITAARE Thidé</h4>
+            <div class="meta">Seuils d'autorisation · Registre des dépenses · Registre des cotisations · Tableau de bord · Note d'utilisation · 6 onglets</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tag tag-gold" style="display:inline-flex;align-items:center;gap:5px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              Excel · 29 Ko
+            </div>
+            <a href="Proc_Financiere_YELLITAARE__1_.xlsx" download class="btn btn-primary" style="padding:8px 18px;font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('qui')">Qui sommes-nous</button></div><div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous contacter</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<div class="page" id="page-baaba">
+
+  <div style="background:var(--vert);padding:80px 48px 60px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-60px;top:-60px;width:360px;height:360px;border-radius:50%;background:rgba(201,152,42,.1)"></div>
+    <div style="position:absolute;left:-40px;bottom:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:16px">
+        Accueil › Projets › <span style="color:rgba(255,255,255,.8)">Baaba Maal & Daande Lenol</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--or);margin-bottom:12px">Rapport officiel · Janvier 2026</div>
+          <h1 style="font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px">Baaba Maal<br><em style="font-style:italic;color:var(--or)">& Daande Lenol</em></h1>
+          <p style="font-size:16px;color:rgba(255,255,255,.7);margin-bottom:6px">Concerts 27 et 28 décembre 2025 — Village de Thidé</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.5);font-style:italic">Wilaya du Brakna · Moughataa de Boghé · Commune de Boghé</p>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:24px;min-width:220px;text-align:center">
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:4px">Taux de couverture</div>
+          <div style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--or);line-height:1">207%</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">Budget excédentaire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--terre)">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(255,255,255,.08)">
+        <div style="padding:28px 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Recettes totales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--or)">26 420 190</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO</div>
+        </div>
+        <div style="padding:28px 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Dépenses totales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#fff">12 775 270</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO</div>
+        </div>
+        <div style="padding:28px 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Excédent</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#4CAF50">13 644 920</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO</div>
+        </div>
+        <div style="padding:28px 24px;text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Investissements durables</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--or)">3 078 620</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO en patrimoine</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap alt">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+        <div>
+          <div class="section-label">Mot d'ouverture</div>
+          <h2 class="section-title">Une aventure humaine exceptionnelle</h2>
+          <blockquote style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;line-height:1.65;color:var(--vert);border-left:3px solid var(--or);padding-left:24px;margin:24px 0">
+            « Quand une communauté se rassemble autour d'un rêve commun, elle écrit son histoire et bâtit son avenir »
+          </blockquote>
+          <p style="font-size:14px;color:var(--gris);line-height:1.8">Ce rapport narratif n'est pas un simple document administratif. C'est le récit vivant d'une aventure humaine exceptionnelle, l'histoire d'une communauté qui a osé rêver grand et qui a transformé ce rêve en réalité éclatante.</p>
+          <p style="font-size:14px;color:var(--gris);line-height:1.8;margin-top:12px">Comment notre village de Thidé, guidé par des valeurs de solidarité, de transparence et de fierté culturelle, a réussi l'impossible : organiser deux concerts mémorables avec l'artiste international Baaba Maal, tout en créant des infrastructures durables et en renforçant notre cohésion communautaire.</p>
+        </div>
+        <div>
+          <div style="background:var(--vert);border-radius:var(--radius);padding:32px;color:#fff">
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:20px">Le choix symbolique de Baaba Maal</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:16px">Fils de la région du fleuve, ambassadeur de la culture peule sur les scènes internationales et ambassadeur de bonne volonté de la Convention des Nations Unies sur la lutte contre la désertification (UNCCD).</p>
+            <p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7">Son orchestre <strong style="color:var(--or)">Daande Lenol</strong> — « La Voix du Peuple » — porte en lui l'âme même de notre communauté. Inviter Baaba Maal à Thidé, c'était inviter un fils de la terre à revenir célébrer avec nous.</p>
+            <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)">
+              <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:4px">Rapport rédigé par</div>
+              <div style="font-size:14px;font-weight:600;color:#fff">Souleymane WAGNE · Janvier 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Rapport financier · Section 1</div>
+        <h2 class="section-title">Sources de financement</h2>
+        <p class="section-sub">Trois sources de revenus témoignant d'une forte mobilisation communautaire et d'un soutien significatif des partenaires.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:var(--vert-pale);border-radius:var(--radius);padding:20px;border-left:4px solid var(--vert)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">Contributions des ressortissants de Thidé</div>
+                <div style="font-size:11px;color:var(--gris);margin-top:2px">Résidents et diaspora confondus</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--vert)">12 994 190</div>
+                <div style="font-size:11px;color:var(--gris)">49,2%</div>
+              </div>
+            </div>
+            <div style="height:8px;background:rgba(26,92,42,.15);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:49.2%;background:var(--vert);border-radius:4px;transition:width 1s"></div>
+            </div>
+          </div>
+          <div style="background:var(--or-clair);border-radius:var(--radius);padding:20px;border-left:4px solid var(--or)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">Contributions des soutiens externes</div>
+                <div style="font-size:11px;color:var(--gris);margin-top:2px">Partenaires et sympathisants</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--or-fonce)">9 644 000</div>
+                <div style="font-size:11px;color:var(--gris)">36,5%</div>
+              </div>
+            </div>
+            <div style="height:8px;background:rgba(201,152,42,.2);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:36.5%;background:var(--or);border-radius:4px"></div>
+            </div>
+          </div>
+          <div style="background:var(--gris-clair);border-radius:var(--radius);padding:20px;border-left:4px solid var(--gris)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">Recettes de la billetterie</div>
+                <div style="font-size:11px;color:var(--gris);margin-top:2px">2 concerts · 27 & 28 décembre 2025</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--gris)">3 782 000</div>
+                <div style="font-size:11px;color:var(--gris)">14,3%</div>
+              </div>
+            </div>
+            <div style="height:8px;background:rgba(0,0,0,.1);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:14.3%;background:var(--gris);border-radius:4px"></div>
+            </div>
+          </div>
+          <div style="background:var(--vert);border-radius:var(--radius);padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,.8)">TOTAL DES RECETTES</div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--or)">26 420 190 MRO</div>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <div style="position:relative;width:220px;height:220px;margin:0 auto 24px">
+            <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg)">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#D0D8D3" stroke-width="4" stroke-dasharray="14.3 85.7" stroke-dashoffset="0"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--or)" stroke-width="4" stroke-dasharray="36.5 63.5" stroke-dashoffset="-14.3"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--vert)" stroke-width="4" stroke-dasharray="49.2 50.8" stroke-dashoffset="-50.8"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-size:11px;color:var(--gris)">Total</div>
+              <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--vert);line-height:1">26,4M</div>
+              <div style="font-size:10px;color:var(--gris)">MRO</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;text-align:left;max-width:200px;margin:0 auto">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:var(--vert);flex-shrink:0"></div><span style="font-size:12px;color:var(--gris)">Ressortissants Thidé — 49,2%</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:var(--or);flex-shrink:0"></div><span style="font-size:12px;color:var(--gris)">Soutiens externes — 36,5%</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:#D0D8D3;flex-shrink:0"></div><span style="font-size:12px;color:var(--gris)">Billetterie — 14,3%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Rapport financier · Section 2</div>
+        <h2 class="section-title">Dépenses par commission</h2>
+        <p class="section-sub">Neuf commissions, une répartition claire et validée par la Commission d'organisation.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Contrat Baaba Maal & Daande Lenol</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:35.2%;background:var(--or)"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:var(--or-fonce)">4 500 000</div>
+              <div style="font-size:11px;color:var(--gris)">35,2%</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission d'organisation</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:27.6%;background:var(--vert)"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:var(--vert)">3 522 000</div>
+              <div style="font-size:11px;color:var(--gris)">27,6%</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission technique</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:24%;background:var(--vert)"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:var(--vert)">3 060 720</div>
+              <div style="font-size:11px;color:var(--gris)">24,0%</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission hébergement & restauration</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:7.9%;background:#4CAF50"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:#2E7D32">1 006 150</div>
+              <div style="font-size:11px;color:var(--gris)">7,9%</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission culturelle</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:3.6%;background:#81C784"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:#2E7D32">454 000</div>
+              <div style="font-size:11px;color:var(--gris)">3,6%</div>
+            </div>
+          </div>
+          <div style="padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="font-size:12px;font-weight:600;color:var(--gris);margin-bottom:10px">Autres commissions</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Accueil & supervision</span><span style="font-weight:600">115 000 · 0,9%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Communication</span><span style="font-weight:600">89 800 · 0,7%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Sécurité</span><span style="font-weight:600">14 000 · 0,1%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Commission des finances</span><span style="font-weight:600">13 600 · 0,1%</span></div>
+            </div>
+          </div>
+          <div style="background:var(--terre);border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.75)">TOTAL DÉPENSES</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--or)">12 775 270 MRO</div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--vert);margin-bottom:6px">Investissements structurants</h3>
+          <p style="font-size:13px;color:var(--gris);margin-bottom:20px">Patrimoine matériel réutilisable, legs durable à la communauté de Thidé.</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">🏗️ Construction du podium</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">1 401 300 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:45.5%;background:var(--vert)"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">45,5% — Structure béton armé permanente</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">⚡ Électricité & eau du podium</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">781 520 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:25.4%;background:var(--or)"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">25,4% — Extension réseau SOMELEC incluse</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">🎪 Bâches & grillages clôture scène</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">564 400 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:18.3%;background:#4CAF50"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">18,3% — Réutilisable pour événements futurs</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">📦 Autres biens matériels acquis</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">331 400 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:10.8%;background:#81C784"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">10,8% — Câbles, projecteurs, disjoncteurs…</div>
+            </div>
+            <div style="background:var(--vert);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center">
+              <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.8)">TOTAL INVESTISSEMENTS</div>
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--or)">3 078 620 MRO</div>
+            </div>
+          </div>
+
+          <div style="margin-top:24px;background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.12)">
+            <h4 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:16px">Analyse budgétaire</h4>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Budget prévisionnel</span><span style="font-weight:600">9 854 290 MRO</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Budget réel exécuté</span><span style="font-weight:600">12 775 270 MRO</span></div>
+              <div style="border-top:1px solid rgba(26,92,42,.1);padding-top:10px;display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Écart budgétaire</span><span style="font-weight:600;color:#E65100">+2 920 980 MRO (+29,6%)</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Taux de couverture</span><span style="font-weight:700;color:var(--vert);font-size:15px">207% ✓ Excédentaire</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Rapport narratif · Section 3</div>
+        <h2 class="section-title">Les 9 commissions — Quand tout un village se mobilise</h2>
+        <p class="section-sub">Une structure participative et inclusive : chaque commission avait sa mission spécifique, ses responsables désignés, ses membres actifs.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="background:var(--vert);border-radius:var(--radius);padding:24px;color:#fff">
+          <div style="font-size:22px;margin-bottom:12px">🎯</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:8px">Organisation & Coordination</h3>
+          <p style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">Véritable pilier du projet. Coordination générale, planification stratégique, réunions souvent prolongées jusqu'à tard dans la nuit. Interface stratégique entre toutes les commissions.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or)">3 522 000 MRO · 27,6%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">⚙️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Technique</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Podium en béton armé, réseau électrique, sonorisation professionnelle. Partant d'un terrain vierge, transformation en scène professionnelle. Jeunes techniciens encadrés par des anciens.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">3 060 720 MRO · 24,0%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">💰</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Financière</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Mobilisation des ressources, gestion financière, traçabilité des contributions. Mécanismes inclusifs favorisant la participation de tous : habitants, jeunes, femmes, notables et diaspora.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">13 600 MRO · 0,1%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🎵</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Culturelle</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Artistes locaux, batteurs, danseurs, groupes traditionnels au cœur de la programmation. Chanson spéciale dédiée à Baaba Maal. Accueil symbolique depuis le fleuve jusqu'au village.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">454 000 MRO · 3,6%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🏠</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Hébergement & Restauration</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Les femmes du village ont déployé leur savoir-faire culinaire. Plats traditionnels authentiques. Familles ouvrant leurs portes avec spontanéité. L'hospitalité de Thidé a laissé une empreinte indélébile.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">1 006 150 MRO · 7,9%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">📢</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Communication</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Radios locales, affiches, réseaux sociaux, relais communautaires. Message : « Thidé vous invite à célébrer la culture peule avec Baaba Maal ». Mobilisation dépassant largement les prévisions.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">89 800 MRO · 0,7%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🤝</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Accueil & Supervision</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Sensibilisation communautaire, liaison avec villages environnants et autorités locales. Lettres d'invitation d'honneur aux villages voisins. Collaboration avec les autorités administratives.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">115 000 MRO · 0,9%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🛡️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Sécurité</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Jeunes volontaires identifiables par leurs gilets. Présence permanente. Gestion des flux, prévention des incidents. Aucun incident majeur enregistré durant les deux jours.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">14 000 MRO · 0,1%</div>
+        </div>
+        <div style="background:var(--or-clair);border-radius:var(--radius);padding:24px;border:1px solid rgba(201,152,42,.2)">
+          <div style="font-size:22px;margin-bottom:12px">📊</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--or-fonce);margin-bottom:8px">Étude, Suivi & Évaluation</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Supervision rigoureuse et impartiale. Respect des termes de référence. Évaluations régulières et méthodiques. Culture du suivi instaurée comme acquis méthodologique précieux.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">Inclus Commission d'organisation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-wrap dark">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label light">Rapport narratif · Section 6</div>
+        <h2 class="section-title light">Les impacts — Une transformation profonde</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="background:rgba(255,255,255,.07);border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:28px;margin-bottom:14px">🤝</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--or);margin-bottom:12px">Impacts communautaires</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7">Consolidation des liens sociaux. Fort sentiment de fierté collective. Esprit de solidarité et d'engagement remarquable. Contributions volontaires sans attente de contrepartie individuelle.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:28px;margin-bottom:14px">🎶</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--or);margin-bottom:12px">Impacts culturels</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7">Valorisation renforcée de la culture locale. Transmission intergénérationnelle authentique. Jeunes générations réappropriant leur héritage culturel. Thidé repositionné comme lieu de rayonnement.</p
