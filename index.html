@@ -1,0 +1,2501 @@
+<yellitaare-thide
+!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1A5C2A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="YELLITAARE">
+<meta name="description" content="YELLITAARE Thidé — Organisation Communautaire Inclusive — Adhésion en ligne">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A5C2A'/><text x='50' y='62' text-anchor='middle' font-family='serif' font-size='40' font-weight='bold' fill='white'>YT</text></svg>">
+<title>YELLITAARE Thidé — Organisation Communautaire Inclusive</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="navigate('accueil')">
+    <img src="logo-thide.png" alt="Logo YELLITAARE THIDÉ">
+    <span class="nav-name">YELLITAARE Thidé</span>
+  </div>
+  <div class="nav-links">
+    <button onclick="navigate('qui')" id="nav-qui" data-i18n="nav_qui">Qui sommes-nous</button>
+    <button onclick="navigate('projets')" id="nav-projets" data-i18n="nav_projets">Projets</button>
+    <button onclick="navigate('baaba')" id="nav-baaba" style="color:var(--or-fonce);font-weight:600">Baaba Maal</button>
+    <button onclick="navigate('actualites')" id="nav-actualites" data-i18n="nav_actus">Actualités</button>
+    <button onclick="navigate('galerie')" id="nav-galerie" data-i18n="nav_galerie">Galerie</button>
+    <button onclick="navigate('contact')" id="nav-contact" data-i18n="nav_contact">Contact</button>
+    <button onclick="navigate('tdb')" id="nav-tdb" style="color:var(--or-fonce);font-weight:600" data-i18n="nav_admin">⚙ Administration</button>
+    <button class="lang-toggle" id="lang-btn" onclick="switchLang()">PU</button>
+    <button class="nav-cta" onclick="navigate('adhesion')" data-i18n="nav_adhesion">Adhérer</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button onclick="navigate('qui');toggleMenu()" data-i18n="nav_qui">Qui sommes-nous</button>
+  <button onclick="navigate('projets');toggleMenu()" data-i18n="mob_projets">Projets & réalisations</button>
+  <button onclick="navigate('baaba');toggleMenu()" style="color:var(--or-fonce);font-weight:600">🎵 Baaba Maal</button>
+  <button onclick="navigate('actualites');toggleMenu()" data-i18n="mob_actus">Actualités & agenda</button>
+  <button onclick="navigate('galerie');toggleMenu()" data-i18n="nav_galerie">Galerie</button>
+  <button onclick="navigate('faq');toggleMenu()">FAQ</button>
+  <button onclick="navigate('contact');toggleMenu()" data-i18n="mob_contact">Nous contacter</button>
+  <button onclick="navigate('tdb');toggleMenu()" style="color:var(--or-fonce);font-weight:600" data-i18n="nav_admin">⚙ Administration</button>
+  <button onclick="navigate('dons');toggleMenu()" data-i18n="mob_dons">Faire un don</button>
+  <button class="mob-cta" onclick="navigate('adhesion');toggleMenu()" data-i18n="mob_adhesion">Adhérer à l'organisation →</button>
+  <button class="lang-toggle" onclick="switchLang();toggleMenu()" id="lang-btn-mob" style="margin-top:8px;align-self:flex-start;">PU</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : ACCUEIL
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-accueil">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-slab"></div>
+    <div class="hero-content fade">
+      <div class="hero-logo">
+        <img src="logo-thide.png" alt="Logo YELLITAARE THIDÉ">
+      </div>
+      <div class="hero-pill"><div class="pulse"></div><span data-i18n="hero_pill">Organisation communautaire inclusive</span></div>
+      <h1 data-i18n="hero_title">Ensemble pour <em>Thidé</em>,<br>de partout dans le monde</h1>
+      <p class="hero-sub" data-i18n="hero_sub">YELLITAARE Thidé unit les ressortissants du village — résidents, citadins et diaspora — autour d'un cadre formel, transparent et exigeant, au service du développement durable de la communauté.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="navigate('adhesion')" data-i18n="mob_adhesion">Adhérer à l'organisation →</button>
+        <button class="btn btn-outline" onclick="navigate('qui')" data-i18n="btn_histoire">Notre histoire</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative;height:100%">
+        <div class="h-card h-card-main">
+          <div class="hc-label">Prochaine échéance</div>
+          <div class="hc-title">AG Constitutive</div>
+          <div class="hc-text">Adoption des Statuts · Élection du CG · Installation du COSC</div>
+          <div class="hc-bar"><div class="hc-fill"></div></div>
+        </div>
+        <div class="h-card h-card-stat">
+          <div class="hc-num">3</div>
+          <div class="hc-desc">Sections géographiques représentées</div>
+        </div>
+        <div class="h-card h-card-tag">
+          <div><div class="hc-dot"></div><strong style="font-size:13px">Projet Baaba Maal ✓</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat strip -->
+  <div class="section-wrap dark" style="padding:0">
+    <div class="stat-strip" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-strip-item"><div class="stat-big">1960</div><div class="stat-desc"><span data-i18n="stat_1960">Premières solidarités organisées entre ressortissants</span></div></div>
+      <div class="stat-strip-item"><div class="stat-big">3</div><div class="stat-desc"><span data-i18n="stat_sections">Sections : Village · Villes · Diaspora internationale</span></div></div>
+      <div class="stat-strip-item"><div class="stat-big">8</div><div class="stat-desc"><span data-i18n="stat_commissions">Commissions thématiques pilotant les projets</span></div></div>
+    </div>
+  </div>
+
+  <!-- Préambule résumé -->
+  <div class="section-wrap alt">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+        <div class="fade">
+          <div class="section-label" data-i18n="home_histoire_label">Notre histoire</div>
+          <h2 class="section-title"><span data-i18n="home_histoire_title">De la solidarité spontanée à la gouvernance formelle</span></h2>
+          <div class="timeline" style="margin-top:28px">
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1960–1970</div><div class="tl-content"><p>Premiers réseaux d'entraide dans les centres urbains. Accueil, hébergement, prise en charge.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Années 80–2000</div><div class="tl-content"><p>Construction d'écoles, mosquées, infrastructures. Réalisations réelles, cadre insuffisant.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Mai 2016</div><div class="tl-content"><p>YELLITAARE Thidé Nouakchott : gestion rigoureuse, redevabilité effective. La voie est tracée.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Aujourd'hui</div><div class="tl-content"><p>Refondation nationale : un cadre légal pour tous — village, villes, diaspora.</p></div></div>
+          </div>
+          <button class="btn btn-outline" style="margin-top:28px" onclick="navigate('qui')">Lire le préambule complet →</button>
+        </div>
+        <div class="fade" style="transition-delay:.15s">
+          <blockquote style="font-family:'Playfair Display',serif;font-size:22px;font-style:italic;line-height:1.6;color:var(--vert);border-left:3px solid var(--or);padding-left:24px;margin-bottom:24px">
+            « Le village de Thidé a toujours su compter sur ses enfants. Qu'ils vivent au village, dans les grandes villes ou aux quatre coins du monde, le lien n'a jamais rompu. »
+          </blockquote>
+          <p style="font-size:15px;color:var(--gris);line-height:1.8">YELLITAARE Thidé réunit l'ensemble des composantes de la communauté dans un cadre légal et transparent, parce que la confiance de ses membres est la condition de toute action collective durable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sections géo -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head flex-between">
+        <div><div class="section-label" data-i18n="home_org_label">Organisation</div><h2 class="section-title"><span data-i18n="home_org_title">Trois sections, une seule communauté</span></h2></div>
+      </div>
+      <div class="card-grid-3">
+        <div class="card fade clickable-card" onclick="openModal('sec-village')" style="position:relative;overflow:hidden">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(26,92,42,.06);line-height:1">01</div>
+          <div style="font-size:28px;margin-bottom:16px">🏡</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--vert);margin-bottom:8px">Section Village</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:16px">Résidents permanents de Thidé et des localités environnantes. Socle territorial de l'organisation.</p>
+          <div class="tag tag-gold">100 MRU / an</div>
+        </div>
+        <div class="card fade clickable-card" onclick="openModal('sec-nationaux')" style="position:relative;overflow:hidden;transition-delay:.1s">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(26,92,42,.06);line-height:1">02</div>
+          <div style="font-size:28px;margin-bottom:16px">🏙️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--vert);margin-bottom:8px">Section Nationaux</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:16px">Ressortissants résidant en Mauritanie : Nouakchott, Nouadhibou, Zouerat et autres villes.</p>
+          <div class="tag tag-gold">300 MRU / an</div>
+        </div>
+        <div class="card fade clickable-card" onclick="openModal('sec-diaspora')" style="position:relative;overflow:hidden;transition-delay:.2s">
+          <div style="position:absolute;top:16px;right:20px;font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:rgba(26,92,42,.06);line-height:1">03</div>
+          <div style="font-size:28px;margin-bottom:16px">🌍</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--vert);margin-bottom:8px">Section Diaspora</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:16px">Membres résidant à l'étranger : Afrique, Europe, Amériques. Sous-sections dès 5 membres.</p>
+          <div class="tag tag-gold">500 – 1 000 MRU / an</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Adhésion -->
+  <div class="section-wrap dark">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+      <div>
+        <div class="section-label light">Rejoindre l'organisation</div>
+        <h2 class="section-title light" style="font-size:clamp(28px,3.5vw,44px)">Devenez membre de <em style="font-style:italic;color:var(--or)">YELLITAARE Thidé</em></h2>
+        <p class="section-sub light" style="margin-bottom:32px">Un développement porté de l'intérieur, par nous, pour Thidé. Pas une aide ponctuelle qui s'évapore — un effort collectif, structuré, durable.</p>
+        <button class="btn btn-gold" onclick="navigate('adhesion')">Remplir le formulaire d'adhésion</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+          <span style="font-size:12px;color:rgba(255,255,255,.45);align-self:center">Paiement :</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Bankily</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Masrevi</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Seddad</span>
+          <span style="padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Espèces</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:var(--radius);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
+          <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#fff">1</div>
+          <div><h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Remplir le formulaire</h4><p style="font-size:12px;color:rgba(255,255,255,.6)">Informations personnelles, section d'appartenance, photo d'identité.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:var(--radius);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
+          <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#fff">2</div>
+          <div><h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Choisir sa catégorie</h4><p style="font-size:12px;color:rgba(255,255,255,.6)">De 100 MRU (résident Thidé) à 1 000 MRU (diaspora internationale).</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:var(--radius);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
+          <div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#fff">3</div>
+          <div><h4 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Signer l'engagement</h4><p style="font-size:12px;color:rgba(255,255,255,.6)">Attestation officielle générée automatiquement et imprimable.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <span data-i18n="home_actus_title">Actualités récentes</span> -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head flex-between">
+        <div><div class="section-label" data-i18n="home_vie_label">Vie du village</div><h2 class="section-title"><span data-i18n="home_actus_title">Actualités récentes</span></h2></div>
+        <button class="btn btn-outline" onclick="navigate('actualites')">Toutes les actualités</button>
+      </div>
+      <div class="card-grid-3">
+        <div class="card fade" style="cursor:pointer" onclick="navigate('actualites')">
+          <div style="height:140px;border-radius:8px;background:linear-gradient(135deg,#E8F5E9,#C8E6C9);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:18px">🏛️</div>
+          <div class="tag tag-green" style="margin-bottom:10px">Gouvernance</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px;line-height:1.3">AG Constitutive — date fixée</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Adoption des Statuts et élection des premiers organes de YELLITAARE Thidé.</p>
+        </div>
+        <div class="card fade" style="cursor:pointer;transition-delay:.1s" onclick="navigate('actualites')">
+          <div style="height:140px;border-radius:8px;background:linear-gradient(135deg,#FDF6E3,#F5E6B0);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:18px">📋</div>
+          <div class="tag tag-gold" style="margin-bottom:10px">Organisation</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px;line-height:1.3">Consultations des 3 sections validées</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Les représentants désignés dans les délais du planning de réalisation.</p>
+        </div>
+        <div class="card fade" style="cursor:pointer;transition-delay:.2s" onclick="navigate('adhesion')">
+          <div style="height:140px;border-radius:8px;background:linear-gradient(135deg,#F5F0E8,#E8D9C4);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:18px">💳</div>
+          <div class="tag tag-grey" style="margin-bottom:10px">Adhésion</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px;line-height:1.3">Plateforme d'adhésion en ligne</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Formulaire officiel disponible. Bankily, Masrevi, Seddad acceptés.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer><div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline">Organisation Communautaire Inclusive de Thidé — Un cadre légal, transparent et exigeant au service de tous les ressortissants.</div><div class="footer-badges"><span class="f-badge">Village</span><span class="f-badge">Nationaux</span><span class="f-badge">Diaspora</span></div></div>
+      <div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Préambule & histoire</button><button onclick="navigate('qui')">Statuts</button><button onclick="navigate('qui')">Gouvernance</button><button onclick="navigate('qui')">Règlement intérieur</button></div>
+      <div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhésion en ligne</button><button onclick="navigate('adhesion')">Cotisations</button><button onclick="navigate('faq')">FAQ</button><button onclick="navigate('projets')">Rapports financiers</button></div>
+      <div class="footer-col"><h4>Liens</h4><button onclick="navigate('contact')">Nous contacter</button><button onclick="navigate('galerie')">Galerie photos</button><button onclick="navigate('dons')">Faire un don</button><button onclick="navigate('mentions')">Mentions légales</button></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 YELLITAARE Thidé — Tous droits réservés</span><span>Village de Thidé · Mauritanie · Monde</span></div>
+  </div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : QUI SOMMES-NOUS
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-qui">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Qui sommes-nous</span></div>
+      <h1 data-i18n="page_qui_title">Histoire, valeurs & gouvernance</h1>
+      <p><span data-i18n="page_qui_sub">De la solidarité spontanée des années 1960 à la refondation formelle d'aujourd'hui — l'histoire de YELLITAARE Thidé est celle de toute une communauté.</span></p>
+    </div>
+  </div>
+
+  <!-- Préambule -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-label" data-i18n="qui_preambule">Préambule</div>
+      <h2 class="section-title"><span data-i18n="qui_contexte">Contexte et évolution historique</span></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:32px">
+        <div>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1960–1970</div><div class="tl-content"><h4>Les premières solidarités</h4><p>Les ressortissants actifs de Thidé établis dans les centres urbains organisent entre eux une solidarité concrète : accueil, hébergement, prise en charge des membres en déplacement. Sans statuts, sans budget formalisé — mais ça fonctionnait.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Années 80–2000</div><div class="tl-content"><h4>Les grandes réalisations</h4><p>Les ambitions s'élargissent. Des écoles sont construites, des mosquées, des équipements collectifs. Ces réalisations sont là, dans le village. Mais le cadre organisationnel n'a pas grandi avec elles : contrôle insuffisant, gestion floue, règles peu formalisées.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Mai 2016</div><div class="tl-content"><h4>YELLITAARE Thidé Nouakchott</h4><p>Création de la première structure formalisée. Gestion rigoureuse, comptes rendus effectifs, gouvernance ancrée dans la réalité. La voie est tracée pendant près d'une décennie.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Projet Baaba Maal</div><div class="tl-content"><h4>La preuve par l'action</h4><p>La communauté démontre ce dont elle est capable : avec un cadre et une mobilisation réelle, elle produit des résultats. On ne repart pas de zéro — on repart de là.</p></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Aujourd'hui</div><div class="tl-content"><h4>La refondation</h4><p>YELLITAARE Thidé élargit le cercle : le village, les villes, la diaspora. Elle le fait dans un cadre légal, avec des règles claires et une gouvernance qui rend des comptes.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <blockquote style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;line-height:1.65;color:var(--vert);border-left:3px solid var(--or);padding-left:24px;margin-bottom:28px">« Nous ne recommençons pas. Nous élevons le niveau. Nous élargissons le cercle. Nous ouvrons la maison à tous : le village, les villes, la diaspora. »</blockquote>
+          <p style="font-size:15px;color:var(--gris);line-height:1.8;margin-bottom:16px">Le décalage entre ce que la communauté veut accomplir et ce que ses outils lui permettent de faire est aujourd'hui trop grand pour être ignoré. C'est ce constat qui fonde la présente refondation.</p>
+          <p style="font-size:15px;color:var(--gris);line-height:1.8">YELLITAARE Thidé réunit l'ensemble des composantes de la communauté dans un cadre légal et transparent, parce que la confiance des membres ne se décrète pas — elle se mérite.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Valeurs -->
+  <div class="section-wrap alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label" data-i18n="qui_valeurs_label">Nos valeurs</div>
+        <h2 class="section-title"><span data-i18n="qui_valeurs_title">Les principes qui nous guident</span></h2>
+      </div>
+      <div class="valeurs-grid">
+        <div class="valeur-card card"><div class="valeur-icon">🤝</div><h3>Solidarité</h3><p>L'entraide entre membres, quelle que soit leur situation ou leur section géographique.</p></div>
+        <div class="valeur-card card"><div class="valeur-icon">📊</div><h3>Transparence</h3><p>Gestion financière rigoureuse, comptes rendus réguliers, accès aux informations pour tous.</p></div>
+        <div class="valeur-card card"><div class="valeur-icon">⚖️</div><h3>Équité</h3><p>Représentation proportionnelle, participation inclusive de toutes les sections et composantes.</p></div>
+        <div class="valeur-card card"><div class="valeur-icon">🌱</div><h3>Durabilité</h3><p>Un développement porté de l'intérieur, autonome et pérenne, au service des générations futures.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gouvernance -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label" data-i18n="qui_organes">Organes</div>
+        <h2 class="section-title"><span data-i18n="qui_gouv_title">Structure de gouvernance</span></h2>
+        <p class="section-sub">YELLITAARE Thidé est dotée d'organes formels aux rôles clairement définis par les Statuts.</p>
+      </div>
+      <div class="gouvernance-grid">
+        <div class="organe-card clickable-card" onclick="openModal('org-ag')" style="cursor:pointer">
+          <div class="tag tag-green" style="margin-bottom:14px">Organe souverain</div>
+          <h3>Assemblée Générale</h3>
+          <div class="role">AG · Art. 10–18</div>
+          <ul>
+            <li>Organe suprême de l'organisation</li>
+            <li>Adopte et modifie les Statuts</li>
+            <li>Élit les membres du Comité de Gestion</li>
+            <li>Approuve les budgets et comptes annuels</li>
+            <li>Statue sur les décisions dépassant 200 000 MRU</li>
+          </ul>
+        </div>
+        <div class="organe-card clickable-card" onclick="openModal('org-cg')" style="cursor:pointer">
+          <div class="tag tag-gold" style="margin-bottom:14px">Organe exécutif</div>
+          <h3>Comité de Gestion</h3>
+          <div class="role">CG · Art. 19–30</div>
+          <ul>
+            <li>Assure la gestion courante de l'organisation</li>
+            <li>Prépare et exécute les décisions de l'AG</li>
+            <li>Président, Secrétaire Général, Trésorier…</li>
+            <li>Autorisation des dépenses jusqu'à 200 000 MRU</li>
+            <li>Rend compte à l'AG lors de chaque session</li>
+          </ul>
+        </div>
+        <div class="organe-card clickable-card" onclick="openModal('org-cosc')" style="cursor:pointer">
+          <div class="tag tag-grey" style="margin-bottom:14px">Organe de contrôle</div>
+          <h3>COSC</h3>
+          <div class="role">Comité d'Orientation Stratégique & Contrôle · Art. 31–38</div>
+          <ul>
+            <li>Contrôle la gestion financière et organisationnelle</li>
+            <li>Peut déclencher un audit externe (2/3 des voix)</li>
+            <li>Vise toutes les dépenses &gt; 5 000 MRU</li>
+            <li>Reçoit les rapports mensuels de trésorerie</li>
+            <li>Conduit la médiation interne en premier recours</li>
+          </ul>
+        </div>
+        <div class="organe-card">
+          <div class="tag tag-green" style="margin-bottom:14px">Organes opérationnels</div>
+          <h3>8 Commissions thématiques</h3>
+          <div class="role">Commissions · Art. 39–44</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+<button onclick="openModal('com-education')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>📚</span>Education & Formation</button>
+<button onclick="openModal('com-sante')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🏥</span>Sante & Bien-etre</button>
+<button onclick="openModal('com-infra')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🏗️</span>Infrastructures & Habitat</button>
+<button onclick="openModal('com-culture')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🎭</span>Culture & Patrimoine</button>
+<button onclick="openModal('com-finances')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>💰</span>Finances & Ressources</button>
+<button onclick="openModal('com-diaspora')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>✈️</span>Diaspora & Relations Ext.</button>
+<button onclick="openModal('com-jeunesse')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>⚽</span>Jeunesse & Sports</button>
+<button onclick="openModal('com-agri')" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--vert-pale);border:1px solid rgba(26,92,42,.12);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--vert);text-align:left;width:100%;transition:.15s"><span>🌾</span>Agriculture & Env.</button>
+</div>
+<div style="font-size:11px;color:var(--gris);margin-top:10px">→ Cliquez pour voir le détail de chaque commission</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline"><span data-i18n="footer_tagline">Organisation Communautaire Inclusive de Thidé.</span></div></div>
+      <div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Histoire</button><button onclick="navigate('qui')">Gouvernance</button></div>
+      <div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button><button onclick="navigate('faq')">FAQ</button></div>
+      <div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous écrire</button><button onclick="navigate('mentions')">Mentions légales</button></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span><span>Village de Thidé · Mauritanie · Monde</span></div>
+  </div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : PROJETS
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-projets">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Projets & réalisations</span></div>
+      <h1 data-i18n="page_projets_title">Projets & réalisations</h1>
+      <p><span data-i18n="page_projets_sub">Ce que la communauté de Thidé construit, ensemble, depuis des décennies et pour les générations à venir.</span></p>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+
+      <!-- Projet phare Baaba Maal -->
+      <div class="section-label">Projet phare — Réalisé</div>
+      <div style="background:linear-gradient(135deg,var(--vert-pale) 0%,var(--or-clair) 100%);border-radius:var(--radius);border:1px solid rgba(26,92,42,.12);overflow:hidden;margin-bottom:40px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+          <div style="padding:40px">
+            <div class="tag tag-green" style="margin-bottom:16px">✓ Terminé · Décembre 2025</div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:var(--vert);line-height:1.1;margin-bottom:6px">Baaba Maal</h2>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--or-fonce);margin-bottom:16px;font-style:italic">& Daande Lenol — Concerts 27 & 28 décembre 2025</h3>
+            <p style="font-size:14px;color:var(--gris);line-height:1.75;margin-bottom:24px">Deux concerts mémorables organisés au village de Thidé, portés par toute la communauté. Une mobilisation exceptionnelle de 26,4 millions MRO collectés, 9 commissions, des centaines de bénévoles, et un excédent de 13,6 millions MRO réinvesti dans le patrimoine communautaire.</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <button class="btn btn-primary" onclick="navigate('baaba')">Voir le rapport →</button>
+              <a href="Rapport_Narratif_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="display:inline-flex;align-items:center;gap:6px">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                Rapport narratif PDF
+              </a>
+              <a href="Rapport_Financier_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="display:inline-flex;align-items:center;gap:6px">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                Rapport financier PDF
+              </a>
+            </div>
+          </div>
+          <div style="background:var(--vert);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">26,4M</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">MRO collectés</div>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">13,6M</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">MRO d'excédent</div>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">9</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Commissions</div>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:16px;text-align:center">
+                <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--or);line-height:1">207%</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Taux de couverture</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:14px;border:1px solid rgba(255,255,255,.15)">
+              <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:4px">Rapport rédigé par</div>
+              <div style="font-size:14px;font-weight:600;color:#fff">Souleymane WAGNE · Janvier 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projets actifs -->
+      <div class="section-label" data-i18n="projets_label">Nos projets</div>
+      <h2 class="section-title" data-i18n="projets_actifs_title">Projets communautaires</h2>
+      <div class="card-grid-3" style="margin-top:24px" id="projets-cards">
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:14px">🏫</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert);margin-bottom:8px">Infrastructure éducative</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Réhabilitation des salles de classe et fourniture de matériaux pédagogiques aux établissements de Thidé.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:14px">💧</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert);margin-bottom:8px">Accès à l'eau potable</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Amélioration des infrastructures hydrauliques du village.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:14px">📚</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--vert);margin-bottom:8px">Bibliothèque communautaire</h3>
+          <p style="font-size:13px;color:var(--gris);line-height:1.6">Espace culturel et numérique pour la jeunesse de Thidé.</p>
+        </div>
+      </div>
+
+      <!-- Rapports financiers -->
+      <div style="margin-top:56px">
+        <div class="section-label">Transparence financière</div>
+        <h2 class="section-title">Rapports archivés</h2>
+        <p class="section-sub" style="margin-bottom:24px">Conformément à l'Article 52 des Statuts, tous les rapports sont archivés et accessibles aux membres.</p>
+        <div class="rapport-row">
+          <div><h4>Rapport Narratif — Concerts Baaba Maal à Thidé</h4><div class="meta">27–28 décembre 2025 · Rédigé par Souleymane WAGNE · Janvier 2026 · 23 pages</div></div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tag tag-green">PDF · 399 Ko</div>
+            <a href="Rapport_Narratif_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="padding:8px 18px;font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Télécharger
+            </a>
+          </div>
+        </div>
+        <div class="rapport-row">
+          <div><h4>Rapport Financier — Concerts Baaba Maal à Thidé</h4><div class="meta">Commission Financière · Excédent 13 644 920 MRO · Janvier 2026 · 4 pages</div></div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tag tag-green">PDF · 165 Ko</div>
+            <a href="Rapport_Financier_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="padding:8px 18px;font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Télécharger
+            </a>
+          </div>
+        </div>
+        <div class="rapport-row">
+          <div>
+            <h4>Outil de procédures financières — YELLITAARE Thidé</h4>
+            <div class="meta">Seuils d'autorisation · Registre des dépenses · Registre des cotisations · Tableau de bord · Note d'utilisation · 6 onglets</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tag tag-gold" style="display:inline-flex;align-items:center;gap:5px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              Excel · 29 Ko
+            </div>
+            <a href="Proc_Financiere_YELLITAARE__1_.xlsx" download class="btn btn-primary" style="padding:8px 18px;font-size:13px;display:inline-flex;align-items:center;gap:6px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('qui')">Qui sommes-nous</button></div><div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous contacter</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : BAABA MAAL — Rapport complet
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-baaba">
+
+  <!-- Hero -->
+  <div style="background:var(--vert);padding:80px 48px 60px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-60px;top:-60px;width:360px;height:360px;border-radius:50%;background:rgba(201,152,42,.1)"></div>
+    <div style="position:absolute;left:-40px;bottom:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:16px">
+        Accueil › Projets › <span style="color:rgba(255,255,255,.8)">Baaba Maal & Daande Lenol</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--or);margin-bottom:12px">Rapport officiel · Janvier 2026</div>
+          <h1 style="font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px">Baaba Maal<br><em style="font-style:italic;color:var(--or)">&amp; Daande Lenol</em></h1>
+          <p style="font-size:16px;color:rgba(255,255,255,.7);margin-bottom:6px">Concerts 27 et 28 décembre 2025 — Village de Thidé</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.5);font-style:italic">Wilaya du Brakna · Moughataa de Boghé · Commune de Boghé</p>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:24px;min-width:220px;text-align:center">
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:4px">Taux de couverture</div>
+          <div style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--or);line-height:1">207%</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">Budget excédentaire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs financiers -->
+  <div style="background:var(--terre)">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(255,255,255,.08)">
+        <div style="padding:28px 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Recettes totales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--or)">26 420 190</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO</div>
+        </div>
+        <div style="padding:28px 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Dépenses totales</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#fff">12 775 270</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO</div>
+        </div>
+        <div style="padding:28px 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Excédent</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#4CAF50">13 644 920</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO</div>
+        </div>
+        <div style="padding:28px 24px;text-align:center">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px">Investissements durables</div>
+          <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--or)">3 078 620</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">MRO en patrimoine</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mot d'ouverture -->
+  <div class="section-wrap alt">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+        <div>
+          <div class="section-label">Mot d'ouverture</div>
+          <h2 class="section-title">Une aventure humaine exceptionnelle</h2>
+          <blockquote style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;line-height:1.65;color:var(--vert);border-left:3px solid var(--or);padding-left:24px;margin:24px 0">
+            « Quand une communauté se rassemble autour d'un rêve commun, elle écrit son histoire et bâtit son avenir »
+          </blockquote>
+          <p style="font-size:14px;color:var(--gris);line-height:1.8">Ce rapport narratif n'est pas un simple document administratif. C'est le récit vivant d'une aventure humaine exceptionnelle, l'histoire d'une communauté qui a osé rêver grand et qui a transformé ce rêve en réalité éclatante.</p>
+          <p style="font-size:14px;color:var(--gris);line-height:1.8;margin-top:12px">Comment notre village de Thidé, guidé par des valeurs de solidarité, de transparence et de fierté culturelle, a réussi l'impossible : organiser deux concerts mémorables avec l'artiste international Baaba Maal, tout en créant des infrastructures durables et en renforçant notre cohésion communautaire.</p>
+        </div>
+        <div>
+          <div style="background:var(--vert);border-radius:var(--radius);padding:32px;color:#fff">
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:20px">Le choix symbolique de Baaba Maal</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:16px">Fils de la région du fleuve, ambassadeur de la culture peule sur les scènes internationales et ambassadeur de bonne volonté de la Convention des Nations Unies sur la lutte contre la désertification (UNCCD).</p>
+            <p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7">Son orchestre <strong style="color:var(--or)">Daande Lenol</strong> — « La Voix du Peuple » — porte en lui l'âme même de notre communauté. Inviter Baaba Maal à Thidé, c'était inviter un fils de la terre à revenir célébrer avec nous.</p>
+            <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)">
+              <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:4px">Rapport rédigé par</div>
+              <div style="font-size:14px;font-weight:600;color:#fff">Souleymane WAGNE · Janvier 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recettes -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Rapport financier · Section 1</div>
+        <h2 class="section-title">Sources de financement</h2>
+        <p class="section-sub">Trois sources de revenus témoignant d'une forte mobilisation communautaire et d'un soutien significatif des partenaires.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <!-- Ressortissants -->
+          <div style="background:var(--vert-pale);border-radius:var(--radius);padding:20px;border-left:4px solid var(--vert)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">Contributions des ressortissants de Thidé</div>
+                <div style="font-size:11px;color:var(--gris);margin-top:2px">Résidents et diaspora confondus</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--vert)">12 994 190</div>
+                <div style="font-size:11px;color:var(--gris)">49,2%</div>
+              </div>
+            </div>
+            <div style="height:8px;background:rgba(26,92,42,.15);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:49.2%;background:var(--vert);border-radius:4px;transition:width 1s"></div>
+            </div>
+          </div>
+          <!-- Soutiens externes -->
+          <div style="background:var(--or-clair);border-radius:var(--radius);padding:20px;border-left:4px solid var(--or)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">Contributions des soutiens externes</div>
+                <div style="font-size:11px;color:var(--gris);margin-top:2px">Partenaires et sympathisants</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--or-fonce)">9 644 000</div>
+                <div style="font-size:11px;color:var(--gris)">36,5%</div>
+              </div>
+            </div>
+            <div style="height:8px;background:rgba(201,152,42,.2);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:36.5%;background:var(--or);border-radius:4px"></div>
+            </div>
+          </div>
+          <!-- Billetterie -->
+          <div style="background:var(--gris-clair);border-radius:var(--radius);padding:20px;border-left:4px solid var(--gris)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">Recettes de la billetterie</div>
+                <div style="font-size:11px;color:var(--gris);margin-top:2px">2 concerts · 27 & 28 décembre 2025</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--gris)">3 782 000</div>
+                <div style="font-size:11px;color:var(--gris)">14,3%</div>
+              </div>
+            </div>
+            <div style="height:8px;background:rgba(0,0,0,.1);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:14.3%;background:var(--gris);border-radius:4px"></div>
+            </div>
+          </div>
+          <!-- Total -->
+          <div style="background:var(--vert);border-radius:var(--radius);padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,.8)">TOTAL DES RECETTES</div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--or)">26 420 190 MRO</div>
+          </div>
+        </div>
+        <!-- Donut visuel CSS -->
+        <div style="text-align:center">
+          <div style="position:relative;width:220px;height:220px;margin:0 auto 24px">
+            <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg)">
+              <!-- Billetterie 14.3% -->
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#D0D8D3" stroke-width="4" stroke-dasharray="14.3 85.7" stroke-dashoffset="0"/>
+              <!-- Soutiens 36.5% décalé de 14.3 -->
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--or)" stroke-width="4" stroke-dasharray="36.5 63.5" stroke-dashoffset="-14.3"/>
+              <!-- Ressortissants 49.2% décalé de 50.8 -->
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--vert)" stroke-width="4" stroke-dasharray="49.2 50.8" stroke-dashoffset="-50.8"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-size:11px;color:var(--gris)">Total</div>
+              <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--vert);line-height:1">26,4M</div>
+              <div style="font-size:10px;color:var(--gris)">MRO</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;text-align:left;max-width:200px;margin:0 auto">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:var(--vert);flex-shrink:0"></div><span style="font-size:12px;color:var(--gris)">Ressortissants Thidé — 49,2%</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:var(--or);flex-shrink:0"></div><span style="font-size:12px;color:var(--gris)">Soutiens externes — 36,5%</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:#D0D8D3;flex-shrink:0"></div><span style="font-size:12px;color:var(--gris)">Billetterie — 14,3%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dépenses par commission -->
+  <div class="section-wrap alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Rapport financier · Section 2</div>
+        <h2 class="section-title">Dépenses par commission</h2>
+        <p class="section-sub">Neuf commissions, une répartition claire et validée par la Commission d'organisation.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <!-- Contrat Baaba Maal -->
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Contrat Baaba Maal & Daande Lenol</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:35.2%;background:var(--or)"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:var(--or-fonce)">4 500 000</div>
+              <div style="font-size:11px;color:var(--gris)">35,2%</div>
+            </div>
+          </div>
+          <!-- Organisation -->
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission d'organisation</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:27.6%;background:var(--vert)"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:var(--vert)">3 522 000</div>
+              <div style="font-size:11px;color:var(--gris)">27,6%</div>
+            </div>
+          </div>
+          <!-- Technique -->
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission technique</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:24%;background:var(--vert)"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:var(--vert)">3 060 720</div>
+              <div style="font-size:11px;color:var(--gris)">24,0%</div>
+            </div>
+          </div>
+          <!-- Hébergement -->
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission hébergement & restauration</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:7.9%;background:#4CAF50"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:#2E7D32">1 006 150</div>
+              <div style="font-size:11px;color:var(--gris)">7,9%</div>
+            </div>
+          </div>
+          <!-- Culturelle -->
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600;color:var(--terre)">Commission culturelle</div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;width:3.6%;background:#81C784"></div></div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:14px;font-weight:700;color:#2E7D32">454 000</div>
+              <div style="font-size:11px;color:var(--gris)">3,6%</div>
+            </div>
+          </div>
+          <!-- Autres commissions -->
+          <div style="padding:14px 16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+            <div style="font-size:12px;font-weight:600;color:var(--gris);margin-bottom:10px">Autres commissions</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Accueil & supervision</span><span style="font-weight:600">115 000 · 0,9%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Communication</span><span style="font-weight:600">89 800 · 0,7%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Sécurité</span><span style="font-weight:600">14 000 · 0,1%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Commission des finances</span><span style="font-weight:600">13 600 · 0,1%</span></div>
+            </div>
+          </div>
+          <!-- Total dépenses -->
+          <div style="background:var(--terre);border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.75)">TOTAL DÉPENSES</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--or)">12 775 270 MRO</div>
+          </div>
+        </div>
+
+        <!-- Investissements structurants -->
+        <div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--vert);margin-bottom:6px">Investissements structurants</h3>
+          <p style="font-size:13px;color:var(--gris);margin-bottom:20px">Patrimoine matériel réutilisable, legs durable à la communauté de Thidé.</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">🏗️ Construction du podium</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">1 401 300 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:45.5%;background:var(--vert)"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">45,5% — Structure béton armé permanente</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">⚡ Électricité & eau du podium</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">781 520 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:25.4%;background:var(--or)"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">25,4% — Extension réseau SOMELEC incluse</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">🎪 Bâches & grillages clôture scène</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">564 400 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:18.3%;background:#4CAF50"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">18,3% — Réutilisable pour événements futurs</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(26,92,42,.1)">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <div style="font-size:13px;font-weight:600;color:var(--terre)">📦 Autres biens matériels acquis</div>
+                <div style="font-size:13px;font-weight:700;color:var(--vert)">331 400 MRO</div>
+              </div>
+              <div style="height:5px;background:var(--gris-clair);border-radius:3px;overflow:hidden"><div style="height:100%;width:10.8%;background:#81C784"></div></div>
+              <div style="font-size:11px;color:var(--gris);margin-top:4px">10,8% — Câbles, projecteurs, disjoncteurs…</div>
+            </div>
+            <div style="background:var(--vert);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center">
+              <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.8)">TOTAL INVESTISSEMENTS</div>
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--or)">3 078 620 MRO</div>
+            </div>
+          </div>
+
+          <!-- Bilan budgétaire -->
+          <div style="margin-top:24px;background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.12)">
+            <h4 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:16px">Analyse budgétaire</h4>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Budget prévisionnel</span><span style="font-weight:600">9 854 290 MRO</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Budget réel exécuté</span><span style="font-weight:600">12 775 270 MRO</span></div>
+              <div style="border-top:1px solid rgba(26,92,42,.1);padding-top:10px;display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Écart budgétaire</span><span style="font-weight:600;color:#E65100">+2 920 980 MRO (+29,6%)</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Taux de couverture</span><span style="font-weight:700;color:var(--vert);font-size:15px">207% ✓ Excédentaire</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 Commissions -->
+  <div class="section-wrap">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Rapport narratif · Section 3</div>
+        <h2 class="section-title">Les 9 commissions — Quand tout un village se mobilise</h2>
+        <p class="section-sub">Une structure participative et inclusive : chaque commission avait sa mission spécifique, ses responsables désignés, ses membres actifs.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="background:var(--vert);border-radius:var(--radius);padding:24px;color:#fff">
+          <div style="font-size:22px;margin-bottom:12px">🎯</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:8px">Organisation & Coordination</h3>
+          <p style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">Véritable pilier du projet. Coordination générale, planification stratégique, réunions souvent prolongées jusqu'à tard dans la nuit. Interface stratégique entre toutes les commissions.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or)">3 522 000 MRO · 27,6%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">⚙️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Technique</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Podium en béton armé, réseau électrique, sonorisation professionnelle. Partant d'un terrain vierge, transformation en scène professionnelle. Jeunes techniciens encadrés par des anciens.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">3 060 720 MRO · 24,0%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">💰</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Financière</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Mobilisation des ressources, gestion financière, traçabilité des contributions. Mécanismes inclusifs favorisant la participation de tous : habitants, jeunes, femmes, notables et diaspora.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">13 600 MRO · 0,1%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🎵</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Culturelle</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Artistes locaux, batteurs, danseurs, groupes traditionnels au cœur de la programmation. Chanson spéciale dédiée à Baaba Maal. Accueil symbolique depuis le fleuve jusqu'au village.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">454 000 MRO · 3,6%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🏠</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Hébergement & Restauration</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Les femmes du village ont déployé leur savoir-faire culinaire. Plats traditionnels authentiques. Familles ouvrant leurs portes avec spontanéité. L'hospitalité de Thidé a laissé une empreinte indélébile.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">1 006 150 MRO · 7,9%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">📢</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Communication</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Radios locales, affiches, réseaux sociaux, relais communautaires. Message : « Thidé vous invite à célébrer la culture peule avec Baaba Maal ». Mobilisation dépassant largement les prévisions.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">89 800 MRO · 0,7%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🤝</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Accueil & Supervision</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Sensibilisation communautaire, liaison avec villages environnants et autorités locales. Lettres d'invitation d'honneur aux villages voisins. Collaboration avec les autorités administratives.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">115 000 MRO · 0,9%</div>
+        </div>
+        <div style="background:var(--vert-pale);border-radius:var(--radius);padding:24px;border:1px solid rgba(26,92,42,.1)">
+          <div style="font-size:22px;margin-bottom:12px">🛡️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:8px">Commission Sécurité</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Jeunes volontaires identifiables par leurs gilets. Présence permanente. Gestion des flux, prévention des incidents. Aucun incident majeur enregistré durant les deux jours.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">14 000 MRO · 0,1%</div>
+        </div>
+        <div style="background:var(--or-clair);border-radius:var(--radius);padding:24px;border:1px solid rgba(201,152,42,.2)">
+          <div style="font-size:22px;margin-bottom:12px">📊</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--or-fonce);margin-bottom:8px">Étude, Suivi & Évaluation</h3>
+          <p style="font-size:12px;color:var(--gris);line-height:1.6">Supervision rigoureuse et impartiale. Respect des termes de référence. Évaluations régulières et méthodiques. Culture du suivi instaurée comme acquis méthodologique précieux.</p>
+          <div style="margin-top:12px;font-size:11px;font-weight:600;color:var(--or-fonce)">Inclus Commission d'organisation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impacts -->
+  <div class="section-wrap dark">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label light">Rapport narratif · Section 6</div>
+        <h2 class="section-title light">Les impacts — Une transformation profonde</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="background:rgba(255,255,255,.07);border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:28px;margin-bottom:14px">🤝</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--or);margin-bottom:12px">Impacts communautaires</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7">Consolidation des liens sociaux. Fort sentiment de fierté collective. Esprit de solidarité et d'engagement remarquable. Contributions volontaires sans attente de contrepartie individuelle.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:28px;margin-bottom:14px">🎶</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--or);margin-bottom:12px">Impacts culturels</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7">Valorisation renforcée de la culture locale. Transmission intergénérationnelle authentique. Jeunes générations réappropriant leur héritage culturel. Thidé repositionné comme lieu de rayonnement.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-size:28px;margin-bottom:14px">🏗️</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--or);margin-bottom:12px">Impacts organisationnels</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7">Renforcement des capacités locales en planification et coordination. Culture du suivi rigoureux instaurée. Autonomie organisationnelle du village consolidée. Acquis précieux pour les futurs projets.</p>
+        </div>
+      </div>
+      <blockquote style="margin-top:40px;font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,.85);text-align:center;border:none;padding:0;max-width:700px;margin-left:auto;margin-right:auto">
+        « Ce projet a écrit une nouvelle page de notre histoire. Ensemble, nous continuerons à bâtir l'avenir de Thidé »
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- Leçons & Perspectives -->
+  <div class="section-wrap alt">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px">
+        <div>
+          <div class="section-label">Leçons apprises</div>
+          <h2 class="section-title">Enseignements pour l'avenir</h2>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+              <div style="flex-shrink:0;width:32px;height:32px;background:var(--vert);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700">1</div>
+              <div><h4 style="font-size:14px;font-weight:600;color:var(--terre);margin-bottom:4px">L'importance d'une bonne planification</h4><p style="font-size:13px;color:var(--gris);line-height:1.6">Anticipation renforcée en matière de mobilisation des ressources, programmation logistique et clarification des rôles dès le départ.</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+              <div style="flex-shrink:0;width:32px;height:32px;background:var(--vert);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700">2</div>
+              <div><h4 style="font-size:14px;font-weight:600;color:var(--terre);margin-bottom:4px">Communication interne renforcée</h4><p style="font-size:13px;color:var(--gris);line-height:1.6">Réunions de coordination régulières, circuits de validation clairs, information partagée en temps réel entre commissions.</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border-radius:10px;border:1px solid rgba(26,92,42,.1)">
+              <div style="flex-shrink:0;width:32px;height:32px;background:var(--or);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700">3</div>
+              <div><h4 style="font-size:14px;font-weight:600;color:var(--terre);margin-bottom:4px">La valeur de l'engagement communautaire</h4><p style="font-size:13px;color:var(--gris);line-height:1.6">La mobilisation volontaire est le levier central de la résilience. Ce capital social est inestimable et doit être préservé.</p></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Perspectives</div>
+          <h2 class="section-title">Construire sur nos acquis</h2>
+          <p style="font-size:14px;color:var(--gris);line-height:1.8;margin-top:24px">Les perspectives s'inscrivent dans une logique de capitalisation rigoureuse de nos acquis et de consolidation des dynamiques positives. L'expérience accumulée constitue un socle précieux.</p>
+          <p style="font-size:14px;color:var(--gris);line-height:1.8;margin-top:14px">La pérennisation de la dynamique communautaire demeure une perspective centrale — maintenir et renforcer l'esprit de solidarité, d'engagement et de participation qui a si brillamment caractérisé ce projet.</p>
+          <div style="margin-top:28px;background:var(--vert);border-radius:var(--radius);padding:24px;color:#fff">
+            <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:10px">Conclusion</div>
+            <p style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.7">Nous avons démontré que la transparence, l'engagement volontaire et la coordination collective constituent les piliers essentiels pour la réussite de toute initiative d'intérêt général.</p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
+            <button class="btn btn-primary" onclick="navigate('projets')">← Retour aux projets</button>
+            <a href="Rapport_Narratif_Baaba_Maal_Thide_2025.pdf" download class="btn btn-gold" style="display:inline-flex;align-items:center;gap:7px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Rapport narratif PDF
+            </a>
+            <a href="Rapport_Financier_Baaba_Maal_Thide_2025.pdf" download class="btn btn-outline" style="display:inline-flex;align-items:center;gap:7px">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Rapport financier PDF
+            </a>
+            <button class="btn btn-outline" onclick="navigate('contact')">Nous contacter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline"><span data-i18n="footer_tagline">Organisation Communautaire Inclusive de Thidé.</span></div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('projets')">Projets</button></div><div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Qui sommes-nous</button><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous contacter</button><button onclick="navigate('mentions')">Mentions légales</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span><span>Rapport Baaba Maal · Janvier 2026</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : ACTUALITÉS
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-actualites">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Actualités & vie du village</span></div>
+      <h1 data-i18n="page_actus_title">Actualités & agenda</h1>
+      <p><span data-i18n="page_actus_sub">Nouvelles de Thidé, de ses sections locales et de l'organisation — restez connectés à votre communauté.</span></p>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+      <!-- Article à la une -->
+      <div class="section-label">À la une</div>
+      <div class="actu-featured">
+        <div class="card" style="cursor:pointer">
+          <div class="actu-img-big" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">🏛️</div>
+          <div class="tag tag-green" style="margin-bottom:12px">Gouvernance · Avril 2025</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--vert);margin-bottom:12px;line-height:1.2">Assemblée Générale Constitutive — date et ordre du jour fixés</h2>
+          <p style="font-size:14px;color:var(--gris);line-height:1.7">Les membres fondateurs de YELLITAARE Thidé se réuniront en Assemblée Générale Constitutive pour adopter officiellement les Statuts, élire le premier Comité de Gestion et installer le COSC. Cette étape marque la naissance formelle de l'organisation à l'échelle nationale.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card" style="cursor:pointer">
+            <div class="tag tag-gold" style="margin-bottom:8px">Organisation · Mars 2025</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:6px;line-height:1.3">Consultations des 3 sections validées dans les délais</h3>
+            <p style="font-size:13px;color:var(--gris);line-height:1.6">Les représentants des zones Village, Nationaux et Diaspora ont été désignés conformément au planning de réalisation.</p>
+          </div>
+          <div class="card" style="cursor:pointer">
+            <div class="tag tag-grey" style="margin-bottom:8px">Adhésion · Fév. 2025</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:6px;line-height:1.3">Plateforme d'adhésion en ligne disponible</h3>
+            <p style="font-size:13px;color:var(--gris);line-height:1.6">Formulaire officiel accessible 24h/24. Paiement Bankily, Masrevi et Seddad intégrés.</p>
+          </div>
+          <div class="card" style="cursor:pointer">
+            <div class="tag tag-green" style="margin-bottom:8px">Projet · Jan. 2025</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--vert);margin-bottom:6px;line-height:1.3">Infrastructure éducative : démarrage de la phase 2</h3>
+            <p style="font-size:13px;color:var(--gris);line-height:1.6">La commission Éducation lance la réhabilitation de deux salles de classe supplémentaires.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agenda -->
+      <div style="margin-top:56px">
+        <div class="section-label">Agenda</div>
+        <h2 class="section-title">Événements à venir</h2>
+        <div style="margin-top:24px">
+          <div class="agenda-item">
+            <div class="agenda-date"><div class="day">30</div><div class="month">Avr</div></div>
+            <div class="agenda-body">
+              <h4>Assemblée Générale Constitutive</h4>
+              <p>Adoption des Statuts · Élection du Comité de Gestion · Installation du COSC · Vote du premier budget</p>
+              <div class="lieu">📍 Lieu à confirmer — participation en présentiel et visioconférence</div>
+            </div>
+            <div class="tag tag-red" style="flex-shrink:0;align-self:flex-start">Jalon clé</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-date"><div class="day">06</div><div class="month">Mai</div></div>
+            <div class="agenda-body">
+              <h4>Constitution des 8 commissions thématiques</h4>
+              <p>Désignation des membres et présidents de chaque commission par le Comité de Gestion</p>
+              <div class="lieu">📍 En ligne — plateformes officielles</div>
+            </div>
+            <div class="tag tag-gold" style="flex-shrink:0;align-self:flex-start">Organisationnel</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-date"><div class="day">15</div><div class="month">Mai</div></div>
+            <div class="agenda-body">
+              <h4>Diffusion du rapport de démarrage</h4>
+              <p>Le Secrétaire Général diffuse le rapport de démarrage à toutes les sections — jalon final du planning de réalisation</p>
+              <div class="lieu">📧 Par voie numérique à tous les représentants</div>
+            </div>
+            <div class="tag tag-green" style="flex-shrink:0;align-self:flex-start">Rapport</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('projets')">Projets</button></div><div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous contacter</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : GALERIE
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-galerie">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Galerie</span></div>
+      <h1 data-i18n="page_galerie_title">Galerie photos & vidéos</h1>
+      <p><span data-i18n="page_galerie_sub">Les moments forts de la communauté — projets, événements, vie du village de Thidé.</span></p>
+    </div>
+  </div>
+  <div class="section-wrap">
+    <div class="container">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px">
+        <button class="faq-cat active" onclick="filterGallery('all',this)">Tous</button>
+        <button class="faq-cat" onclick="filterGallery('projets',this)">Projets</button>
+        <button class="faq-cat" onclick="filterGallery('evenements',this)">Événements</button>
+        <button class="faq-cat" onclick="filterGallery('village',this)">Village</button>
+        <button class="faq-cat" onclick="filterGallery('diaspora',this)">Diaspora</button>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Rempli par JS -->
+      </div>
+      <div id="gallery-empty" style="display:none;text-align:center;padding:60px 24px;color:var(--gris);">
+        <div style="font-size:48px;margin-bottom:12px;">📷</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--vert);margin-bottom:8px;">Galerie en construction</h3>
+        <p style="font-size:13px;">Les photos seront ajoutées prochainement.</p>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button></div><div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous contacter</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : TABLEAU DE BORD ADHÉSIONS
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-tdb">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Administration</span></div>
+      <h1>⚙ Espace Administration</h1>
+      <p id="admin-welcome">Gestion des adhésions, sections et commissions thématiques</p>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <div class="container">
+
+      <!-- ONGLETS ADMIN -->
+      <div class="admin-tabs" id="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('adhesions',this)" data-role="admin">📊 Adhésions</button>
+        <button class="admin-tab" onclick="switchAdminTab('sections',this)">🏘 Sections</button>
+        <button class="admin-tab" onclick="switchAdminTab('commissions',this)">📋 Commissions</button>
+        <button class="admin-tab" onclick="switchAdminTab('documents',this)" data-role="admin">📁 Documents</button>
+        <button class="admin-tab" onclick="switchAdminTab('galerie',this)" data-role="admin">📷 Galerie</button>
+      </div>
+
+      <!-- ═══ PANEL ADHÉSIONS ═══════════════════════════════════════════ -->
+      <div class="admin-panel active" id="admin-panel-adhesions">
+
+      <!-- KPI STRIP -->
+      <div class="tdb-stats" id="tdb-kpis">
+        <div class="tdb-stat">
+          <div class="tdb-stat-icon">👥</div>
+          <div class="tdb-stat-val" id="kpi-total">0</div>
+          <div class="tdb-stat-label">Dossiers reçus</div>
+          <div class="tdb-stat-delta up" id="kpi-delta-total">— ce mois</div>
+        </div>
+        <div class="tdb-stat">
+          <div class="tdb-stat-icon">✅</div>
+          <div class="tdb-stat-val" id="kpi-valide">0</div>
+          <div class="tdb-stat-label">Dossiers validés</div>
+          <div class="tdb-stat-delta up" id="kpi-taux-valid">0% taux validation</div>
+        </div>
+        <div class="tdb-stat">
+          <div class="tdb-stat-icon">⏳</div>
+          <div class="tdb-stat-val or" id="kpi-attente">0</div>
+          <div class="tdb-stat-label">En attente de validation</div>
+          <div class="tdb-stat-delta warn" id="kpi-delta-att">Nécessite action</div>
+        </div>
+        <div class="tdb-stat">
+          <div class="tdb-stat-icon">💰</div>
+          <div class="tdb-stat-val or" id="kpi-montant">0 MRU</div>
+          <div class="tdb-stat-label">Cotisations collectées</div>
+          <div class="tdb-stat-delta up" id="kpi-delta-mnt">— exercice en cours</div>
+        </div>
+      </div>
+
+      <!-- BARRE CONFIGURATION GOOGLE SHEETS -->
+      <div id="gs-config-bar" style="background:#fff;border:1px solid rgba(26,92,42,.12);border-radius:12px;padding:14px 20px;margin-bottom:20px;display:flex;flex-direction:column;gap:12px">
+
+        <!-- Ligne 1 : statut + boutons -->
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div id="gs-dot" style="width:10px;height:10px;border-radius:50%;background:#F59E0B;box-shadow:0 0 6px rgba(245,158,11,.5);flex-shrink:0"></div>
+            <span id="gs-status-txt" style="font-size:13px;color:#6B7280">Vérification de la connexion Google Sheets...</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="gsSync()" style="padding:7px 16px;border-radius:40px;background:#E8F5E9;color:#1A5C2A;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">☁ Synchroniser vers Sheets</button>
+            <button onclick="gsDiag()" style="padding:7px 16px;border-radius:40px;background:#FEE2E2;color:#991B1B;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">🔧 Diagnostic</button>
+            <button onclick="clearAdminSession();navigate('accueil')" style="padding:7px 16px;border-radius:40px;background:#F3F4F6;color:#6B7280;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">🔒 Déconnexion</button>
+          </div>
+        </div>
+
+        <!-- Ligne 2 : champ URL -->
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:11px;font-weight:700;color:#1A5C2A;white-space:nowrap;text-transform:uppercase;letter-spacing:.5px">URL Apps Script :</label>
+          <input id="gs-url-input" type="text"
+            placeholder="https://script.google.com/macros/s/.../exec"
+            style="flex:1;min-width:220px;padding:8px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-family:monospace;font-size:11px;outline:none;transition:.18s"
+            onfocus="this.style.borderColor='#1A5C2A'" onblur="this.style.borderColor='#E5E7EB'">
+          <button onclick="gsSaveUrl()" style="padding:8px 18px;border-radius:40px;background:#1A5C2A;color:#fff;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit;white-space:nowrap">💾 Sauver URL</button>
+        </div>
+
+        <!-- Panneau diagnostic -->
+        <div id="gs-diag-panel" style="display:none;padding:14px;border-radius:10px;background:#1E1E2E;color:#E0E0E0;font-family:monospace;font-size:11.5px;line-height:1.7;max-height:320px;overflow-y:auto;white-space:pre-wrap"></div>
+      </div>
+
+      <!-- BARRE CONFIGURATION FIREBASE -->
+      <div id="fb-config-bar" style="background:#fff;border:1px solid rgba(201,152,42,.2);border-radius:12px;padding:14px 20px;margin-bottom:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div id="fb-dot" style="width:10px;height:10px;border-radius:50%;background:#F59E0B;box-shadow:0 0 6px rgba(245,158,11,.5);flex-shrink:0"></div>
+            <span id="fb-status-txt" style="font-size:13px;color:#6B7280">Firebase non configuré — données en local uniquement</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="toggleFbConfig()" style="padding:7px 16px;border-radius:40px;background:#FDF6E3;color:#9B7015;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">🔥 Configurer Firebase</button>
+            <button onclick="fbSyncNow()" style="padding:7px 16px;border-radius:40px;background:#E8F5E9;color:#1A5C2A;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">🔄 Synchroniser</button>
+          </div>
+        </div>
+        <div id="fb-config-panel" style="display:none;">
+          <p style="font-size:12px;color:var(--gris);margin-bottom:10px;">Collez ici la configuration Firebase (depuis la console Firebase > Paramètres du projet > Vos applications) :</p>
+          <textarea id="fb-config-input" rows="8" placeholder='{"apiKey":"...","authDomain":"...","databaseURL":"https://xxx.firebaseio.com","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}' style="width:100%;padding:10px;border:1.5px solid #E5E7EB;border-radius:8px;font-family:monospace;font-size:11px;resize:vertical;outline:none;"></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px;">
+            <button onclick="fbSaveConfig()" style="padding:8px 18px;border-radius:40px;background:var(--or);color:#fff;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">💾 Sauver et connecter</button>
+            <button onclick="fbClearConfig()" style="padding:8px 18px;border-radius:40px;background:#FEE2E2;color:#991B1B;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit">Désactiver Firebase</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPORT BAR -->
+      <div class="tdb-export-bar">
+        <div class="tdb-section-label" style="margin:0;align-self:center">Gestion</div>
+        <button class="btn btn-outline" onclick="exportCSV()" style="font-size:13px;padding:8px 18px">
+          ↓ Exporter CSV
+        </button>
+        <button class="btn btn-primary" onclick="navigate('adhesion')" style="font-size:13px;padding:8px 18px">
+          + Nouveau dossier
+        </button>
+        <button class="btn" style="background:#FEE2E2;color:#991B1B;font-size:13px;padding:8px 18px;border-radius:40px;font-weight:600;cursor:pointer;border:none" onclick="if(confirm('Vider toutes les données de démonstration ?')){clearAllData()}">
+          🗑 Vider les données
+        </button>
+        <div style="margin-left:auto;font-size:12px;color:var(--gris)" id="tdb-last-update">Aucune mise à jour</div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="tdb-charts" id="tdb-charts-section">
+        <div class="tdb-chart-card">
+          <div class="tdb-chart-title">Répartition par section géographique</div>
+          <div class="tdb-donut-wrap">
+            <svg id="donut-svg" viewBox="0 0 120 120" width="130" height="130" style="flex-shrink:0"></svg>
+            <div class="tdb-legend" id="donut-legend"></div>
+          </div>
+        </div>
+        <div class="tdb-chart-card">
+          <div class="tdb-chart-title">Dossiers par catégorie de cotisation</div>
+          <div class="tdb-bar-chart" id="bar-chart"></div>
+        </div>
+      </div>
+
+      <!-- FILTRES -->
+      <div class="tdb-filters">
+        <label>Filtres</label>
+        <input type="text" id="tdb-search" placeholder="🔍  Rechercher nom, référence…" oninput="renderTable()">
+        <select id="tdb-filter-zone" onchange="renderTable()">
+          <option value="">Toutes les sections</option>
+          <option value="Résidents de Thidé">Résidents de Thidé</option>
+          <option value="Nouakchott">Nouakchott</option>
+          <option value="Nouadhibou">Nouadhibou</option>
+          <option value="Zouerat">Zouerat</option>
+          <option value="Diaspora Afrique">Diaspora Afrique</option>
+          <option value="Diaspora Europe">Diaspora Europe</option>
+          <option value="Diaspora Amérique / Autres">Diaspora Amérique / Autres</option>
+        </select>
+        <select id="tdb-filter-status" onchange="renderTable()">
+          <option value="">Tous les statuts</option>
+          <option value="attente">En attente</option>
+          <option value="valide">Validé</option>
+          <option value="refuse">Refusé</option>
+        </select>
+        <select id="tdb-filter-paie" onchange="renderTable()">
+          <option value="">Tout mode de paiement</option>
+          <option value="Bankily">Bankily</option>
+          <option value="Masrevi">Masrevi</option>
+          <option value="Seddad">Seddad</option>
+          <option value="Espèces">Espèces</option>
+          <option value="Virement">Virement</option>
+        </select>
+        <button class="btn btn-outline" onclick="resetFilters()" style="font-size:12px;padding:7px 16px">Réinitialiser</button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="tdb-table-wrap">
+        <div class="tdb-table-head">
+          <div class="tdb-table-title">Dossiers d'adhésion</div>
+          <div class="tdb-table-count" id="tdb-count">0 dossier</div>
+        </div>
+        <div id="tdb-table-container">
+          <!-- rempli par JS -->
+        </div>
+      </div>
+
+      </div><!-- /admin-panel-adhesions -->
+
+      <!-- ═══ PANEL SECTIONS ═══════════════════════════════════════════ -->
+      <div class="admin-panel" id="admin-panel-sections">
+        <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--vert);margin-bottom:6px;">🏘 Sections géographiques</h2>
+        <p style="font-size:13px;color:var(--gris);margin-bottom:24px;">Chaque section dispose de son espace de documents et d'activités.</p>
+
+        <div class="card-grid-3" id="sections-grid">
+          <div class="space-card" onclick="openSpace('section','thide')">
+            <div class="space-icon" style="background:var(--vert-clair);color:var(--vert);">🏡</div>
+            <h3>Résidents de Thidé</h3>
+            <p class="space-count" id="count-section-thide">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('section','nouakchott')">
+            <div class="space-icon" style="background:#DBEAFE;color:#1E40AF;">🏙</div>
+            <h3>Nouakchott</h3>
+            <p class="space-count" id="count-section-nouakchott">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('section','nouadhibou')">
+            <div class="space-icon" style="background:#FEF3C7;color:#92400E;">⚓</div>
+            <h3>Nouadhibou</h3>
+            <p class="space-count" id="count-section-nouadhibou">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('section','zouerat')">
+            <div class="space-icon" style="background:#FEE2E2;color:#991B1B;">⛏</div>
+            <h3>Zouerat</h3>
+            <p class="space-count" id="count-section-zouerat">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('section','diaspora-afrique')">
+            <div class="space-icon" style="background:#DCFCE7;color:#166534;">🌍</div>
+            <h3>Diaspora Afrique</h3>
+            <p class="space-count" id="count-section-diaspora-afrique">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('section','diaspora-europe')">
+            <div class="space-icon" style="background:#EDE9FE;color:#5B21B6;">🇪🇺</div>
+            <h3>Diaspora Europe</h3>
+            <p class="space-count" id="count-section-diaspora-europe">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('section','diaspora-amerique')">
+            <div class="space-icon" style="background:#FDF6E3;color:#9B7015;">🌎</div>
+            <h3>Diaspora Amérique / Autres</h3>
+            <p class="space-count" id="count-section-diaspora-amerique">0 document(s)</p>
+          </div>
+        </div>
+
+        <!-- Détail section -->
+        <div id="space-detail-section" style="display:none;margin-top:24px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <button class="btn btn-outline" onclick="closeSpaceDetail('section')" style="font-size:12px;padding:6px 16px;">← Retour</button>
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--vert);" id="space-title-section">—</h3>
+          </div>
+
+          <!-- KPIs Section -->
+          <div class="tdb-stats" id="section-kpis" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            <div class="tdb-stat">
+              <div class="tdb-stat-icon">👥</div>
+              <div class="tdb-stat-val" id="sec-kpi-total">0</div>
+              <div class="tdb-stat-label">Adhérents</div>
+            </div>
+            <div class="tdb-stat">
+              <div class="tdb-stat-icon">✅</div>
+              <div class="tdb-stat-val" id="sec-kpi-valide">0</div>
+              <div class="tdb-stat-label">Validés</div>
+            </div>
+            <div class="tdb-stat">
+              <div class="tdb-stat-icon">⏳</div>
+              <div class="tdb-stat-val or" id="sec-kpi-attente">0</div>
+              <div class="tdb-stat-label">En attente</div>
+            </div>
+            <div class="tdb-stat">
+              <div class="tdb-stat-icon">💰</div>
+              <div class="tdb-stat-val or" id="sec-kpi-montant">0</div>
+              <div class="tdb-stat-label">Cotisations (MRU)</div>
+            </div>
+          </div>
+
+          <!-- Tableau adhérents de la section -->
+          <div style="margin-bottom:28px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+              <h4 style="font-size:15px;font-weight:600;color:var(--terre);">📊 Adhérents de la section</h4>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="text" id="sec-search" placeholder="🔍 Rechercher..." oninput="renderSectionMembers()" style="padding:6px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;outline:none;width:180px;">
+                <select id="sec-filter-status" onchange="renderSectionMembers()" style="padding:6px 10px;border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;outline:none;">
+                  <option value="">Tous statuts</option>
+                  <option value="attente">En attente</option>
+                  <option value="valide">Validé</option>
+                  <option value="refuse">Refusé</option>
+                </select>
+                <button class="btn btn-outline" onclick="exportSectionCSV()" style="font-size:11px;padding:5px 14px;">↓ CSV</button>
+              </div>
+            </div>
+            <div class="tdb-table-wrap">
+              <div id="section-members-table">
+                <!-- rempli par JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Activités -->
+          <div style="margin-bottom:28px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <h4 style="font-size:15px;font-weight:600;color:var(--terre);">📌 Activités</h4>
+              <button class="btn btn-primary" onclick="addActivity('section')" style="font-size:12px;padding:6px 16px;">+ Ajouter</button>
+            </div>
+            <div id="activities-section"></div>
+          </div>
+
+          <!-- Documents de la section -->
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <h4 style="font-size:15px;font-weight:600;color:var(--terre);">📁 Documents</h4>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-outline folder-btn" onclick="createSpaceFolder('section')" style="font-size:12px;padding:6px 16px;">📁➕ Ajouter dossier</button>
+                <button class="btn btn-primary" onclick="document.getElementById('space-doc-input-section').click()" style="font-size:12px;padding:6px 16px;">+ Ajouter</button>
+              </div>
+              <input type="file" id="space-doc-input-section" style="display:none" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp" multiple onchange="handleSpaceDocUpload(this,'section')">
+            </div>
+            <div id="docs-section"></div>
+          </div>
+        </div>
+      </div><!-- /admin-panel-sections -->
+
+      <!-- ═══ PANEL COMMISSIONS ════════════════════════════════════════ -->
+      <div class="admin-panel" id="admin-panel-commissions">
+        <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--vert);margin-bottom:6px;">📋 Commissions thématiques</h2>
+        <p style="font-size:13px;color:var(--gris);margin-bottom:24px;">Chaque commission dispose de son espace de documents et d'activités.</p>
+
+        <div class="card-grid-3" id="commissions-grid">
+          <div class="space-card" onclick="openSpace('commission','education')">
+            <div class="space-icon" style="background:#DBEAFE;color:#1E40AF;">📚</div>
+            <h3>Éducation & Formation</h3>
+            <p class="space-count" id="count-commission-education">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','sante')">
+            <div class="space-icon" style="background:#FEE2E2;color:#991B1B;">🏥</div>
+            <h3>Santé & Bien-être</h3>
+            <p class="space-count" id="count-commission-sante">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','infra')">
+            <div class="space-icon" style="background:#FEF3C7;color:#92400E;">🏗️</div>
+            <h3>Infrastructures & Habitat</h3>
+            <p class="space-count" id="count-commission-infra">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','culture')">
+            <div class="space-icon" style="background:#EDE9FE;color:#5B21B6;">🎭</div>
+            <h3>Culture & Patrimoine</h3>
+            <p class="space-count" id="count-commission-culture">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','finances')">
+            <div class="space-icon" style="background:var(--vert-clair);color:var(--vert);">💰</div>
+            <h3>Finances & Ressources</h3>
+            <p class="space-count" id="count-commission-finances">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','diaspora')">
+            <div class="space-icon" style="background:#FDF6E3;color:#9B7015;">✈️</div>
+            <h3>Diaspora & Relations Ext.</h3>
+            <p class="space-count" id="count-commission-diaspora">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','jeunesse')">
+            <div class="space-icon" style="background:#DCFCE7;color:#166534;">⚽</div>
+            <h3>Jeunesse & Sports</h3>
+            <p class="space-count" id="count-commission-jeunesse">0 document(s)</p>
+          </div>
+          <div class="space-card" onclick="openSpace('commission','agriculture')">
+            <div class="space-icon" style="background:#FEF3C7;color:#92400E;">🌾</div>
+            <h3>Agriculture & Environnement</h3>
+            <p class="space-count" id="count-commission-agriculture">0 document(s)</p>
+          </div>
+        </div>
+
+        <!-- Détail commission -->
+        <div id="space-detail-commission" style="display:none;margin-top:24px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <button class="btn btn-outline" onclick="closeSpaceDetail('commission')" style="font-size:12px;padding:6px 16px;">← Retour</button>
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--vert);" id="space-title-commission">—</h3>
+          </div>
+
+          <div style="margin-bottom:28px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <h4 style="font-size:15px;font-weight:600;color:var(--terre);">📌 Activités</h4>
+              <button class="btn btn-primary" onclick="addActivity('commission')" style="font-size:12px;padding:6px 16px;">+ Ajouter</button>
+            </div>
+            <div id="activities-commission"></div>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <h4 style="font-size:15px;font-weight:600;color:var(--terre);">📁 Documents</h4>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-outline folder-btn" onclick="createSpaceFolder('commission')" style="font-size:12px;padding:6px 16px;">📁➕ Ajouter dossier</button>
+                <button class="btn btn-primary" onclick="document.getElementById('space-doc-input-commission').click()" style="font-size:12px;padding:6px 16px;">+ Ajouter</button>
+              </div>
+              <input type="file" id="space-doc-input-commission" style="display:none" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp" multiple onchange="handleSpaceDocUpload(this,'commission')">
+            </div>
+            <div id="docs-commission"></div>
+          </div>
+        </div>
+      </div><!-- /admin-panel-commissions -->
+
+      <!-- ═══ PANEL DOCUMENTS GÉNÉRAUX ═════════════════════════════════ -->
+      <div class="admin-panel" id="admin-panel-documents">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--vert);margin-bottom:4px;">📁 Documents généraux</h2>
+            <p style="font-size:13px;color:var(--gris);">Documents de l'organisation — Word, Excel, PDF, Images</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-outline folder-btn" onclick="createDocFolder()" style="font-size:13px;padding:10px 22px;">📁➕ Ajouter un dossier</button>
+            <button class="btn btn-primary" onclick="document.getElementById('doc-upload-input').click()" style="font-size:13px;padding:10px 22px;">
+              + Ajouter un document
+            </button>
+          </div>
+          <input type="file" id="doc-upload-input" style="display:none" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp" multiple onchange="handleDocUpload(this)">
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="doc-filter active" onclick="filterDocs('all',this)">📁 Tous</button>
+          <button class="doc-filter" onclick="filterDocs('pdf',this)">📕 PDF</button>
+          <button class="doc-filter" onclick="filterDocs('word',this)">📘 Word</button>
+          <button class="doc-filter" onclick="filterDocs('excel',this)">📗 Excel</button>
+          <button class="doc-filter" onclick="filterDocs('image',this)">🖼 Images</button>
+        </div>
+        <div id="doc-list-container">
+          <div style="text-align:center;padding:48px 24px;color:var(--gris);">
+            <div style="font-size:48px;margin-bottom:12px;">📂</div>
+            <h3 style="font-family:\'Playfair Display\',serif;font-size:18px;color:var(--vert);margin-bottom:8px;">Aucun document</h3>
+            <p style="font-size:13px;line-height:1.6;">Cliquez sur « + Ajouter un document » pour importer vos fichiers.</p>
+          </div>
+        </div>
+      </div><!-- /admin-panel-documents -->
+
+      <!-- ═══ PANEL GALERIE ════════════════════════════════════════════ -->
+      <div class="admin-panel" id="admin-panel-galerie">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--vert);margin-bottom:4px;">📷 Gestion de la galerie</h2>
+            <p style="font-size:13px;color:var(--gris);">Ajoutez des photos pour les projets, événements, vie du village et diaspora</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddGalleryModal()" style="font-size:13px;padding:10px 22px;">
+            + Ajouter une photo
+          </button>
+        </div>
+
+        <!-- Compteurs par catégorie -->
+        <div class="tdb-stats" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;" id="gallery-stats">
+          <div class="tdb-stat"><div class="tdb-stat-icon">📁</div><div class="tdb-stat-val" id="gal-count-all">0</div><div class="tdb-stat-label">Total photos</div></div>
+          <div class="tdb-stat"><div class="tdb-stat-icon">🏗</div><div class="tdb-stat-val" id="gal-count-projets">0</div><div class="tdb-stat-label">Projets</div></div>
+          <div class="tdb-stat"><div class="tdb-stat-icon">🎉</div><div class="tdb-stat-val" id="gal-count-evenements">0</div><div class="tdb-stat-label">Événements</div></div>
+          <div class="tdb-stat"><div class="tdb-stat-icon">🏡</div><div class="tdb-stat-val" id="gal-count-village">0</div><div class="tdb-stat-label">Village / Diaspora</div></div>
+        </div>
+
+        <!-- Liste admin des photos -->
+        <div id="gallery-admin-list"></div>
+      </div><!-- /admin-panel-galerie -->
+
+      <!-- Modal ajout photo galerie -->
+      <div class="member-modal" id="gallery-modal" onclick="if(event.target===this)closeGalleryModal()">
+        <div class="member-modal-box" style="max-width:500px;">
+          <div style="background:var(--vert);padding:20px 24px;border-radius:18px 18px 0 0;display:flex;justify-content:space-between;align-items:center;">
+            <h3 style="color:#fff;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0;" id="gallery-modal-title">Ajouter une photo</h3>
+            <button onclick="closeGalleryModal()" style="background:rgba(255,255,255,.15);border:none;cursor:pointer;color:#fff;font-size:20px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">×</button>
+          </div>
+          <div style="padding:24px;">
+            <div class="form-group">
+              <label>Titre / légende <span class="req">*</span></label>
+              <input type="text" id="gal-titre" placeholder="Ex : Inauguration de l'école">
+            </div>
+            <div class="form-group">
+              <label>Catégorie <span class="req">*</span></label>
+              <select id="gal-categorie">
+                <option value="">— Sélectionner —</option>
+                <option value="projets">Projets</option>
+                <option value="evenements">Événements</option>
+                <option value="village">Village</option>
+                <option value="diaspora">Diaspora</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Image <span class="req">*</span></label>
+              <div style="border:2px dashed var(--gris-clair);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;" onclick="document.getElementById('gal-file-input').click()">
+                <div id="gal-preview" style="margin-bottom:8px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:36px;color:var(--gris);"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <p style="font-size:13px;color:var(--vert);font-weight:600;">Cliquez pour choisir une image</p>
+                <p style="font-size:11px;color:var(--gris);margin-top:4px;">JPG, PNG ou WebP — max 3 Mo</p>
+                <input type="file" id="gal-file-input" accept="image/*" style="display:none" onchange="previewGalleryImage(this)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Icône (emoji)</label>
+              <input type="text" id="gal-emoji" placeholder="Ex : 🏫 🎵 🕌 💧 🤝 🌍" maxlength="2" style="font-size:24px;text-align:center;width:60px;">
+              <span class="hint">Facultatif — affiché si pas d'image</span>
+            </div>
+            <div class="form-group">
+              <label>Mise en page</label>
+              <select id="gal-layout">
+                <option value="normal">Normal</option>
+                <option value="wide">Large (2 colonnes)</option>
+                <option value="tall">Haut (2 lignes)</option>
+                <option value="wide tall">Large + Haut</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px;">
+              <button class="btn btn-primary" onclick="saveGalleryItem()" style="flex:1;">Enregistrer</button>
+              <button class="btn btn-outline" onclick="closeGalleryModal()">Annuler</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer><div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline"><span data-i18n="footer_tagline">Organisation Communautaire Inclusive de Thidé.</span></div></div>
+      <div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('adhesion')">Formulaire adhésion</button></div>
+      <div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Qui sommes-nous</button><button onclick="navigate('projets')">Projets</button></div>
+      <div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous écrire</button><button onclick="navigate('mentions')">Mentions légales</button></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span><span>Administration — Accès réservé</span></div>
+  </div></footer>
+</div>
+
+<!-- Modal détail membre -->
+<div class="member-modal" id="member-modal" onclick="if(event.target===this)closeMemberModal()">
+  <div class="member-modal-box">
+    <div class="mem-modal-header">
+      <div class="mem-photo" id="mem-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:36px;color:rgba(255,255,255,.5)"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      </div>
+      <div class="mem-header-info">
+        <div class="mem-header-name" id="mem-name">—</div>
+        <div class="mem-header-ref" id="mem-ref">—</div>
+        <div class="mem-header-zone" id="mem-zone">—</div>
+      </div>
+      <button class="mem-close" onclick="closeMemberModal()">×</button>
+    </div>
+    <div class="mem-body">
+      <div class="mem-grid">
+        <div class="mem-field"><div class="mem-field-label">Date de naissance</div><div class="mem-field-value" id="mem-dob">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Sexe</div><div class="mem-field-value" id="mem-sex">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Téléphone</div><div class="mem-field-value" id="mem-tel">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Email</div><div class="mem-field-value" id="mem-email">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Profession</div><div class="mem-field-value" id="mem-prof">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Adresse</div><div class="mem-field-value" id="mem-adr">—</div></div>
+      </div>
+      <hr class="mem-divider">
+      <div class="mem-grid">
+        <div class="mem-field"><div class="mem-field-label">Catégorie</div><div class="mem-field-value" id="mem-cat">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Cotisation</div><div class="mem-field-value" id="mem-cotis">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Mode de paiement</div><div class="mem-field-value" id="mem-paie">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Référence transaction</div><div class="mem-field-value" id="mem-reftx" style="font-family:monospace;font-size:13px">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Date soumission</div><div class="mem-field-value" id="mem-date">—</div></div>
+        <div class="mem-field"><div class="mem-field-label">Statut</div><div class="mem-field-value" id="mem-status-disp">—</div></div>
+      </div>
+      <hr class="mem-divider">
+      <div class="mem-actions" id="mem-actions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : ADHÉSION — Formulaire intégré
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-adhesion">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Adhésion</span></div>
+      <h1 data-i18n="adh_title">Formulaire d'Adhésion</h1>
+      <p data-i18n="adh_sub">Rejoignez YELLITAARE Thidé en remplissant le formulaire ci-dessous — accessible depuis tout appareil.</p>
+    </div>
+  </div>
+
+  <div class="section-wrap" style="padding-bottom:40px;">
+    <div class="container" style="max-width:900px;">
+
+      <!-- Toggle en ligne / à imprimer -->
+      <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+        <button class="adh-mode-btn active" id="adh-mode-online" onclick="switchAdhMode('online')">
+          📱 Formulaire en ligne (Google Forms)
+        </button>
+        <button class="adh-mode-btn" id="adh-mode-print" onclick="switchAdhMode('print')">
+          🖨 Formulaire à imprimer (PDF)
+        </button>
+      </div>
+
+      <!-- ═══ MODE EN LIGNE ═══ -->
+      <div id="adh-online-panel">
+        <div style="background:#fff;border-radius:var(--radius);border:1px solid rgba(26,92,42,.1);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScrNfqfCzeszD05pyHnWEdRYT-GQqipxq-4lMqoLBnzLbc_VQ/viewform?embedded=true"
+            width="100%"
+            height="2400"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            style="display:block;border:none;min-height:800px;"
+            loading="lazy"
+            title="Formulaire d'adhésion YELLITAARE Thidé"
+            allow="autoplay"
+          >Chargement du formulaire…</iframe>
+        </div>
+        <div style="text-align:center;margin-top:24px;">
+          <p style="font-size:13px;color:var(--gris);line-height:1.6;">
+            Si le formulaire ne s'affiche pas, 
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScrNfqfCzeszD05pyHnWEdRYT-GQqipxq-4lMqoLBnzLbc_VQ/viewform" 
+               target="_blank" rel="noopener" 
+               style="color:var(--vert);font-weight:600;text-decoration:underline;">
+              cliquez ici pour l'ouvrir directement
+            </a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══ MODE IMPRIMABLE ═══ -->
+      <div id="adh-print-panel" style="display:none;">
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:16px;" class="no-print">
+          <button class="btn btn-primary" onclick="window.print()" style="font-size:13px;padding:10px 24px;">
+            🖨 Imprimer / PDF
+          </button>
+        </div>
+
+        <div id="print-form" class="print-form">
+          <!-- En-tête -->
+          <div class="pf-header">
+            <div class="pf-logo">YT</div>
+            <div class="pf-header-text">
+              <h1>YELLITAARE THIDÉ</h1>
+              <p>Organisation Communautaire Inclusive de Thidé</p>
+              <div class="pf-header-line"></div>
+              <h2>FORMULAIRE D'ADHÉSION</h2>
+              <p class="pf-ref">Réf : ADH-YELLITAARE-______-________</p>
+            </div>
+            <div class="pf-photo-box">
+              <span>Photo<br>identité</span>
+            </div>
+          </div>
+
+          <!-- Article -->
+          <div class="pf-article">
+            <strong>Article 1 — Procédure d'adhésion (Règlement Intérieur)</strong> : Remplir un formulaire d'adhésion, s'acquitter de la cotisation d'adhésion initiale, et s'engager par écrit à respecter les Statuts et le Règlement Intérieur.
+          </div>
+
+          <!-- Section 1 : Informations personnelles -->
+          <div class="pf-section-title">1. Informations personnelles</div>
+          <div class="pf-grid">
+            <div class="pf-field">
+              <label>Nom</label>
+              <div class="pf-input"></div>
+            </div>
+            <div class="pf-field">
+              <label>Prénom(s)</label>
+              <div class="pf-input"></div>
+            </div>
+            <div class="pf-field">
+              <label>Date de naissance</label>
+              <div class="pf-input">______ / ______ / __________</div>
+            </div>
+            <div class="pf-field">
+              <label>Sexe</label>
+              <div class="pf-input">☐ Masculin &nbsp;&nbsp; ☐ Féminin</div>
+            </div>
+            <div class="pf-field">
+              <label>Téléphone</label>
+              <div class="pf-input">+222</div>
+            </div>
+            <div class="pf-field">
+              <label>Email (facultatif)</label>
+              <div class="pf-input"></div>
+            </div>
+            <div class="pf-field pf-full">
+              <label>Profession / Activité</label>
+              <div class="pf-input"></div>
+            </div>
+            <div class="pf-field pf-full">
+              <label>Adresse de résidence actuelle</label>
+              <div class="pf-input"></div>
+            </div>
+          </div>
+
+          <!-- Section 2 : Section d'appartenance -->
+          <div class="pf-section-title">2. Section d'appartenance</div>
+          <div class="pf-checkboxes">
+            <div class="pf-check">☐ Résidents de Thidé</div>
+            <div class="pf-check">☐ Nouakchott</div>
+            <div class="pf-check">☐ Nouadhibou</div>
+            <div class="pf-check">☐ Zouerat</div>
+            <div class="pf-check">☐ Diaspora Afrique</div>
+            <div class="pf-check">☐ Diaspora Europe</div>
+            <div class="pf-check">☐ Diaspora Amérique / Autres</div>
+          </div>
+
+          <!-- Section 3 : Cotisation -->
+          <div class="pf-section-title">3. Catégorie de cotisation</div>
+          <table class="pf-table">
+            <thead>
+              <tr><th></th><th>Catégorie</th><th>Montant annuel</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>☐</td><td>Résident de Thidé</td><td>100 MRU</td></tr>
+              <tr><td>☐</td><td>Ressortissant — villes mauritaniennes</td><td>300 MRU</td></tr>
+              <tr><td>☐</td><td>Diaspora Afrique</td><td>500 MRU</td></tr>
+              <tr><td>☐</td><td>Diaspora Europe / Amériques</td><td>1 000 MRU</td></tr>
+              <tr><td>☐</td><td>Membre de soutien</td><td>2 000 MRU</td></tr>
+            </tbody>
+          </table>
+
+          <!-- Section 4 : Paiement -->
+          <div class="pf-section-title">4. Mode de paiement</div>
+          <div class="pf-checkboxes">
+            <div class="pf-check">☐ Bankily (Chinguitel)</div>
+            <div class="pf-check">☐ Masrevi (Mauritel)</div>
+            <div class="pf-check">☐ Seddad (BCM)</div>
+            <div class="pf-check">☐ Espèces (Trésorier)</div>
+            <div class="pf-check">☐ Virement / Transfert international</div>
+          </div>
+          <div class="pf-grid" style="margin-top:12px;">
+            <div class="pf-field pf-full">
+              <label>Référence de transaction</label>
+              <div class="pf-input"></div>
+            </div>
+          </div>
+
+          <!-- Section 5 : Engagement -->
+          <div class="pf-section-title">5. Engagement de l'adhérent</div>
+          <div class="pf-engagement">
+            <p>Je soussigné(e), déclare avoir pris connaissance des Statuts et du Règlement Intérieur de l'Organisation Communautaire Inclusive de Thidé (YELLITAARE Thidé) et m'engage à :</p>
+            <div class="pf-check">☐ Respecter les Statuts et le Règlement Intérieur de l'organisation</div>
+            <div class="pf-check">☐ M'acquitter de ma cotisation annuelle selon le barème en vigueur</div>
+            <div class="pf-check">☐ Contribuer activement au développement communautaire de Thidé</div>
+            <p style="margin-top:12px;">Je certifie que les informations fournies dans ce formulaire sont <strong>exactes et sincères</strong>.</p>
+          </div>
+
+          <!-- Signature -->
+          <div class="pf-signature">
+            <div class="pf-sig-block">
+              <label>Lieu</label>
+              <div class="pf-input"></div>
+            </div>
+            <div class="pf-sig-block">
+              <label>Date</label>
+              <div class="pf-input">______ / ______ / __________</div>
+            </div>
+            <div class="pf-sig-block">
+              <label>Signature de l'adhérent</label>
+              <div class="pf-input" style="height:80px;"></div>
+            </div>
+          </div>
+
+          <!-- Pied de page -->
+          <div class="pf-footer">
+            <div class="pf-footer-line"></div>
+            <p>YELLITAARE Thidé — Organisation Communautaire Inclusive de Thidé</p>
+            <p>Formulaire à remettre au Secrétaire Général ou au Président de section, accompagné du règlement de la cotisation.</p>
+            <p style="margin-top:8px;font-weight:600;">Formulaire également disponible en ligne : <span style="color:#1A5C2A;">yellitaare-thide.web.app</span></p>
+          </div>
+
+          <!-- Cadre réservé admin -->
+          <div class="pf-admin-box">
+            <div class="pf-admin-title">CADRE RÉSERVÉ À L'ADMINISTRATION</div>
+            <div class="pf-grid">
+              <div class="pf-field">
+                <label>Date de réception</label>
+                <div class="pf-input"></div>
+              </div>
+              <div class="pf-field">
+                <label>Reçu par</label>
+                <div class="pf-input"></div>
+              </div>
+              <div class="pf-field">
+                <label>Montant encaissé</label>
+                <div class="pf-input">_____________ MRU</div>
+              </div>
+              <div class="pf-field">
+                <label>Décision</label>
+                <div class="pf-input">☐ Accepté &nbsp; ☐ Refusé</div>
+              </div>
+              <div class="pf-field pf-full">
+                <label>Observations</label>
+                <div class="pf-input" style="height:48px;"></div>
+              </div>
+              <div class="pf-field">
+                <label>Cachet / Signature admin</label>
+                <div class="pf-input" style="height:60px;"></div>
+              </div>
+              <div class="pf-field">
+                <label>N° reçu délivré</label>
+                <div class="pf-input"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer style="margin-top:0"><div class="footer-inner"><div class="footer-grid">
+    <div><div class="footer-brand">YELLITAARE Thidé</div><div class="footer-tagline"><span data-i18n="footer_tagline">Organisation Communautaire Inclusive de Thidé.</span></div></div>
+    <div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('qui')">Qui sommes-nous</button></div>
+    <div class="footer-col"><h4>Aide</h4><button onclick="navigate('faq')">FAQ</button><button onclick="navigate('contact')">Nous contacter</button></div>
+    <div class="footer-col"><h4>Légal</h4><button onclick="navigate('mentions')">Mentions légales</button></div>
+  </div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : CONTACT
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Contact</span></div>
+      <h1 data-i18n="page_contact_title">Nous contacter</h1>
+      <p><span data-i18n="page_contact_sub">Le Secrétariat Général et les sections locales sont à votre écoute.</span></p>
+    </div>
+  </div>
+  <div class="section-wrap">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <div class="section-label">Formulaire</div>
+          <h2 class="section-title" style="margin-bottom:28px">Envoyer un message</h2>
+          <div class="form-grid">
+            <div class="form-group"><label>Nom <span class="req">*</span></label><input type="text" placeholder="Votre nom"></div>
+            <div class="form-group"><label>Prénom <span class="req">*</span></label><input type="text" placeholder="Votre prénom"></div>
+            <div class="form-group full"><label>Email <span class="req">*</span></label><input type="email" placeholder="votre@email.com"></div>
+            <div class="form-group full"><label>Section</label>
+              <select><option value="">— Sélectionner —</option><option>Section Village</option><option>Section Nationaux — Nouakchott</option><option>Section Nationaux — Nouadhibou</option><option>Section Diaspora Afrique</option><option>Section Diaspora Europe</option><option>Section Diaspora Amériques</option></select>
+            </div>
+            <div class="form-group full"><label>Objet <span class="req">*</span></label>
+              <select><option value="">— Objet du message —</option><option>Adhésion</option><option>Cotisation</option><option>Projet communautaire</option><option>Gouvernance</option><option>Autre</option></select>
+            </div>
+            <div class="form-group full"><label>Message <span class="req">*</span></label><textarea rows="5" placeholder="Votre message…"></textarea></div>
+          </div>
+          <button class="btn btn-primary">Envoyer le message</button>
+        </div>
+        <div>
+          <div class="contact-info-card">
+            <h3>Sections locales</h3>
+            <div class="c-info-row"><div class="c-info-icon">📍</div><div><h4>Secrétariat Général</h4><p>Village de Thidé, Mauritanie<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb9894958f9a988fbb829e9797928f9a9a899ed594899c">[email&#160;protected]</a></p></div></div>
+            <div class="sections-locales">
+              <div class="sl-card"><h4>🏙️ Section Nouakchott</h4><p>Représentant : à désigner<br>Sous-section active</p></div>
+              <div class="sl-card"><h4>🏙️ Section Nouadhibou</h4><p>Représentant : à désigner<br>Sous-section active</p></div>
+              <div class="sl-card"><h4>🌍 Diaspora Europe</h4><p>Représentant : à désigner<br>France, Espagne, Belgique…</p></div>
+              <div class="sl-card"><h4>🌍 Diaspora Afrique</h4><p>Représentant : à désigner<br>Sénégal, Mali, Côte d'Ivoire…</p></div>
+            </div>
+            <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)">
+              <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Paiement mobile</h4>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <span style="padding:6px 12px;background:rgba(255,255,255,.1);border-radius:20px;font-size:12px;font-weight:600">Bankily</span>
+                <span style="padding:6px 12px;background:rgba(255,255,255,.1);border-radius:20px;font-size:12px;font-weight:600">Masrevi</span>
+                <span style="padding:6px 12px;background:rgba(255,255,255,.1);border-radius:20px;font-size:12px;font-weight:600">Seddad</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Organisation</h4><button onclick="navigate('qui')">Qui sommes-nous</button></div><div class="footer-col"><h4>Légal</h4><button onclick="navigate('mentions')">Mentions légales</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : FAQ
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-faq">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>FAQ</span></div>
+      <h1 data-i18n="page_faq_title">Questions fréquentes</h1>
+      <p><span data-i18n="page_faq_sub">Tout ce que vous devez savoir sur YELLITAARE Thidé, l'adhésion et le fonctionnement de l'organisation.</span></p>
+    </div>
+  </div>
+  <div class="section-wrap">
+    <div class="container" style="max-width:760px">
+      <div class="faq-cats">
+        <button class="faq-cat active">Toutes</button>
+        <button class="faq-cat">Adhésion</button>
+        <button class="faq-cat">Cotisations</button>
+        <button class="faq-cat">Gouvernance</button>
+        <button class="faq-cat">Projets</button>
+      </div>
+      <div id="faq-list">
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Qui peut adhérer à YELLITAARE Thidé ?</span><span class="icon">+</span></button><div class="accordion-body"><p>Toute personne originaire de Thidé ou ayant des liens familiaux avec le village peut adhérer, quelle que soit sa résidence actuelle : au village, dans les villes de Mauritanie ou dans la diaspora internationale. L'adhésion est ouverte aux personnes de plus de 18 ans.</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Quel est le montant de la cotisation ?</span><span class="icon">+</span></button><div class="accordion-body"><p>La cotisation varie selon votre section : 100 MRU pour les résidents du village, 300 MRU pour les ressortissants en Mauritanie, 500 MRU pour la diaspora en Afrique, et 1 000 MRU pour la diaspora en Europe ou aux Amériques. Les membres de soutien peuvent contribuer 2 000 MRU ou plus volontairement.</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Comment payer ma cotisation depuis l'étranger ?</span><span class="icon">+</span></button><div class="accordion-body"><p>Depuis l'étranger, vous pouvez régler votre cotisation via virement bancaire international ou Western Union / MoneyGram. Les coordonnées bancaires complètes vous sont transmises après soumission du formulaire d'adhésion. Les détails de contact du Trésorier figurent dans le formulaire.</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Comment fonctionne l'Assemblée Générale ?</span><span class="icon">+</span></button><div class="accordion-body"><p>L'AG est l'organe souverain de YELLITAARE Thidé. Elle se réunit au moins une fois par an et peut se tenir en présentiel, à distance (visioconférence) ou en format mixte. Le quorum est fixé à la majorité absolue des représentants. Chaque section est représentée proportionnellement à son poids démographique et à sa participation active.</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Comment sont gérés les fonds de l'organisation ?</span><span class="icon">+</span></button><div class="accordion-body"><p>Tous les fonds transitent par un compte bancaire unique ouvert au nom de YELLITAARE Thidé. Aucun compte personnel n'est autorisé. Les dépenses sont soumises à des seuils d'autorisation stricts (Art. 47) et le COSC contrôle en permanence la gestion financière. Des rapports mensuels, trimestriels, semestriels et annuels sont produits et archivés.</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Comment proposer un projet communautaire ?</span><span class="icon">+</span></button><div class="accordion-body"><p>Tout projet suit cinq étapes : identification par une commission thématique, évaluation et sélection par le Comité de Gestion, validation par l'AG (si dépassement du seuil) ou par le CG, mise en œuvre sous un chef de projet désigné, puis évaluation et clôture avec rapport. Vous pouvez soumettre une proposition à la commission thématique compétente via le formulaire de contact.</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Que se passe-t-il en cas de conflit entre membres ?</span><span class="icon">+</span></button><div class="accordion-body"><p>Les conflits sont traités selon une procédure graduée : médiation interne d'abord (par le COSC ou une commission ad hoc de l'AG), puis arbitrage définitif par l'AG en dernier recours interne, et enfin recours aux juridictions compétentes si nécessaire. Les délais de médiation sont fixés à 20 ou 30 jours selon les cas (Art. Règlement des conflits).</p></div></div>
+        <div class="accordion-item"><button class="accordion-btn" onclick="toggleFaq(this)"><span>Puis-je participer aux réunions depuis la diaspora ?</span><span class="icon">+</span></button><div class="accordion-body"><p>Oui. Les sessions de l'AG peuvent se tenir en présentiel, entièrement à distance ou en format mixte. Un lien de connexion est communiqué 72 heures avant chaque séance. Les participants à distance sont comptabilisés dans le quorum et participent pleinement aux votes, selon des modalités précisées dans le Règlement Intérieur.</p></div></div>
+      </div>
+      <div style="margin-top:40px;padding:28px;background:var(--vert-pale);border-radius:var(--radius);border:1px solid rgba(26,92,42,.12);text-align:center">
+        <p style="font-size:15px;color:var(--gris);margin-bottom:16px">Vous ne trouvez pas votre réponse ?</p>
+        <button class="btn btn-primary" onclick="navigate('contact')">Poser une question au Secrétariat</button>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Aide</h4><button onclick="navigate('contact')">Contact</button></div><div class="footer-col"><h4>Légal</h4><button onclick="navigate('mentions')">Mentions légales</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : DONS
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-dons">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Faire un don</span></div>
+      <h1 data-i18n="page_dons_title">Soutenir YELLITAARE Thidé</h1>
+      <p><span data-i18n="page_dons_sub">Votre contribution finance directement les projets communautaires de Thidé. Chaque don compte.</span></p>
+    </div>
+  </div>
+  <div class="section-wrap">
+    <div class="container" style="max-width:800px">
+      <div class="section-label">Montant</div>
+      <h2 class="section-title">Choisissez votre contribution</h2>
+      <div class="don-grid">
+        <div class="don-card" onclick="selectDon(this)"><div class="don-amount">1 000 MRU</div><div class="don-desc">Soutien symbolique — contribue aux frais de fonctionnement</div></div>
+        <div class="don-card selected" onclick="selectDon(this)"><div class="don-amount">5 000 MRU</div><div class="don-desc">Soutien actif — finance une partie du matériel scolaire</div></div>
+        <div class="don-card" onclick="selectDon(this)"><div class="don-amount">10 000 MRU</div><div class="don-desc">Grand soutien — contribue significativement à un projet</div></div>
+      </div>
+      <div class="form-group" style="margin-bottom:28px"><label>Ou saisissez un montant libre (MRU)</label><input type="number" placeholder="Montant libre en MRU"></div>
+      <div class="form-group"><label>Votre nom (facultatif)</label><input type="text" placeholder="Nom du donateur"></div>
+      <div class="form-group"><label>Message (facultatif)</label><textarea rows="3" placeholder="Message d'accompagnement…"></textarea></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+        <button class="btn btn-primary">Donner via Bankily</button>
+        <button class="btn btn-outline">Donner via Masrevi</button>
+        <button class="btn btn-outline">Virement bancaire</button>
+      </div>
+      <p style="font-size:12px;color:var(--gris)">Les dons sont gérés conformément aux procédures financières de l'organisation (Art. 47–52 des Statuts). Un reçu est émis pour tout don supérieur à 1 000 MRU.</p>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Aide</h4><button onclick="navigate('contact')">Contact</button></div><div class="footer-col"><h4>Légal</h4><button onclick="navigate('mentions')">Mentions légales</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PAGE : MENTIONS LÉGALES
+═════════════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-mentions">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">Accueil › <span>Mentions légales</span></div>
+      <h1 data-i18n="page_mentions_title">Mentions légales & CGU</h1>
+      <p>Informations légales relatives à YELLITAARE Thidé et à l'utilisation de ce site.</p>
+    </div>
+  </div>
+  <div class="section-wrap">
+    <div class="container" style="max-width:760px">
+      <div class="legal-section"><h3>Identification de l'organisation</h3><p><strong>Dénomination :</strong> YELLITAARE Thidé — Organisation Communautaire Inclusive de Thidé<br><strong>Siège social :</strong> Village de Thidé, Mauritanie<br><strong>Statut juridique :</strong> Association régie par la législation mauritanienne relative aux associations<br><strong>Contact :</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d3dfdec4d1d3c4f0c9d5dcdcd9c4d1d1c2d59edfc2d7">[email&#160;protected]</a></p></div>
+      <div class="legal-section"><h3>Hébergement du site</h3><p>Ce site est hébergé sur la plateforme Netlify (Netlify, Inc. — San Francisco, États-Unis). Les données collectées via les formulaires sont traitées conformément à la politique de confidentialité de Netlify.</p></div>
+      <div class="legal-section"><h3>Données personnelles</h3><p>Les données collectées lors de l'adhésion (nom, prénom, date de naissance, téléphone, email, photo, section géographique) sont utilisées exclusivement dans le cadre de la gestion des membres de YELLITAARE Thidé. Elles sont conservées dans le registre officiel des membres conformément à l'Article 50 des Statuts.<br><br>Conformément à la réglementation applicable, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ed8e8283998c8e99ad9488818184998c8c9f88c3829f8a">[email&#160;protected]</a></p></div>
+      <div class="legal-section"><h3>Propriété intellectuelle</h3><p>L'ensemble du contenu de ce site (textes, documents, logos, photos) est la propriété de YELLITAARE Thidé. Toute reproduction, même partielle, est soumise à autorisation préalable du Secrétariat Général.</p></div>
+      <div class="legal-section"><h3>Responsabilité</h3><p>YELLITAARE Thidé s'efforce de maintenir les informations de ce site à jour. Toutefois, l'organisation ne saurait être tenue responsable d'éventuelles inexactitudes ou omissions. Les décisions officielles de l'organisation sont celles adoptées par l'Assemblée Générale et publiées dans les procès-verbaux officiels.</p></div>
+      <div class="legal-section"><h3>Loi applicable</h3><p>Le présent site et ses contenus sont soumis au droit mauritanien. Tout litige relatif à l'utilisation du site sera soumis à la compétence des juridictions mauritaniennes compétentes.</p></div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-grid"><div><div class="footer-brand">YELLITAARE Thidé</div></div><div class="footer-col"><h4>Navigation</h4><button onclick="navigate('accueil')">Accueil</button></div><div class="footer-col"><h4>Membres</h4><button onclick="navigate('adhesion')">Adhérer</button></div><div class="footer-col"><h4>Contact</h4><button onclick="navigate('contact')">Nous contacter</button></div></div><div class="footer-bottom"><span>© 2025 YELLITAARE Thidé</span></div></div></footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ─── ACCORDION FAQ ──────────────────────────────────────────────────── */
+function toggleFaq(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.accordion-btn.open').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) { btn.classList.add('open'); body.classList.add('open'); }
+}
+
+/* ─── GALLERY CATS ───────────────────────────────────────────────────── */
+document.querySelectorAll('.faq-cat').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('div').querySelectorAll('.faq-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+/* ─── DON SELECTION ──────────────────────────────────────────────────── */
+function selectDon(card) {
+  card.closest('.don-grid').querySelectorAll('.don-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+
+navigate('accueil');
+setTimeout(() => {
+  document.querySelectorAll('#page-accueil .fade').forEach((el, i) => {
+    setTimeout(() => el.classList.add('show'), i * 80);
+  });
+}, 100);
+</script>
+
+<!-- MODALES YELLITAARE -->
+<div class="modal-overlay" id="modal-sec-village" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">🏡</div>
+      <div><div class="modal-htitle">Section Village</div><div class="modal-hsub">Socle territorial · Article 4 des Statuts</div></div>
+      <button class="modal-close" onclick="closeModal('sec-village')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Membres résidant en permanence à Thidé et localités environnantes — gardiens du territoire, des traditions et de la vie quotidienne du village.</div>
+      <p class="modal-stitle">Qui peut adhérer ?</p>
+      <ul class="modal-list">
+        <li>Toute personne résidant de façon permanente au village de Thidé</li>
+        <li>Habitants des localités et hameaux directement liés à Thidé</li>
+        <li>Membres ayant transféré leur résidence principale au village</li>
+      </ul>
+      <p class="modal-stitle">Cotisation & droits</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Montant annuel</span><span class="mv">100 MRU / an</span></div>
+        <div class="modal-kv-row"><span class="mk">Paiement</span><span class="mv">Bankily · Masrevi · Seddad · Espèces</span></div>
+        <div class="modal-kv-row"><span class="mk">Droit de vote</span><span class="mv">1 voix à l'AG</span></div>
+        <div class="modal-kv-row"><span class="mk">Éligibilité</span><span class="mv">Toutes fonctions CG & COSC</span></div>
+      </div>
+      <p class="modal-stitle">Rôle stratégique</p>
+      <ul class="modal-list">
+        <li>Ancrage territorial — interlocuteurs des projets locaux</li>
+        <li>Mobilisation communautaire sur le terrain</li>
+        <li>Mémoire vivante du patrimoine de Thidé</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('sec-village');navigate('adhesion')">Adhérer — Section Village →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-sec-nationaux" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#FDF6E3">🏙️</div>
+      <div><div class="modal-htitle">Section Nationaux</div><div class="modal-hsub">Ressortissants en Mauritanie · Article 4 des Statuts</div></div>
+      <button class="modal-close" onclick="closeModal('sec-nationaux')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Ressortissants de Thidé résidant dans les grandes villes mauritaniennes — Nouakchott, Nouadhibou, Zouerat, Kiffa. Principal réseau de soutien en Mauritanie.</div>
+      <p class="modal-stitle">Qui peut adhérer ?</p>
+      <ul class="modal-list">
+        <li>Ressortissants établis à Nouakchott, Nouadhibou, Zouerat, Kiffa ou toute autre ville mauritanienne</li>
+        <li>Étudiants originaires de Thidé dans les universités mauritaniennes</li>
+        <li>Travailleurs ou fonctionnaires ressortissants de Thidé en poste dans les villes</li>
+      </ul>
+      <p class="modal-stitle">Cotisation & droits</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Montant annuel</span><span class="mv">300 MRU / an</span></div>
+        <div class="modal-kv-row"><span class="mk">Paiement</span><span class="mv">Bankily · Masrevi · Seddad · Espèces</span></div>
+        <div class="modal-kv-row"><span class="mk">Droit de vote</span><span class="mv">1 voix à l'AG</span></div>
+        <div class="modal-kv-row"><span class="mk">Éligibilité</span><span class="mv">Toutes fonctions CG & COSC</span></div>
+      </div>
+      <p class="modal-stitle">Rôle stratégique</p>
+      <ul class="modal-list">
+        <li>Mobilisation des ressortissants dans les villes mauritaniennes</li>
+        <li>Relais entre le village et les institutions nationales</li>
+        <li>Organisation de collectes et d'événements de soutien en ville</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('sec-nationaux');navigate('adhesion')">Adhérer — Section Nationaux →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-sec-diaspora" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">🌍</div>
+      <div><div class="modal-htitle">Section Diaspora</div><div class="modal-hsub">Membres à l'international · Article 4 des Statuts</div></div>
+      <button class="modal-close" onclick="closeModal('sec-diaspora')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Ressortissants de Thidé établis hors de Mauritanie — Afrique, Europe, Amériques. Premiers contributeurs financiers et ambassadeurs internationaux de Thidé.</div>
+      <p class="modal-stitle">Qui peut adhérer ?</p>
+      <ul class="modal-list">
+        <li>Ressortissants résidant en Afrique subsaharienne ou du Nord</li>
+        <li>Membres établis en Europe (France, Espagne, Allemagne…)</li>
+        <li>Ressortissants aux Amériques ou toute autre région du monde</li>
+        <li>Sous-sections créées automatiquement dès 5 membres dans un pays (Art. 5)</li>
+      </ul>
+      <p class="modal-stitle">Cotisation selon région</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Diaspora Afrique</span><span class="mv">500 MRU / an</span></div>
+        <div class="modal-kv-row"><span class="mk">Diaspora Europe / Amériques</span><span class="mv">1 000 MRU / an</span></div>
+        <div class="modal-kv-row"><span class="mk">Membre de soutien</span><span class="mv">2 000 MRU / an</span></div>
+        <div class="modal-kv-row"><span class="mk">Paiement</span><span class="mv">Bankily · Virement international</span></div>
+      </div>
+      <p class="modal-stitle">Rôle stratégique</p>
+      <ul class="modal-list">
+        <li>Principal contributeur aux grands projets communautaires</li>
+        <li>Ambassadeurs de Thidé sur la scène internationale</li>
+        <li>Partenariats avec institutions et ONG étrangères</li>
+        <li>Transferts de compétences et d'expertise vers le village</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('sec-diaspora');navigate('adhesion')">Adhérer — Section Diaspora →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-org-ag" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">🏛️</div>
+      <div><div class="modal-htitle">Assemblée Générale</div><div class="modal-hsub">Organe souverain · Articles 10–18 des Statuts</div></div>
+      <button class="modal-close" onclick="closeModal('org-ag')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">L'AG est l'organe suprême de YELLITAARE Thidé. Toutes les décisions fondamentales y sont prises par les membres.</div>
+      <p class="modal-stitle">Sessions & quorum</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">AG Ordinaire</span><span class="mv">1 fois / an minimum</span></div>
+        <div class="modal-kv-row"><span class="mk">AG Extraordinaire</span><span class="mv">Sur convocation CG ou COSC</span></div>
+        <div class="modal-kv-row"><span class="mk">Convocation</span><span class="mv">15 jours à l'avance minimum</span></div>
+        <div class="modal-kv-row"><span class="mk">Quorum</span><span class="mv">Majorité absolue des membres actifs</span></div>
+      </div>
+      <p class="modal-stitle">Pouvoirs exclusifs</p>
+      <ul class="modal-list">
+        <li>Adopter et modifier les Statuts et le Règlement Intérieur</li>
+        <li>Élire et révoquer les membres du CG et du COSC</li>
+        <li>Approuver les budgets prévisionnels et les comptes annuels</li>
+        <li>Statuer sur toute dépense dépassant 200 000 MRU</li>
+        <li>Décider de la dissolution ou de la fusion de l'organisation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-org-cg" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#FDF6E3">⚙️</div>
+      <div><div class="modal-htitle">Comité de Gestion</div><div class="modal-hsub">Organe exécutif · Articles 19–30 des Statuts</div></div>
+      <button class="modal-close" onclick="closeModal('org-cg')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Le CG est le bras exécutif de l'organisation. Il assure la gestion courante, prépare et exécute les décisions de l'AG, et représente YELLITAARE Thidé à l'extérieur.</div>
+      <p class="modal-stitle">Composition</p>
+      <ul class="modal-list">
+        <li><strong>Président</strong> — Direction générale et représentation officielle</li>
+        <li><strong>Secrétaire Général</strong> — Coordination administrative et archives</li>
+        <li><strong>Trésorier</strong> — Gestion financière et tenue des comptes</li>
+        <li>Membres représentants proportionnels des 3 sections · Mandat 2 ans renouvelable 1 fois</li>
+      </ul>
+      <p class="modal-stitle">Pouvoirs financiers</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Dépenses sans visa</span><span class="mv">Jusqu'à 5 000 MRU</span></div>
+        <div class="modal-kv-row"><span class="mk">Avec visa COSC</span><span class="mv">5 001 à 200 000 MRU</span></div>
+        <div class="modal-kv-row"><span class="mk">Nécessite AG</span><span class="mv">Au-delà de 200 000 MRU</span></div>
+      </div>
+      <p class="modal-stitle">Obligations</p>
+      <ul class="modal-list">
+        <li>Rapport mensuel de trésorerie transmis au COSC</li>
+        <li>Compte rendu annuel complet présenté à l'AG</li>
+        <li>Mise en œuvre des décisions de l'AG dans les délais fixés</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-org-cosc" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#F3F4F6">🔍</div>
+      <div><div class="modal-htitle">COSC</div><div class="modal-hsub">Comité d'Orientation Stratégique & Contrôle · Articles 31–38</div></div>
+      <button class="modal-close" onclick="closeModal('org-cosc')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Garant indépendant de la transparence et de la rigueur financière de YELLITAARE Thidé. Il contrôle, oriente et arbitre les conflits internes.</div>
+      <p class="modal-stitle">Composition & indépendance</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Membres</span><span class="mv">3 à 5, élus par l'AG</span></div>
+        <div class="modal-kv-row"><span class="mk">Mandat</span><span class="mv">2 ans, renouvelable 1 fois</span></div>
+        <div class="modal-kv-row"><span class="mk">Statut</span><span class="mv">Indépendant du CG</span></div>
+      </div>
+      <p class="modal-stitle">Pouvoirs de contrôle</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Visa obligatoire</span><span class="mv">Toute dépense &gt; 5 000 MRU</span></div>
+        <div class="modal-kv-row"><span class="mk">Audit externe</span><span class="mv">Par 2/3 des voix du COSC</span></div>
+        <div class="modal-kv-row"><span class="mk">Rapports reçus</span><span class="mv">Trésorerie mensuelle du CG</span></div>
+      </div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Contrôle de la gestion financière et organisationnelle du CG</li>
+        <li>Orientation stratégique et suivi des projets communautaires</li>
+        <li>Médiation interne en premier recours avant saisine de l'AG</li>
+        <li>Rapport annuel indépendant présenté à l'AG</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-education" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">📚</div>
+      <div><div class="modal-htitle">Éducation & Formation</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-education')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Pilier du développement de Thidé — scolarisation, bourses, alphabétisation et formation professionnelle pour tous les membres de la communauté.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Scolarisation et maintien des enfants à l'école</li>
+        <li>Gestion des bourses et appuis scolaires aux élèves méritants</li>
+        <li>Alphabétisation des adultes et des femmes du village</li>
+        <li>Formation professionnelle et apprentissage des jeunes</li>
+        <li>Fournitures scolaires et équipements pédagogiques</li>
+      </ul>
+      <p class="modal-stitle">Projets</p>
+      <ul class="modal-list">
+        <li>Réhabilitation des salles de classe — <strong>65% réalisé</strong></li>
+        <li>Programme de bourses lycéens</li>
+        <li>Centre d'alphabétisation adultes — phase d'étude</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('com-education');navigate('adhesion')">Rejoindre YELLITAARE →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-sante" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#FEE2E2">🏥</div>
+      <div><div class="modal-htitle">Santé & Bien-être</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-sante')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">La santé des membres est une priorité. Fonds de solidarité, évacuations sanitaires, sensibilisation et appui à la case de santé de Thidé.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Fonds de solidarité santé pour les soins coûteux des membres</li>
+        <li>Organisation d'évacuations sanitaires et prise en charge partielle</li>
+        <li>Campagnes de sensibilisation (paludisme, hygiène, nutrition)</li>
+        <li>Appui à la case de santé du village (médicaments, équipements)</li>
+      </ul>
+      <p class="modal-stitle">Mécanisme de solidarité</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Fonds santé</span><span class="mv">Cotisation + dons dédiés</span></div>
+        <div class="modal-kv-row"><span class="mk">Bénéficiaires</span><span class="mv">Membres actifs + familles directes</span></div>
+        <div class="modal-kv-row"><span class="mk">Décision</span><span class="mv">Sur validation du CG</span></div>
+      </div>
+      <button class="modal-cta" onclick="closeModal('com-sante');navigate('adhesion')">Rejoindre YELLITAARE →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-infra" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#FDF6E3">🏗️</div>
+      <div><div class="modal-htitle">Infrastructures & Habitat</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-infra')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">Routes, bâtiments collectifs, réseau d'eau — les infrastructures de Thidé sont le reflet concret de la solidarité communautaire.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Planification et supervision des travaux de construction</li>
+        <li>Réhabilitation et entretien des infrastructures existantes</li>
+        <li>Projet accès eau potable — identification des besoins (20%)</li>
+        <li>Gestion du patrimoine bâti de l'organisation</li>
+      </ul>
+      <p class="modal-stitle">Réalisations</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Podium béton armé</span><span class="mv">1 401 300 MRO</span></div>
+        <div class="modal-kv-row"><span class="mk">Réseau électrique</span><span class="mv">781 520 MRO</span></div>
+        <div class="modal-kv-row"><span class="mk">Clôture & bâches scène</span><span class="mv">564 400 MRO</span></div>
+      </div>
+      <button class="modal-cta" onclick="closeModal('com-infra');navigate('projets')">Voir les projets →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-culture" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#FDF6E3">🎭</div>
+      <div><div class="modal-htitle">Culture & Patrimoine</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-culture')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">L'identité peule de Thidé est une richesse inestimable — la préserver, la valoriser et la transmettre aux générations futures.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Organisation d'événements culturels et artistiques communautaires</li>
+        <li>Préservation du patrimoine oral, musical et artisanal peul</li>
+        <li>Coordination des artistes locaux, griots, batteurs, danseurs</li>
+        <li>Documentation et archivage de l'histoire de Thidé</li>
+        <li>Transmission intergénérationnelle des savoirs ancestraux</li>
+      </ul>
+      <p class="modal-stitle">Réalisation emblématique</p>
+      <ul class="modal-list">
+        <li>Concerts Baaba Maal & Daande Lenol — déc. 2025 (454 000 MRO)</li>
+        <li>Chanson dédiée à Baaba Maal composée par la commission</li>
+        <li>Accueil traditionnel depuis le fleuve — chants et rythmes ancestraux</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('com-culture');navigate('baaba')">Rapport Baaba Maal →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-finances" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">💰</div>
+      <div><div class="modal-htitle">Finances & Ressources</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-finances')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">La rigueur financière est le fondement de la confiance entre membres — traçabilité, recouvrement des cotisations et transparence totale des comptes.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Recouvrement des cotisations annuelles des 3 sections</li>
+        <li>Tenue rigoureuse des registres de recettes et dépenses</li>
+        <li>Préparation des budgets prévisionnels soumis à l'AG</li>
+        <li>Production des rapports financiers trimestriels et annuels</li>
+      </ul>
+      <p class="modal-stitle">Bilan projet Baaba Maal 2025</p>
+      <div class="modal-kv">
+        <div class="modal-kv-row"><span class="mk">Recettes collectées</span><span class="mv">26 420 190 MRO</span></div>
+        <div class="modal-kv-row"><span class="mk">Dépenses totales</span><span class="mv">12 775 270 MRO</span></div>
+        <div class="modal-kv-row"><span class="mk">Excédent</span><span class="mv">13 644 920 MRO</span></div>
+        <div class="modal-kv-row"><span class="mk">Taux de couverture</span><span class="mv">207%</span></div>
+      </div>
+      <button class="modal-cta" onclick="closeModal('com-finances');navigate('baaba')">Rapport financier complet →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-diaspora" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">✈️</div>
+      <div><div class="modal-htitle">Diaspora & Relations Extérieures</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-diaspora')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">La diaspora de Thidé est une force majeure — contributrices financières, ambassadrices culturelles, relais internationaux du village vers le monde.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Animation du réseau des ressortissants de Thidé à l'étranger</li>
+        <li>Création et suivi des sous-sections géographiques (dès 5 membres)</li>
+        <li>Organisation d'événements de mobilisation en Europe et en Afrique</li>
+        <li>Partenariats avec institutions et ONG internationales</li>
+      </ul>
+      <p class="modal-stitle">Sous-sections</p>
+      <ul class="modal-list">
+        <li>Sous-section Sénégal — Dakar et villes du fleuve</li>
+        <li>Sous-section Europe — France, Espagne (en construction)</li>
+        <li>Toute région dès 5 membres peut créer sa sous-section (Art. 5)</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('com-diaspora');navigate('adhesion')">Rejoindre la Diaspora →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-jeunesse" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">⚽</div>
+      <div><div class="modal-htitle">Jeunesse & Sports</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-jeunesse')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">La jeunesse est l'avenir de Thidé — mobilisation, développement des compétences civiques et sportives, intégration active dans la vie communautaire.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Organisation de tournois sportifs et activités récréatives</li>
+        <li>Formation civique et leadership des jeunes ressortissants</li>
+        <li>Appui à l'insertion professionnelle des jeunes diplômés</li>
+        <li>Animation culturelle et loisirs communautaires</li>
+        <li>Représentation de la jeunesse aux organes de l'organisation</li>
+      </ul>
+      <p class="modal-stitle">Contribution aux projets</p>
+      <ul class="modal-list">
+        <li>Rôle opérationnel central — concerts Baaba Maal 2025</li>
+        <li>Commission Sécurité — 0 incident sur 2 jours d'événement</li>
+        <li>Commission Technique — construction podium béton armé</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('com-jeunesse');navigate('adhesion')">Rejoindre YELLITAARE →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-com-agri" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-icon" style="background:#E8F5E9">🌾</div>
+      <div><div class="modal-htitle">Agriculture & Environnement</div><div class="modal-hsub">Commission thématique · Articles 39–44</div></div>
+      <button class="modal-close" onclick="closeModal('com-agri')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-hl">La vallée du fleuve Sénégal offre à Thidé un potentiel agricole unique — transformer ce potentiel en développement concret pour les habitants.</div>
+      <p class="modal-stitle">Missions</p>
+      <ul class="modal-list">
+        <li>Appui aux agriculteurs du village (semences, outils, formation)</li>
+        <li>Développement du maraîchage et des cultures vivrières</li>
+        <li>Gestion durable des ressources naturelles et reboisement</li>
+        <li>Projets d'agroforesterie communautaire</li>
+        <li>Valorisation des produits locaux et accès aux marchés</li>
+      </ul>
+      <p class="modal-stitle">Enjeux prioritaires</p>
+      <ul class="modal-list">
+        <li>Irrigation et accès à l'eau pour l'agriculture — projet en étude</li>
+        <li>Formation des jeunes aux techniques agricoles modernes</li>
+        <li>Préservation de la biodiversité du fleuve Sénégal</li>
+      </ul>
+      <button class="modal-cta" onclick="closeModal('com-agri');navigate('adhesion')">Rejoindre YELLITAARE →</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+// PWA — Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js').then(function(reg) {
+      
+    }).catch(function(err) {
+      
+    });
+  });
+}
+</script>
+
+
+<div class="app-modal" id="app-action-modal" onclick="if(event.target===this)closeAppModal(false)">
+  <div class="app-modal-box" role="dialog" aria-modal="true" aria-labelledby="app-modal-title">
+    <div class="app-modal-head">
+      <div class="app-modal-icon" id="app-modal-icon">📁</div>
+      <div>
+        <div class="app-modal-title" id="app-modal-title">Action</div>
+        <div class="app-modal-sub" id="app-modal-sub">Gestion des dossiers</div>
+      </div>
+      <button class="app-modal-x" type="button" onclick="closeAppModal(false)">×</button>
+    </div>
+    <div class="app-modal-body">
+      <div class="app-modal-text" id="app-modal-text"></div>
+      <div id="app-modal-fields"></div>
+      <div class="app-modal-error" id="app-modal-error"></div>
+      <div class="app-modal-actions" id="app-modal-actions"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
